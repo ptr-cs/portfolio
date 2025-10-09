@@ -1,0 +1,11 @@
+.canvas-container {
+  height: 100%; 
+}
+
+:host {
+  display: block;
+  height: 600px;
+  max-width: 2160px;
+  margin-left: auto;
+  margin-right: auto;
+}

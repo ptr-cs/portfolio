@@ -1,0 +1,74 @@
+<header class="py-0" id="home" inViewport (entered)="active.set('home')" tabindex="0">
+    <div class="container px-5 overflow-x-clip" #contentContainer>
+        <div class="row gx-5">
+            <div class="col-xxl-5">
+                <div class="text-center text-xxl-start">
+                    <div class="badge bg-gradient-primary-to-secondary text-white mb-4" [attr.data-bs-theme]="themeService.theme">
+                        <div class="text-uppercase badge-text" [attr.data-bs-theme]="themeService.theme">Software &middot; Websites &middot; UI/UX</div>
+                    </div>
+                    <div class="fs-3 fw-light text-muted">Hi, I'm Parker! I'm a </div>
+                    <h1 class="display-3 fw-bolder mb-5">
+                        <span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">
+                            Software Engineer and Computer Scientist
+                        </span>
+                    </h1>
+                    <div class="gap-3 d-flex flex-wrap justify-content-center mb-3 position-relative z-10 d-xxl-flex d-none">
+                        <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')">
+                            <i class="bi bi-file-earmark-text"></i> Resume
+                        </a>
+                        <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('contactInfo')">
+                            <i class="bi bi-envelope"></i>Contact
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas-container col-xxl-7 col-md-12 position-relative">
+                 <lava-lamp-single class="user-select-none"></lava-lamp-single>
+            </div>
+            <div class="gap-3 mt-3 flex-wrap justify-content-center mb-3 position-relative z-10 d-xxl-none d-flex py-5">
+                <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')">
+                    <i class="bi bi-file-earmark-text"></i> Resume
+                </a>
+                <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('contactInfo')">
+                    <i class="bi bi-envelope"></i>Contact
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="py-5 bg-body-tertiary" tabindex="0">
+    <div class="container px-5">
+        <div class="row gx-5 justify-content-left">
+            <div class="col-xxl-8">
+                <div class="text-left my-5">
+                    <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">About Me</span></h2>
+                    <p class="lead fw-light mb-4">I love to build cool software and <i>especially</i> user interfaces!</p>
+                    <p class="text-muted">I specialize in frontend development, creating responsive single-page
+                        applications with a strong focus on intuitive, user-centered design and seamless user
+                        experiences.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="lavaLampWall" inViewport (entered)="active.set('lavaLampWall')" class="user-select-none position-relative" tabindex="0">
+    <lava-lamp-wall class="user-select-none position-relative"></lava-lamp-wall>
+</section>
+
+<section id="resumeInfo" inViewport (entered)="active.set('resume')" tabindex="0" [ngClass]="{'active': active() === 'resume'}">
+    <app-resume></app-resume>
+</section>
+
+<section id="gemstones" inViewport (entered)="active.set('gemstones')" class="user-select-none position-relative" tabindex="0">
+    <gemstones class="user-select-none position-relative"></gemstones>
+</section>
+
+<section tabindex="0">
+    <gemstone-dash></gemstone-dash>
+</section>
+
+<section id="contactInfo" inViewport (entered)="active.set('contact')" tabindex="0" [ngClass]="{'active': active() === 'contact'}">
+    <app-contact></app-contact>
+</section>

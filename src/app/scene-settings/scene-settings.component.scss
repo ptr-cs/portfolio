@@ -1,0 +1,134 @@
+.canvas-container:fullscreen,
+.canvas-container:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.canvas-container:fullscreen canvas,
+.canvas-container:-webkit-full-screen canvas {
+  width: 100%;
+  height: 100%;
+  display: block; /* remove inline-gap */
+}
+
+
+.ui-button, .exit-button {
+    height: 46px;
+}
+
+.ui-button.color-button {
+    width: 46px;
+}
+
+.show-picker {
+  display: block !important;
+}
+
+// #lavaCustomColorLabel {
+//   > i {
+//     color: black;
+//   }
+// }
+
+.lamp-controls-interface {
+  background-color: rgba(var(--bs-tertiary-bg-rgb), .8);
+  backdrop-filter: blur(6px);
+}
+
+.border-top-left-radius-0 {
+  border-top-left-radius: 0 !important;
+}
+
+.color-button-bar {
+  height: 25%;
+  width: 100%;
+  bottom: 0;
+  border-top: 1px solid rgba(255, 255, 255, .33) !important;
+}
+
+.color-button-bar.lamp-red {
+  background: rgba(255, 0, 0, .5)
+}
+.color-button-bar.lamp-yellow {
+  background: rgba(255, 213, 0, 0.5)
+}
+.color-button-bar.lamp-blue {
+  background: rgba(0, 0, 255, .5)
+}
+.color-button-bar.lamp-green {
+  background: rgba(0, 255, 0, .5)
+}
+.color-button-bar.lamp-custom {
+  background: var(--lamp-lava-custom-color);
+}
+
+.fs-only {
+  display: none;
+  z-index: 1;
+}
+
+:fullscreen .fs-only { display: flex !important;}
+:-webkit-full-screen .fs-only { display: flex !important;}
+
+:fullscreen .non-fs-only { display: none !important; }
+:-webkit-full-screen .non-fs-only { display: none !important; }
+
+.exit-button {
+  color: var(--bs-btn-color);
+}
+
+.settings-label {
+  min-width: 110px;
+}
+
+.autofade.collapsed { transition: opacity .3s ease; }
+.autofade.collapsed.is-hidden { opacity: 0; pointer-events: none; }
+
+.tooltip-button {
+  width: 24px;
+  height: 24px;
+  margin-bottom: -1px;
+}
+
+/* Group-level focus ring */
+.btn-group {
+  position: relative;
+  border-radius: var(--bs-border-radius, .375rem);
+  transition: box-shadow .15s ease-in-out;
+}
+
+/* Prefer precise keyboard-only focus */
+  .btn-group:has(:focus-visible),
+  .btn-group:has(.btn:focus-visible) {
+    box-shadow: 0 0 0 .25rem var(--bs-primary) !important;
+  }
+  
+  .text-white-force {
+    color: white !important;
+  }
+  
+  .color-controls-container {
+    width: 180px;
+  }
+  
+  .custom-color-control {
+    min-width: 46px;
+  }
+  
+  .controls-group {
+    min-width: 200px;
+  }
+  
+  .btn-primary {
+    min-height: 46px;
+  }
+  
+.btn-secondary[data-bs-theme=dark] {
+  background: #333;
+
+}
+.btn-secondary[data-bs-theme=dark]:hover {
+    background: #222;
+  }

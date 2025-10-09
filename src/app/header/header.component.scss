@@ -1,0 +1,16 @@
+@use "sass:color";
+
+.navbar-toggler {
+    background: var(--bs-btn-bg);
+    > i {
+        color: var(--bs-btn-color);
+    }
+}
+
+.text-primary[data-bs-theme="dark"] {
+    color: color.adjust(#0d6efd, $lightness: 10%) !important;
+}
+
+.navbar-collapse > div > .btn {
+    font-size: .9em;
+}

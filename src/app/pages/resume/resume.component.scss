@@ -1,0 +1,7 @@
+@use "sass:color";
+
+.card {
+    div.text-primary[data-bs-theme="dark"] {
+        color: color.adjust(#0d6efd, $lightness: 10%) !important;
+    }
+}

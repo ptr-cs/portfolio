@@ -1,1 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'sass:color';
+
+html {
+  scroll-padding-top: 80px;
+}
+
+:root {
+  --lamp-lava-custom-color: rgba(128, 0, 255, 0.5);
+}
+
+:root[data-bs-theme="dark"] {
+  --bs-body-bg: #111111; 
+  --bs-tertiary-bg-rgb: 20, 20, 20;
+}
+
+:root[data-bs-theme="light"] {
+  --bs-body-bg: #eeeeee;
+}
+
+body {
+  padding-top: 80px;
+}
+
+nav {
+  background-color: var(--bs-body-bg);
+}
+
+:fullscreen,
+:-webkit-full-screen,
+:-moz-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.bg-gradient-primary-to-secondary {
+  background: #1e30f3;
+  background: linear-gradient(135deg, #1e30f3 0%, #007CAD 100%);
+}
+
+.text-gradient {
+  background: -webkit-linear-gradient(315deg, #1e30f3 0%, #007CAD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-primary-to-secondary[data-bs-theme="dark"] {
+  background: rgb(0, 59, 115);
+  background: linear-gradient(135deg, rgb(0, 36, 115) 0%, #004740 100%);
+}
+
+.text-gradient[data-bs-theme="dark"] {
+  background: -webkit-linear-gradient(315deg, rgb(0, 132, 255) 0%, #00a1ad 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-check + .btn:hover {
+  background-color: var(--bs-btn-hover-bg);
+}
+
+.card[data-bs-theme="dark"] {
+  background: #222;
+}

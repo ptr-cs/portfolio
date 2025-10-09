@@ -1,0 +1,24 @@
+
+.diamond    { color: #8a8a8a; }
+.ruby       { color: #ff4b4b; }
+.emerald    { color: #34d399; }
+.sapphire   { color: #3b82f6; }
+.topaz      { color: #cea500; }
+.amethyst   { color: #a855f7; }
+.unknown    { color: #585858; }
+
+.diamond[data-bs-theme="light"]    { color: #5d5d5d; }
+.ruby[data-bs-theme="light"]       { color: #ff4b4b; }
+.emerald[data-bs-theme="light"]    { color: #008554; }
+.sapphire[data-bs-theme="light"]   { color: #0041a8; }
+.topaz[data-bs-theme="light"]      { color: #ad8b00; }
+.amethyst[data-bs-theme="light"]   { color: #5c00b3; }
+.unknown[data-bs-theme="light"]    { color: #000000; }
+
+div>.bi-gem {
+  height: 28px;
+  width: 28px;
+  align-content: center;
+  background-color: rgba(var(--bs-body-color-rgb), .125);
+
+}

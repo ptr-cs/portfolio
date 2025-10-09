@@ -1,0 +1,213 @@
+<button #settingsToggleButtonOuter id="settingsToggleButtonOuter"
+    class="btn btn-primary position-absolute top-0 d-flex z-1 align-items-center gap-1 ms-2 z-2 mt-2 shadow-sm autofade"
+    type="button" data-bs-toggle="collapse" data-bs-target=".lamp-controls-ui" aria-expanded="false"
+    aria-controls="labelId panelId" [attr.aria-controls]="[panelId, labelId]">
+    <i class="bi bi-gear fs-4 fw-bold"></i>
+    <div class="lamp-controls-ui collapse collapse-horizontal" [class.show]="settingsOpen === true" [id]="labelId">
+        Settings</div>
+</button>
+
+<div class="position-absolute top-0 collapse lamp-controls-ui rounded-end border-left-radius-0 z-1 shadow-sm lamp-controls-interface"
+    [class.show]="settingsOpen === true" [id]="panelId">
+    <div class="d-flex flex-column flex-wrap column-gap-3 row-gap-2 mt-3 p-2 pt-5">
+
+        <div class="d-flex justify-content-start flex-wrap align-items-baseline column-gap-3 row-gap-2">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between">
+                <p class="mb-0">Theme</p>
+                <button type="button" [attr.data-bs-theme]="themeService.theme"
+                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    matTooltip="Controls the theme of the application"
+                    matTooltipClass="bg-body border rounded shadow-sm" #tooltipTheme="matTooltip"
+                    (click)="tooltipTheme.show()">
+                    <i class="bi bi-info-lg fs-6 fw-bold  lh-1"></i>
+                </button>
+            </div>
+
+            <div class="btn-group shadow-sm controls-group flex-grow-1" role="group" [attr.aria-label]="'Theme' + uid">
+                <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'scheme-light' + uid"
+                    [value]="'light'" [(ngModel)]="themeService.theme" (ngModelChange)="onThemeChange($event)" />
+                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                    [for]="'scheme-light' + uid">
+                    <i class="bi bi-brightness-high fs-4 fw-bold"></i> Light
+                </label>
+
+                <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'scheme-dark' + uid" [value]="'dark'"
+                    [(ngModel)]="themeService.theme" (ngModelChange)="onThemeChange($event)" />
+                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                    [for]="'scheme-dark' + uid">
+                    <i class="bi bi-brightness-low fs-4 fw-bold "></i> Dark
+                </label>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start flex-wrap align-items-baseline column-gap-3 row-gap-2">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between">
+                <p class="mb-0">Display</p>
+                <button type="button" [attr.data-bs-theme]="themeService.theme"
+                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    matTooltip="Controls the lava lamp display; fullscreen may not work on certain devices"
+                    matTooltipClass="bg-body border rounded shadow-sm z-10" #tooltipDisplay="matTooltip"
+                    (click)="tooltipDisplay.show()">
+                    <i class="bi bi-info-lg fs-6 fw-bold  lh-1"></i>
+                </button>
+            </div>
+
+            <button class="btn btn-primary d-flex align-items-center gap-2 justify-content-center shadow-sm controls-group flex-grow-1"
+                type="button" (click)="toggleFullscreen()" [ngClass]="{'btn-danger': fullscreenActive }">
+                <i class="bi fs-6 fw-bold"
+                    [ngClass]="{'bi-fullscreen': !fullscreenActive, 'bi-x-lg' : fullscreenActive, 'text-white-force': fullscreenActive }"></i>
+                {{ !fullscreenActive ? "Fullscreen" : "Exit Fullscreen" }}
+            </button>
+        </div>
+        <div class="d-flex justify-content-start flex-wrap align-items-baseline column-gap-3 row-gap-2">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between">
+                <p class="mb-0  d-flex flex-column">Stats</p>
+                <button type="button" [attr.data-bs-theme]="themeService.theme"
+                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    matTooltip="Controls the visibility of the stats-gl performance readout"
+                    matTooltipClass="bg-body border rounded shadow-sm" #tooltipStats="matTooltip"
+                    (click)="tooltipStats.show()">
+                    <i class="bi  bi-info-lg fs-6 fw-bold  lh-1"></i>
+                </button>
+            </div>
+
+            <div class="btn-group shadow-sm controls-group flex-grow-1" role="group" aria-label="Auto-hide">
+                <input type="radio" class="btn-check" name="displayStats" id="displayStats-on" [value]="true"
+                    [(ngModel)]="displayStats" (ngModelChange)="onDisplayStatsChange($event)" />
+                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                    for="displayStats-on">
+                    <i class="bi bi-eye fs-4 fw-bold"></i> Show
+                </label>
+
+                <input type="radio" class="btn-check" name="displayStats" id="displayStats-off" [value]="false"
+                    [(ngModel)]="displayStats" (ngModelChange)="onDisplayStatsChange($event)" />
+                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                    for="displayStats-off">
+                    <i class="bi bi-eye-slash fs-4 fw-bold"></i> Hide
+                </label>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start flex-wrap align-items-center column-gap-3 row-gap-2">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between">
+                <p class="mb-0 d-flex flex-column">
+                    <span>Auto-hide</span>
+                    <span>Settings</span>
+                </p>
+                <button type="button" [attr.data-bs-theme]="themeService.theme"
+                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    matTooltip="Controls the visibility of the Settings button; 'Show' always shows the Settings button, 'Hide' hides the Settings button after two seconds of inactivity"
+                    matTooltipClass="bg-body border rounded shadow-sm" #tooltipAutohide="matTooltip"
+                    (click)="tooltipAutohide.show()">
+                    <i class="bi  bi-info-lg fs-6 fw-bold  lh-1"></i>
+                </button>
+            </div>
+
+            <div class="btn-group shadow-sm controls-group flex-grow-1" role="group" aria-label="Auto-hide">
+                <input type="radio" class="btn-check" name="autohide" id="autohide-off" [value]="false"
+                    [(ngModel)]="autohide" (ngModelChange)="onAutoHideChange($event)" />
+                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                    for="autohide-off" [class.active]="autohide === false">
+                    <i class="bi bi-eye fs-4 fw-bold"></i> Show
+                </label>
+
+                <input type="radio" class="btn-check" name="autohide" id="autohide-on" [value]="true"
+                    [(ngModel)]="autohide" (ngModelChange)="onAutoHideChange($event)" />
+                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 " for="autohide-on"
+                    [class.active]="autohide === true">
+                    <i class="bi bi-eye-slash fs-4 fw-bold"></i> Hide
+                </label>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-start justify-content-left align-items-baseline column-gap-3 row-gap-2">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between mt-0 mt-sm-2">
+                <p class="mb-0">Color</p>
+                <button type="button" [attr.data-bs-theme]="themeService.theme"
+                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    matTooltip="Controls the color of the 3D scene objects; Random applies a new color for every object in the scene"
+                    matTooltipClass="bg-body border rounded shadow-sm" #tooltipColor="matTooltip"
+                    (click)="tooltipColor.show()">
+                    <i class="bi  bi-info-lg fs-6 fw-bold  lh-1"></i>
+                </button>
+            </div>
+
+            <div class="d-flex flex-column gap-2 flex-grow-1">
+                <div class="d-flex flex-wrap gap-2 justify-content-start">
+                    <div class="btn-group shadow-sm flex-grow-1">
+                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-red' + uid"
+                            [value]="'red'" [(ngModel)]="lampService.type"
+                            (ngModelChange)="onLavaColorChange($event)" />
+                        <label
+                            class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
+                            [for]="'lava-red' + uid">
+                            <div class="mt-1">R</div>
+                            <div class="color-button-bar lamp-red">
+                            </div>
+                        </label>
+                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-yellow' + uid"
+                            [value]="'yellow'" [(ngModel)]="lampService.type"
+                            (ngModelChange)="onLavaColorChange($event)" />
+                        <label
+                            class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
+                            [for]="'lava-yellow' + uid">
+                            <div class="mt-1">Y</div>
+                            <div class="color-button-bar lamp-yellow border-top">
+                            </div>
+                        </label>
+                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-blue' + uid"
+                            [value]="'blue'" [(ngModel)]="lampService.type"
+                            (ngModelChange)="onLavaColorChange($event)" />
+                        <label
+                            class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
+                            [for]="'lava-blue' + uid">
+                            <div class="mt-1">B</div>
+                            <div class="color-button-bar lamp-blue">
+                            </div>
+                        </label>
+                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-green' + uid"
+                            [value]="'green'" [(ngModel)]="lampService.type"
+                            (ngModelChange)="onLavaColorChange($event)" />
+                        <label
+                            class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
+                            [for]="'lava-green' + uid">
+                            <div class="mt-1">G</div>
+                            <div class="color-button-bar lamp-green">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="custom-color-control btn-group w-auto flex-grow-1">
+                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-custom' + uid"
+                            [value]="'custom'" [(ngModel)]="lampService.type"
+                            (ngModelChange)="onLavaColorChange($event)" />
+                        <label id="lavaCustomColorLabel"
+                            class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 justify-content-between w-auto rounded"
+                            [for]="'lava-custom' + uid">
+                            <i class="bi bi-brush fs-4 fw-bold lh-1 mt-1"></i>
+                            <div class="color-button-bar lamp-custom rounded-bottom">
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap flex-row gap-2">
+                    <button class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center shadow-sm flex-grow-1"
+                        (click)="randomColor()">
+                        <i class="bi bi-question-lg"></i> Random
+                    </button>
+                    <button class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center shadow-sm gap-2 flex-grow-1"
+                            (click)="togglePicker()" [class.active]="showPicker === true" data-bs-toggle="collapse"
+                            data-bs-target="#lampControlsColorPicker" aria-expanded="false"
+                            aria-controls="lampControlsColorPicker">
+                            Choose
+                            <div>
+                                <i class="bi bi-arrow-right fs-4 fw-bold"></i>
+                                <i class="bi bi-brush fs-4 fw-bold"></i>
+                            </div>
+                        </button>
+                </div>
+                <div class="collapse" id="lampControlsColorPicker">
+                            <app-mini-color-picker #minicolorpicker [hex]="lampService.customColor.getHexString()"
+                                (colorChange)="onLavaHex($event)">
+                            </app-mini-color-picker>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>

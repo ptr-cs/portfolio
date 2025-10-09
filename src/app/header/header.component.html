@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary py-3 shadow-sm fixed-top">
+  <div class="container px-5">
+    <a class="navbar-brand" href="#home"><span class="fw-bolder text-primary" [attr.data-bs-theme]="themeService.theme">PTR-CS</span></a>
+    <button #navbarToggler class="btn btn-primary shadow-sm navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list"></i></button>
+    <div class="collapse navbar-collapse gap-1" id="navbarSupportedContent" #navbarContent>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+        <li class="nav-item"><a class="nav-link" href="#home"><i class="bi bi-house-door"></i> Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#resumeInfo"><i class="bi bi-file-earmark-text"></i> Resume</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contactInfo"><i class="bi bi-envelope"></i> Contact</a></li>
+      </ul>
+      <div class="d-flex gap-2">
+        <button class="btn theme-button-text btn-primary" type="button" aria-label="Toggle theme" (click)="toggleTheme()">Theme: 
+        <span *ngIf="themeService.theme === 'light'" class="theme-button-text">Light <i class="ms-1 bi bi-sun"></i></span>
+        <span *ngIf="themeService.theme === 'dark'" class="theme-button-text">Dark <i class="ms-1 bi bi-moon"></i></span>
+      </button>
+      <a href="https://Www.github.com" target="_blank" class="btn btn-dark d-block d-flex flex-nowrap align-items-center gap-2">GitHub <i class="bi bi-github"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
