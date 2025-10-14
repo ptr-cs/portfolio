@@ -13,6 +13,7 @@ import { SettingsService } from '../services/settings.service';
 import { getRandomColor } from '../util/three-utils';
 import { exitFullscreen, getFullscreenElement, requestFullscreen } from '../util/fullscreen-utils';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../services/language.service';
 
 let uid = 0;
 @Component({
@@ -69,7 +70,8 @@ export class SceneSettingsComponent implements OnDestroy {
         public readonly lampService: LampService,
         public readonly qualityService: QualityService,
         public readonly settingsService: SettingsService,
-        private elementRef: ElementRef) { }
+        private elementRef: ElementRef,
+        public languageService: LanguageService) { }
         
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent) {

@@ -1,22 +1,31 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary py-3 shadow-sm fixed-top">
   <div class="container px-5">
-    <a class="navbar-brand" href="#home"><span class="fw-bolder text-primary" [attr.data-bs-theme]="themeService.theme">PTR-CS</span></a>
+    <a class="navbar-brand" href="#home"><span class="fw-bolder text-primary" [attr.data-bs-theme]="themeService.theme"></span></a>
     <button #navbarToggler class="btn btn-primary shadow-sm navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="bi bi-list"></i></button>
     <div class="collapse navbar-collapse gap-1" id="navbarSupportedContent" #navbarContent>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="#home"><i class="bi bi-house-door"></i> Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#resumeInfo"><i class="bi bi-file-earmark-text"></i> Resume</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contactInfo"><i class="bi bi-envelope"></i> Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="#home"><i class="bi bi-house-door me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuHome)}}</a></li>
+        <li *ngIf="languageService.translationData?.resume" class="nav-item"><a class="nav-link" href="#resumeInfo"><i class="bi bi-file-earmark-text me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuResume)}}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contactInfo"><i class="bi bi-envelope me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuContact)}}</a></li>
       </ul>
-      <div class="d-flex gap-2">
-        <button class="btn theme-button-text btn-primary" type="button" aria-label="Toggle theme" (click)="toggleTheme()">Theme: 
-        <span *ngIf="themeService.theme === 'light'" class="theme-button-text">Light <i class="ms-1 bi bi-sun"></i></span>
-        <span *ngIf="themeService.theme === 'dark'" class="theme-button-text">Dark <i class="ms-1 bi bi-moon"></i></span>
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn theme-button-text btn-primary text-nowrap" type="button" aria-label="Toggle theme" (click)="toggleTheme()">{{languageService.getText(languageService.translationData?.header?.theme)}} : 
+        <span *ngIf="themeService.theme === 'light'" class="theme-button-text">{{languageService.getText(languageService.translationData?.header?.themeLight)}} <i class="ms-1 bi bi-sun"></i></span>
+        <span *ngIf="themeService.theme === 'dark'" class="theme-button-text">{{languageService.getText(languageService.translationData?.header?.themeDark)}} <i class="ms-1 bi bi-moon"></i></span>
       </button>
-      <a href="https://github.com/ptr-cs/portfolio" target="_blank" class="btn btn-dark d-block d-flex flex-nowrap align-items-center gap-2">GitHub <i class="bi bi-github"></i></a>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle d-flex gap-1 align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="fi" [ngClass]="currentFlagClass"></span>
+          {{languageService.getText(languageService.translationData?.header?.language)}}
+        </button>
+        <ul class="dropdown-menu">
+          <li *ngFor="let language of languageService.translationData?.languages"><button class="dropdown-item d-flex align-items-center gap-2" (click)="languageService.setLanguage(language)"><span class="fi" [ngClass]="languageService.getFlagClass(language)"></span> {{languageService.getText(language)}}</button></li>
+        </ul>
       </div>
+      <a href="https://github.com/ptr-cs/portfolio" target="_blank" class="btn btn-dark d-block d-flex flex-nowrap align-items-center gap-2">{{languageService.getText(languageService.translationData?.header?.gitHub)}} <i class="bi bi-github"></i></a>
+    </div>
     </div>
   </div>
 </nav>

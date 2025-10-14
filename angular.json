@@ -32,7 +32,8 @@
             ],
             "styles": [
               "bootstrap/dist/css/bootstrap.min.css",
-              "bootstrap-icons/font/bootstrap-icons.css",
+              "bootstrap-icons/font/bootstrap-icons.min.css",
+              "flag-icons/css/flag-icons.min.css",
               "src/css/template.css",
               "src/styles.scss"
             ],
@@ -56,13 +57,18 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/translations/language.ts",
+                  "with": "src/translations/language.prod.ts"
                 }
               ]
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "outputHashing": "media"
             }
           },
           "defaultConfiguration": "production"

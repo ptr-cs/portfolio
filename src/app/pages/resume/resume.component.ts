@@ -3,6 +3,7 @@ import { ThemeService } from '../../services/theme.service';
 import { Resume } from './resume.model'
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-resume',
@@ -13,13 +14,6 @@ import { CommonModule } from '@angular/common';
 export class ResumeComponent {
   resumeData?: Resume;
   
-  constructor(public themeService: ThemeService, private http: HttpClient) 
-  {
-    http.get<Resume>('assets/resume.json')
-      .subscribe({
-        next: data => this.resumeData = data,
-        error: err => console.info('assets/resume.json not found, skipping...', err)
-      });
-  }
+  constructor(public themeService: ThemeService, public languageService: LanguageService) { }
 }
 

@@ -20,5 +20,8 @@ div>.bi-gem {
   width: 28px;
   align-content: center;
   background-color: rgba(var(--bs-body-color-rgb), .125);
+}
 
+#totalValueHistoryChart {
+  min-height: 200px;
 }

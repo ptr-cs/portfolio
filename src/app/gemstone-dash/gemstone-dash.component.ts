@@ -7,6 +7,8 @@ import { MatTooltip } from '@angular/material/tooltip';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { LampService } from '../services/lamp.service';
 import { getDefaultTheme, Theme, ThemeService } from '../services/theme.service';
+import { LanguageService } from '../services/language.service';
+import { language } from '../../translations/language';
 
 Chart.register(DoughnutController, LineController, ArcElement, CategoryScale, LinearScale, PointElement, LineElement, ChartDataLabels, Filler);
 
@@ -33,6 +35,7 @@ export class GemstoneDashComponent implements OnDestroy {
   gemsSubRecentlyAdded?: Subscription;
   lampSub?: Subscription;
   themeSub?: Subscription;
+  languageSub?: Subscription;
 
   totalValueString = signal("");
   averageValueString = signal("");
@@ -50,7 +53,8 @@ export class GemstoneDashComponent implements OnDestroy {
     private zone: NgZone, 
     private gemsService: GemsService, 
     private lampService: LampService,
-    public themeService: ThemeService) {
+    public themeService: ThemeService,
+    public languageService: LanguageService) {
   }
   ngOnDestroy(): void {
     this.gemsSubTotalValue?.unsubscribe()
@@ -65,15 +69,15 @@ export class GemstoneDashComponent implements OnDestroy {
 
   ngAfterViewInit(): void {
     this.gemsSubTotalValue = this.gemsService.totalValue$.subscribe(v => {
-      this.totalValueString.set(formatCurrency(v, 'en', "$", "USD"))
+      this.totalValueString.set(formatCurrency(v, this.languageService.language, "$", "USD"))
     });
 
     this.gemsSubAverageValue = this.gemsService.averageValue$.subscribe(v => {
-      this.averageValueString.set(formatCurrency(v, 'en', "$", "USD"))
+      this.averageValueString.set(formatCurrency(v, this.languageService.language, "$", "USD"))
     });
 
     this.gemsSubAverageScale = this.gemsService.averageScale$.subscribe(s => {
-      this.averageScaleString.set((s).toFixed(2).toString() + " carats")
+      this.averageScaleString.set((s).toFixed(2).toString() + " " + this.languageService.translateGemEntry("carats"))
     });
 
     this.gemsSubAverageRoughness = this.gemsService.averageRoughness$.subscribe(r => {
@@ -96,9 +100,12 @@ export class GemstoneDashComponent implements OnDestroy {
       this.mostRecentItems = (r);
     });
     
+    this.languageSub = this.languageService.language$.subscribe(l => {
+      this.updateChartLabels();
+    });
+    
     this.themeSub = this.themeService.theme$.subscribe(t => {
-      this.theme = t;
-      this.updateChartColors(t);
+      this.updateChartColors(this.themeService.theme);
     });
 
     const distributionChartCtx = this.doughnutChartRef.nativeElement.getContext('2d');
@@ -215,6 +222,14 @@ export class GemstoneDashComponent implements OnDestroy {
     });
     
     this.updateChartColors(this.themeService.theme);
+    this.updateChartLabels();
+  }
+  
+  updateChartLabels() {
+    if (!this.totalValueHistoryChart) return;
+    (this.totalValueHistoryChart.options.scales!['x'] as any)!.title!.text = this.languageService.translateGemEntry("time");
+    (this.totalValueHistoryChart.options.scales!['y'] as any)!.title!.text = this.languageService.translateGemEntry("totalValueChartLabel") + " (USD)";
+    this.totalValueHistoryChart.update();
   }
   
   updateChartColors(t: Theme) {
@@ -232,15 +247,6 @@ export class GemstoneDashComponent implements OnDestroy {
           this.totalValueHistoryChart.data.datasets[0].borderColor = pointColor;
           (this.totalValueHistoryChart.data.datasets[0] as any).pointBackgroundColor = pointColor;
           (this.totalValueHistoryChart.data.datasets[0] as any).pointBorderColor = pointBorderColor;
-        
-        // if (!colorPresetActivated(this.lampService.color, this.lampService.customColor)) {
-        //   this.totalValueHistoryChart.data.datasets[0].backgroundColor = pointColor;
-        //   this.totalValueHistoryChart.data.datasets[0].borderColor = pointColor;
-        //   (this.totalValueHistoryChart.data.datasets[0] as any).pointBackgroundColor = pointColor;
-        //   (this.totalValueHistoryChart.data.datasets[0] as any).pointBorderColor = pointBorderColor;
-        // } else {
-        //   (this.totalValueHistoryChart.data.datasets[0] as any).pointBorderColor = this.pointBorderColorContrast;
-        // }
         
         this.totalValueHistoryChart.update();
       }

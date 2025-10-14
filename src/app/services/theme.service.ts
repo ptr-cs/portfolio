@@ -8,7 +8,7 @@ export function getDefaultTheme() : Theme { return 'dark' };
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  private key = 'pref-theme';
+  private key = 'app-theme';
   private media = window.matchMedia?.('(prefers-color-scheme: dark)');
   private _theme$ = new BehaviorSubject<Theme>(this.initialTheme());
 

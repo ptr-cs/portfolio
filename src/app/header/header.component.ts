@@ -2,6 +2,8 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '../services/theme.service';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,14 @@ export class HeaderComponent {
   @ViewChild('navbarContent') navbarContent!: ElementRef;
   @ViewChild('navbarToggler') navbarToggler!: ElementRef;
   
-  constructor(public themeService: ThemeService, private elementRef: ElementRef) {}
+  currentFlagClass = "";
+  languageSub: Subscription;
+  
+  constructor(public themeService: ThemeService, private elementRef: ElementRef, public languageService: LanguageService) {
+    this.languageSub = this.languageService.language$.subscribe(l => {
+      this.currentFlagClass = languageService.getFlagClassByLanguageCode(this.languageService.language);
+    });
+  }
   
   toggleTheme() {
     const newTheme = this.themeService.theme === 'dark' ? 'light' : 'dark';
@@ -32,5 +41,9 @@ export class HeaderComponent {
 
   private isNavbarOpen(): boolean {
     return this.navbarContent?.nativeElement.classList.contains('show');
+  }
+  
+  ngOnDestroy() {
+    this.languageSub?.unsubscribe;
   }
 }

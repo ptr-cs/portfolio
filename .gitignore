@@ -44,3 +44,5 @@ Thumbs.db
 /public/assets/resume.json
 /public/assets/about.json
 /public/assets/models/*-transformed.glb
+/environments/environments.prod.ts
+/translations/language.prod.ts

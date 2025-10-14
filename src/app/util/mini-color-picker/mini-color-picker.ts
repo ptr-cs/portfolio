@@ -13,6 +13,7 @@ export class MiniColorPickerComponent implements AfterViewInit {
   @ViewChild('strip', { static: false }) stripRef?: ElementRef<HTMLElement>;
 
   @Input() hex: string = '#00cfc2';
+  @Input() hexString: (string | undefined) = 'Hex';
   
   hue = signal(180);
   

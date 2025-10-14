@@ -1,10 +1,80 @@
 <div class="container px-5 my-5">
     <div class="text-center mb-5">
-        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">Resume</span></h1>
+        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.resume?.resume)}}</span></h1>
     </div>
-    <div class="row gx-5 justify-content-center" *ngIf="resumeData">
+    <div class="row gx-5 justify-content-center" *ngIf="languageService.translationData?.resume">
         <div class="col-lg-11 col-xl-9 col-xxl-8">
-            <section>
+        <section>
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h2 class="text-primary fw-bolder mb-0" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.resume?.experienceHeader)}}</h2>
+            </div>
+            <div class="card shadow border-0 rounded-4 mb-5" [attr.data-bs-theme]="themeService.theme" *ngFor="let job of languageService.translationData?.resume?.experience">
+                    <div class="card-body p-3 p-sm-5">
+                        <div class="row align-items-center gx-5">
+                            <div class="col text-center text-lg-start mb-lg-0">
+                                <div class="p-4 rounded-4">
+                                    <div class="text-primary fw-bolder mb-2" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(job.duration)}}</div>
+                                    <div class="fw-bolder mb-2">{{languageService.getText(job.role)}}</div>
+                                    <div class="small text-muted mb-2">{{languageService.getText(job.organization)}}</div>
+                                    <div class="small text-muted">{{languageService.getText(job.location)}}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div>{{languageService.getText(job.description)}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <section>
+            <h2 class="text-primary fw-bolder mb-4" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.resume?.publicationsHeader)}}</h2>
+            <div class="card shadow border-0 rounded-4 mb-5" [attr.data-bs-theme]="themeService.theme" *ngFor="let publication of languageService.translationData?.resume?.publications">
+                <div class="card-body p-3 p-sm-5">
+                    <div class="row align-items-center gx-5">
+                        <div class="col text-center text-lg-start">
+                            <div class="p-4 rounded-4">
+                                <div class="text-primary fw-bolder mb-2" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(publication.publicationDate)}}</div>
+                                <div class="mb-2">
+                                    <div class="fw-bolder mb-2">{{languageService.getText(publication.organization)}}</div>
+                                    <div class="small text-muted">{{languageService.getText(publication.location)}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div>{{languageService.getText(publication.description)}} (link: <a href="{{languageService.getText(publication.link)}}" title="{{languageService.getText(publication.description)}}" target="_blank">{{languageService.getText(publication.link)}}</a>)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+                <h2 class="text-primary fw-bolder mb-4" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.resume?.educationHeader)}}</h2>
+                <div class="card shadow border-0 rounded-4 mb-5" [attr.data-bs-theme]="themeService.theme" *ngFor="let school of languageService.translationData?.resume?.education">
+                    <div class="card-body p-3 p-sm-5">
+                        <div class="row align-items-center gx-5">
+                            <div class="col text-center text-lg-start">
+                                <div class="p-4 rounded-4">
+                                    <div class="text-primary fw-bolder mb-2" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(school.duration)}}</div>
+                                    <div class="mb-2">
+                                        <div class="fw-bolder mb-2">{{languageService.getText(school.degree)}}</div>
+                                        <div class="small fw-bolder mb-1">{{languageService.getText(school.institution)}}</div>
+                                        <div class="small text-muted">{{languageService.getText(school.location)}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div>
+                                    <p class="mb-2">{{languageService.getText(languageService.translationData?.resume?.highlightsHeader)}}:</p>
+                                    <ul>
+                                        <li *ngFor="let highlight of school?.highlights">{{languageService.getText(highlight)}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- <section>
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h2 class="text-primary fw-bolder mb-0" [attr.data-bs-theme]="themeService.theme">Experience</h2>
                 </div>
@@ -106,7 +176,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
         </div>
     </div>
 </div>

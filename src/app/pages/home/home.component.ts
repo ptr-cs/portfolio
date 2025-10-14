@@ -28,6 +28,8 @@ import { SettingsService } from '../../services/settings.service';
 import { About } from './about.model';
 import { HttpClient } from '@angular/common/http';
 import { getFullscreenElement } from '../../util/fullscreen-utils';
+import { Subscription } from 'rxjs';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-home',
@@ -54,6 +56,8 @@ export class HomeComponent implements OnDestroy {
   isCollapsed = false;
   
   private scrollSpy?: ScrollSpy;
+  
+  languageSub?: Subscription;
 
   @ViewChild('viewport', { static: true }) viewportRef!: ElementRef<HTMLDivElement>;
   @ViewChild('contentContainer', { static: true }) contentContainer!: ElementRef<HTMLDivElement>;
@@ -62,14 +66,8 @@ export class HomeComponent implements OnDestroy {
     public readonly lamp: LampService,
     private settingsService: SettingsService,
     public themeService: ThemeService,
-    private http: HttpClient
-  ) {
-    http.get<About>('assets/about.json')
-          .subscribe({
-            next: data => this.aboutData = data,
-            error: err => console.info('assets/about.json not found, skipping...', err)
-          });
-  }
+    public languageService: LanguageService
+  ) {}
   
   private onFullscreenChange = () => {
     let isFullscreen = !!getFullscreenElement();
