@@ -1,5 +1,11 @@
 @use 'sass:color';
 
+@use "../../node_modules/flag-icons/sass/flag-icons" with (
+  $flag-icons-path: "/assets/flag-icons/flags",
+
+  $flag-icons-included-countries: ("us", "jp", "de", "it", "no", "se", "dk", "fr")
+);
+
 html {
   scroll-padding-top: 80px;
 }

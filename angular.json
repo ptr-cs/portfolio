@@ -33,9 +33,8 @@
             "styles": [
               "bootstrap/dist/css/bootstrap.min.css",
               "bootstrap-icons/font/bootstrap-icons.min.css",
-              "flag-icons/css/flag-icons.min.css",
-              "src/css/template.css",
-              "src/styles.scss"
+              "src/styles/template.css",
+              "src/styles/styles.scss"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js",

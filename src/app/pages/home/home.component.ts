@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 
 import { ThemeService } from '../../services/theme.service';
 import { LampService, LavaColor } from '../../services/lamp.service';
-import { Quality } from '../../services/quality.service';
 
 import { LavaLampWallComponent } from '../../lava-lamp-wall/lava-lamp-wall.component';
 import { LavaLampSingleComponent } from '../../lava-lamp-single/lava-lamp-single.component';
@@ -45,7 +44,6 @@ export class HomeComponent implements OnDestroy {
   private static readonly SETTINGS_DISMISS_VIA_TOUCH_BREAKPOINT = 768;
   active = signal('');
   lavaColor?: LavaColor;
-  quality?: Quality;
   rotate?: boolean;
   
   aboutData?: About;

@@ -2,7 +2,6 @@ import { Component, ElementRef, HostListener, Input, NgZone, OnDestroy, Renderer
 import { BehaviorSubject, debounceTime, distinctUntilChanged, EMPTY, fromEvent, merge, share, startWith, Subscription, switchMap, tap } from 'rxjs';
 import { getDefaultTheme, Theme, ThemeService } from '../services/theme.service';
 import { LampService } from '../services/lamp.service';
-import { Quality, QualityService } from '../services/quality.service';
 import { PerformanceService } from '../services/performance.service';
 import { Color } from 'three';
 import { MiniColorPickerComponent } from '../util/mini-color-picker/mini-color-picker';
@@ -28,7 +27,6 @@ export class SceneSettingsComponent implements OnDestroy {
     readonly SETTINGS_DISMISS_VIA_TOUCH_BREAKPOINT = 768;
 
     theme: Theme = getDefaultTheme();
-    quality?: Quality;
 
     showPicker = false;
     autohide = false;
@@ -40,7 +38,6 @@ export class SceneSettingsComponent implements OnDestroy {
 
     private readonly autohide$ = new BehaviorSubject<boolean>(this.autohide);
     private autohideSub?: Subscription;
-    private qualitySub?: Subscription;
     private settingsSub?: Subscription;
     private settingsCloseSub?: Subscription;
     private colorSub?: Subscription;
@@ -68,7 +65,6 @@ export class SceneSettingsComponent implements OnDestroy {
         public readonly themeService: ThemeService,
         private readonly performanceService: PerformanceService,
         public readonly lampService: LampService,
-        public readonly qualityService: QualityService,
         public readonly settingsService: SettingsService,
         private elementRef: ElementRef,
         public languageService: LanguageService) { }
@@ -92,12 +88,6 @@ export class SceneSettingsComponent implements OnDestroy {
 
     ngOnInit(): void {
         this.theme = this.themeService.theme;
-
-        this.quality = this.qualityService.quality;
-
-        this.qualitySub = this.qualityService.quality$.pipe(distinctUntilChanged())
-            .subscribe(v => (this.quality = v)
-          );
             
         this.settingsSub = this.settingsService.displayStats$.subscribe(s => {
           this.displayStats = s;
@@ -164,11 +154,6 @@ export class SceneSettingsComponent implements OnDestroy {
       this.onLavaHex(this.lampService.customColor);
     }
   }
-
-  onQualityChange(next: Quality): void {
-    this.quality = next;
-    this.qualityService.setQuality(next);
-  }
   
   onLavaHex(hex: any): void {
     if (this.timesColorPickerToggled < 1) return;
@@ -205,7 +190,6 @@ export class SceneSettingsComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this.autohideSub?.unsubscribe();
-        this.qualitySub?.unsubscribe();
         this.settingsSub?.unsubscribe();
         this.settingsCloseSub?.unsubscribe();
         this.colorSub?.unsubscribe();
