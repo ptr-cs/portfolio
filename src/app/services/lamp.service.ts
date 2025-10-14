@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as THREE from 'three';
+import { Color, MeshPhysicalMaterial } from 'three';
 import { BehaviorSubject } from 'rxjs';
 
 export type LavaColor = 'red' | 'yellow' | 'green' | 'blue' | 'custom' | 'none';
@@ -20,8 +20,8 @@ export class LampService {
   private readonly KEY_ROTATE = 'lamp:rotate';
 
   private _type$ = new BehaviorSubject<LavaColor>('blue');
-  private _color$ = new BehaviorSubject<THREE.Color>(new THREE.Color(0x0090fe)); // intentionally set a "temp" color 
-  private _customColor$ = new BehaviorSubject<THREE.Color>(new THREE.Color(PRESET_HEX.custom));
+  private _color$ = new BehaviorSubject<Color>(new Color(0x0090fe)); // intentionally set a "temp" color 
+  private _customColor$ = new BehaviorSubject<Color>(new Color(PRESET_HEX.custom));
   private _rotate$ = new BehaviorSubject<boolean>(true);
   private _needRandomColorsUpdate$ = new BehaviorSubject<boolean>(false);
 
@@ -33,8 +33,8 @@ export class LampService {
 
   get type(): LavaColor { return this._type$.value; }
   set type(type: LavaColor) { this.setType(type); }
-  get color(): THREE.Color { return this._color$.value; }
-  get customColor(): THREE.Color { return this._customColor$.value; }
+  get color(): Color { return this._color$.value; }
+  get customColor(): Color { return this._customColor$.value; }
   get rotate(): boolean { return this._rotate$.value; }
   get needRandomColorsUpdate(): boolean { return this._needRandomColorsUpdate$.value; }
   toHex(): string { return '#' + this.color.getHexString(); }
@@ -52,7 +52,7 @@ export class LampService {
   setType(next: LavaColor) {
     const hex = (next === 'none') ? `#${this.customColor.getHexString()}` : PRESET_HEX[next];
     this._type$.next(next);
-    (next === 'custom') ? this._color$.next(new THREE.Color(this.customColor)) : this._color$.next(new THREE.Color(hex));
+    (next === 'custom') ? this._color$.next(new Color(this.customColor)) : this._color$.next(new Color(hex));
     localStorage.setItem(this.KEY_TYPE, next);
   }
 
@@ -60,8 +60,8 @@ export class LampService {
     if (!hex.startsWith('#'))
       hex = "#" + hex;
     this._type$.next('custom');
-    this._color$.next(new THREE.Color(hex));
-    this._customColor$.next(new THREE.Color(hex));
+    this._color$.next(new Color(hex));
+    this._customColor$.next(new Color(hex));
     localStorage.setItem(this.KEY_TYPE, 'custom');
     localStorage.setItem(this.KEY_CUSTOM, hex);
   }
@@ -71,7 +71,7 @@ export class LampService {
     else this.setType(type);
   }
 
-  applyToWaxMaterial(mat: THREE.MeshPhysicalMaterial, emissiveIntensity = 0.15) {
+  applyToWaxMaterial(mat: MeshPhysicalMaterial, emissiveIntensity = 0.15) {
     mat.color.copy(this.color);
     mat.emissive.copy(this.color);
     (mat as any).emissiveIntensity = emissiveIntensity;
