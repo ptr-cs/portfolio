@@ -11,10 +11,10 @@
     [class.show]="settingsOpen === true" [id]="panelId">
     <div class="d-flex flex-column flex-wrap column-gap-3 row-gap-2 mt-3 p-2 pt-5">
         <div class="d-flex justify-content-start flex-wrap align-items-baseline column-gap-3 row-gap-2">
-            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between">
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.theme)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm flex-shrink-0"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.themeTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipTheme="matTooltip"
                     (click)="tooltipTheme.show()">
@@ -39,10 +39,10 @@
             </div>
         </div>
         <div class="d-flex justify-content-start flex-wrap align-items-baseline column-gap-3 row-gap-2">
-            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between">
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.display)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm flex-shrink-0"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.displayTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm z-10" #tooltipDisplay="matTooltip"
                     (click)="tooltipDisplay.show()">
@@ -58,10 +58,10 @@
             </button>
         </div>
         <div class="d-flex justify-content-start flex-wrap align-items-baseline column-gap-3 row-gap-2">
-            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between">
                 <p class="mb-0  d-flex flex-column">{{languageService.getText(languageService.translationData?.settings?.stats)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm flex-shrink-0"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.statsTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipStats="matTooltip"
                     (click)="tooltipStats.show()">
@@ -86,10 +86,10 @@
             </div>
         </div>
         <div class="d-flex justify-content-start flex-wrap align-items-center column-gap-3 row-gap-2">
-            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between" [ngClass]="{'settings-label-long': (languageService.language === 'fr' || languageService.language === 'it')}">
                 <p class="mb-0 d-flex flex-column" [innerText]="languageService.getText(languageService.translationData?.settings?.autoHideSettings)"></p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm flex-shrink-0"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.autoHideSettingsTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipAutohide="matTooltip"
                     (click)="tooltipAutohide.show()">
@@ -114,10 +114,10 @@
             </div>
         </div>
         <div class="d-flex flex-wrap justify-content-start justify-content-left align-items-baseline column-gap-3 row-gap-2">
-            <div class="d-flex align-items-center flex-row gap-2 settings-label justify-content-between mt-0 mt-sm-2">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between mt-0 mt-sm-2">
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.color)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary  rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm flex-shrink-0"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.colorTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipColor="matTooltip"
                     (click)="tooltipColor.show()">

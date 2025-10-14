@@ -1,14 +1,14 @@
-<div class="p-2 border rounded d-flex flex-column align-items-center justify-content-left shadow-sm w-100">
-  <div class="position-relative w-100">
-    <div #strip class="hue-strip w-100" (pointerdown)="onStripPointerDown($event)" (click)="onCanvasClick($event)">
+<div class="p-2 border rounded d-flex flex-column justify-content-left shadow-sm">
+  <div class="position-relative">
+    <div #strip class="hue-strip" (pointerdown)="onStripPointerDown($event)" (click)="onCanvasClick($event)">
     </div>
     <input type="range" class="visually-hidden-slider" aria-label="Hue" min="0" max="359" [value]="hue()"
       (input)="onSliderChange($event)" />
   </div>
 
-  <div class="mt-2 d-flex align-items-center gap-2 justify-content-left">
+  <div class="mt-2 d-flex gap-2 justify-content-left align-items-center">
     <label class="form-label mb-0 text-nowrap">{{hexString}}:</label>
-    <input class="form-control form-control-sm" [(ngModel)]="hex" (keyup.enter)="commitHex()" (blur)="commitHex()"
+    <input class="form-control form-control-sm p-0 ps-2 hex-input" [(ngModel)]="hex" (keyup.enter)="commitHex()" (blur)="commitHex()"
       placeholder="#rrggbb" maxlength="7" autocomplete="off" />
   </div>
 </div>

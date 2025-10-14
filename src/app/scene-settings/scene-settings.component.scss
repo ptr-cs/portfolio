@@ -10,7 +10,7 @@
 .canvas-container:-webkit-full-screen canvas {
   width: 100%;
   height: 100%;
-  display: block; /* remove inline-gap */
+  display: block;
 }
 
 
@@ -26,15 +26,10 @@
   display: block !important;
 }
 
-// #lavaCustomColorLabel {
-//   > i {
-//     color: black;
-//   }
-// }
-
 .lamp-controls-interface {
   background-color: rgba(var(--bs-tertiary-bg-rgb), .8);
   backdrop-filter: blur(6px);
+  border-top-right-radius: 0 !important;
 }
 
 .border-top-left-radius-0 {
@@ -80,7 +75,13 @@
 }
 
 .settings-label {
-  min-width: 110px;
+  max-width: 130px;
+  min-width: 130px;
+}
+
+.settings-label-long {
+  max-width: 170px;
+  min-width: 170px;
 }
 
 .autofade.collapsed { transition: opacity .3s ease; }
@@ -92,14 +93,12 @@
   margin-bottom: -1px;
 }
 
-/* Group-level focus ring */
 .btn-group {
   position: relative;
   border-radius: var(--bs-border-radius, .375rem);
   transition: box-shadow .15s ease-in-out;
 }
 
-/* Prefer precise keyboard-only focus */
   .btn-group:has(:focus-visible),
   .btn-group:has(.btn:focus-visible) {
     box-shadow: 0 0 0 .25rem var(--bs-primary) !important;
