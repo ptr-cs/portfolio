@@ -7,7 +7,7 @@
                         <div class="text-uppercase badge-text" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.home?.services)}}</div>
                     </div>
                     <div class="fs-3 fw-light text-muted">{{languageService.getText(languageService.translationData?.home?.hi)}}</div>
-                    <h1 class="fs-1 fw-bolder mb-5 text-gradient" [attr.data-bs-theme]="themeService.theme">
+                    <h1 class="fw-bolder mb-5 text-gradient display-3" [ngClass]="{'fs-1' : languageService.language === 'no' || languageService.language === 'de'}" [attr.data-bs-theme]="themeService.theme">
                         {{languageService.getText(languageService.translationData?.home?.softwareEngineer)}}
                     </h1>
                     <div class="gap-3 d-flex flex-wrap justify-content-center mb-3 position-relative z-10 d-xxl-flex d-none">
