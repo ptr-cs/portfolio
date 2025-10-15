@@ -69,3 +69,10 @@ nav {
 .card[data-bs-theme="dark"] {
   background: #222;
 }
+
+.text-primary {
+  color: #0a52bd !important;
+}
+.text-primary[data-bs-theme="dark"] {
+    color: color.adjust(#0d6efd, $lightness: 10%) !important;
+}
