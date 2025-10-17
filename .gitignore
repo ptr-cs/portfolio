@@ -45,4 +45,5 @@ Thumbs.db
 /public/assets/about.json
 /public/assets/models/*-transformed.glb
 src/translations/language.prod.ts
+src/translations/language.temp.ts
 src/environments/environment.prod.ts
