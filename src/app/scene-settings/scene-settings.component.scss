@@ -87,12 +87,6 @@
 .autofade.collapsed { transition: opacity .3s ease; }
 .autofade.collapsed.is-hidden { opacity: 0; pointer-events: none; }
 
-.tooltip-button {
-  width: 24px;
-  height: 24px;
-  margin-bottom: -1px;
-}
-
 .btn-group {
   position: relative;
   border-radius: var(--bs-border-radius, .375rem);
@@ -123,12 +117,4 @@
   .btn-primary {
     min-height: 48px;
     min-width: 48px;
-  }
-  
-.btn-secondary[data-bs-theme=dark] {
-  background: #333;
-
-}
-.btn-secondary[data-bs-theme=dark]:hover {
-    background: #222;
   }

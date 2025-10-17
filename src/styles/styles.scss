@@ -76,3 +76,16 @@ nav {
 .text-primary[data-bs-theme="dark"] {
     color: color.adjust(#0d6efd, $lightness: 10%) !important;
 }
+
+.btn-secondary[data-bs-theme=dark] {
+  background: #333;
+
+}
+.btn-secondary[data-bs-theme=dark]:hover {
+    background: #222;
+}
+
+.tooltip-button {
+  width: 24px;
+  height: 24px;
+}
