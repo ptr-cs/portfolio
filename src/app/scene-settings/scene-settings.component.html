@@ -1,10 +1,17 @@
-<button #settingsToggleButtonOuter id="settingsToggleButtonOuter"
-    class="btn btn-primary position-absolute top-0 d-flex z-1 align-items-center gap-1 ms-2 z-2 mt-2 shadow-sm autofade"
+<button #settingsToggleButton id="settingsToggleButton"
+    class="position-absolute top-0 btn btn-primary d-flex align-items-center gap-1 ms-2 z-2 mt-2 shadow-sm autofade"
     type="button" data-bs-toggle="collapse" data-bs-target=".lamp-controls-ui" aria-expanded="false"
     aria-controls="labelId panelId" [attr.aria-controls]="[panelId, labelId]">
     <i class="bi bi-gear fs-4 fw-bold"></i>
     <div class="lamp-controls-ui collapse collapse-horizontal text-nowrap" [class.show]="settingsOpen === true" [id]="labelId">
         {{languageService.getText(languageService.translationData?.settings?.settings)}}</div>
+</button>
+
+<button #pauseSceneButton id="pauseSceneButton"
+    class="position-absolute btn btn-primary d-flex z-1 align-items-center gap-1 ms-2 mb-2 shadow-sm autofade w-auto bottom-0"
+    type="button" (click)="pauseScene()">
+    <i *ngIf="!performanceService.activeScenePaused" class="bi bi-pause fs-4 fw-bold"></i>
+    <i *ngIf="performanceService.activeScenePaused" class="bi bi-play fs-4 fw-bold"></i>
 </button>
 
 <div class="position-absolute top-0 collapse lamp-controls-ui rounded-end border-left-radius-0 z-1 shadow-sm lamp-controls-interface"

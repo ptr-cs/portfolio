@@ -1,5 +1,5 @@
 <div #canvasContainer class="canvas-container">
-  <app-scene-settings *ngIf="performanceService.activeScene === 'LAVA_SINGLE'" fullScreenTargetQuerySelector="lava-lamp-single" tabindex="0"></app-scene-settings>
+  <app-scene-settings *ngIf="performanceService.activeScene === 'LAVA_SINGLE'" fullScreenTargetQuerySelector="lava-lamp-single"></app-scene-settings>
  <ngt-canvas #canvas [sceneGraph]="sceneGraph" [frameloop]="frameloop()" [gl]="{
     antialias: true,
     powerPreference: 'high-performance',

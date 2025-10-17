@@ -23,7 +23,7 @@ import { Obj } from '@popperjs/core';
   imports: [NgtArgs],
   standalone: true,
 })
-export class Gemstone implements OnDestroy{
+export class Gemstone {
   position = input([0, 0, 0]);
   positionSignal: WritableSignal<number[]> = signal<number[]>(this.position());
   rotation = input([0, 0, 0]);
@@ -45,7 +45,6 @@ export class Gemstone implements OnDestroy{
   
   gltf = injectGLTF(() => environment.diamondUrl);
   diamondObj?: Object3D;
-  lampSub?: Subscription;
   spinVal: number = 0;
   fallVal: number = 0;
   valuation = input(0);
@@ -126,9 +125,6 @@ export class Gemstone implements OnDestroy{
         }
       }
     });
-  }
-  ngOnDestroy(): void {
-    this.lampSub?.unsubscribe();
   }
   
   randomize(colorOverride: Color | undefined = undefined) {

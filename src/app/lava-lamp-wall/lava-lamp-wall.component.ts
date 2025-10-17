@@ -24,20 +24,32 @@ export class LavaLampWallComponent {
   
     @ViewChild('canvasContainer', { static: true }) canvasContainer!: ElementRef;
     
-    performanceSub?: Subscription;
-        
+    activeSceneSub?: Subscription;
+    activeScenePausedSub?: Subscription;
+
     constructor(public performanceService: PerformanceService, private settingsService: SettingsService) {}
   
   ngAfterViewInit() {
-    this.performanceSub = this.performanceService.activeScene$.subscribe(s => {
+    this.activeSceneSub = this.performanceService.activeScene$.subscribe(s => {
       if (s === "LAVA_WALL")
         this.frameloop.set("always");
       else
         this.frameloop.set("demand")
      });
+     
+     this.activeScenePausedSub = this.performanceService.activeScenePaused$.subscribe(b => {
+      if (this.performanceService.activeScene === 'LAVA_WALL') {
+        if (b) {
+          this.frameloop.set("demand");
+        } else {
+          this.frameloop.set("always");
+        }
+      }
+     });
   }
   
   ngOnDestroy() {
-    this.performanceSub?.unsubscribe();
+    this.activeSceneSub?.unsubscribe();
+    this.activeScenePausedSub?.unsubscribe();
   }
 }

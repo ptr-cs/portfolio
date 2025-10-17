@@ -11,10 +11,10 @@
                         {{languageService.getText(languageService.translationData?.home?.softwareEngineer)}}
                     </h1>
                     <div class="gap-3 d-flex flex-wrap justify-content-center mb-3 position-relative z-10 d-xxl-flex d-none">
-                        <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')">
+                        <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')" tabindex="0">
                             <i class="bi bi-file-earmark-text"></i> {{languageService.getText(languageService.translationData?.home?.buttonResume)}}
                         </a>
-                        <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('contactInfo')">
+                        <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('contactInfo')" tabindex="0">
                             <i class="bi bi-envelope"></i> {{languageService.getText(languageService.translationData?.home?.buttonContact)}}
                         </a>
                     </div>
@@ -24,10 +24,10 @@
                  <lava-lamp-single class="user-select-none"></lava-lamp-single>
             </div>
             <div class="gap-3 flex-wrap justify-content-center mb-3 position-relative z-10 d-xxl-none d-flex py-5">
-                <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')">
+                <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')" tabindex="0">
                     <i class="bi bi-file-earmark-text"></i> {{languageService.getText(languageService.translationData?.home?.buttonResume)}}
                 </a>
-                <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('contactInfo')">
+                <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1 " type="button" (click)="goToSection('contactInfo')" tabindex="0">
                     <i class="bi bi-envelope"></i> {{languageService.getText(languageService.translationData?.home?.buttonContact)}}
                 </a>
             </div>
@@ -42,7 +42,7 @@
                 <div class="text-left my-5">
                     <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.about?.aboutMe)}}</span></h2>
                     <p class="lead fw-light mb-4">{{languageService.getText(languageService.translationData?.about?.iLoveToBuild)}}</p>
-                    <p class="text-muted">{{languageService.getText(languageService.translationData?.about?.specialization)}}</p>
+                    <p>{{languageService.getText(languageService.translationData?.about?.specialization)}}</p>
                 </div>
             </div>
         </div>

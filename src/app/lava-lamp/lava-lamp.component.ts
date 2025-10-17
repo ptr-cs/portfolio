@@ -76,7 +76,6 @@ export class LavaLamp {
   public waxAttenuationColor = new Color(new TinyColor(this.waxColorHex).brighten(10).toHexString());
   public waxEmmissiveColor = new Color(new TinyColor(this.waxColorHex).brighten(10).toHexString());
   public glassColor = new Color(new TinyColor(this.waxColorHex).darken(17).toHexString());
-  //public bulbColor = new Color(this.waxColor.getHexString());
 
   public waxMat: MeshPhysicalMaterial = new MeshPhysicalMaterial();
 
@@ -251,7 +250,6 @@ export class LavaLamp {
   }
 
   private bindCloneRefs(root: Object3D) {
-    // Adjust these names/selectors to your GLB contents:
     this.glassObj = root.getObjectByName('Glass') ?? root.getObjectByName('glass');
     this.glassObj!.traverse((o: any) => {
       if (!o?.isMesh || !o.material) return;
@@ -260,13 +258,11 @@ export class LavaLamp {
         : (o.material as MeshPhysicalMaterial).clone();
     });
 
-    // Example: collect emitters by name prefix or userData flag
     this.waxEmitters = [];
     root.traverse((o: any) => {
       if (o.name?.startsWith('Mball') || o.userData?.waxEmitter) this.waxEmitters.push(o);
     });
 
-    // Create MarchingCubes **on this clone**
     if (!this.waxIso) {
 
       const { min, size } = this.getLocalBounds(this.glassObj!);
@@ -274,7 +270,6 @@ export class LavaLamp {
       this.waxLocalSize.copy(size);
       this.ensureNonZeroSize(this.waxLocalSize, 1e-6, 1.0);
 
-      //this.glassObj!.receiveShadow = false;
       this.setGlassTint(this.glassColor, 0.25);
 
       const resolution = this.waxResolution();
@@ -308,11 +303,9 @@ export class LavaLamp {
       iso.castShadow = false;
       this.waxIso = iso;
 
-      // Place it inside the lamp glass (or under the same parent so local space matches)
       (this.glassObj ?? root).add(this.waxIso);
     }
 
-    // Compute local-space bounds for normalization
     if (this.glassObj) {
       const bbox = new Box3().setFromObject(this.glassObj);
       this.waxLocalMin.copy(bbox.min);
@@ -324,7 +317,6 @@ export class LavaLamp {
     return Math.abs(newValue - oldValue) <= Math.abs(oldValue) * percentDecimal;
   }
 
-  // your existing updateWax() can stay — it just needs the *clone* refs above
   public updateWax(): void {
     if (!this.waxIso || !this.glassObj) return;
 
@@ -360,7 +352,6 @@ export class LavaLamp {
         nz = MathUtils.clamp(0.5 + (nz - 0.5) * sZ, 0, 1);
 
         if (this.limitUpdates() === true) {
-          // limit updates (waxIso.update() is expensive)
           if (!this.isWithinPercent(nx, this.nxOld, .05) || !this.isWithinPercent(ny, this.nyOld, .05) || !this.isWithinPercent(nz, this.nzOld, .05)) {
             this.waxIso.addBall(nx, ny, nz, this.waxStrength, this.waxSubtract);
             this.waxIso.update();
@@ -376,11 +367,7 @@ export class LavaLamp {
       }
 
       this.waxIso.addBall(1.7, -0.1, 2, this.waxStrength, this.waxSubtract);
-      // this.waxIso.update();
     }
-
-    // Some versions accept an isolation argument; use it if yours does:
-    // this.waxIso.update(this.waxIso.isolation);
   }
 
   recomputeColors(c: Color) {
@@ -389,7 +376,6 @@ export class LavaLamp {
     this.waxAttenuationColor = new Color(new TinyColor(this.waxColorHex).brighten(10).toHexString());
     this.waxEmmissiveColor = new Color(new TinyColor(this.waxColorHex).brighten(10).toHexString());
     this.glassColor = new Color(new TinyColor(this.waxColorHex).darken(17).toHexString());
-    //this.bulbColor = c;
   }
 
   ngOnDestroy() {

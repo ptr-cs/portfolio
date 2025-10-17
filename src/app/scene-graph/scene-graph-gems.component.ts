@@ -16,6 +16,7 @@ import Stats from 'stats-gl'
 import { calculateGemValue, classifyGem, gemRandomFall, gemRandomPosition, gemRandomRoughness, gemRandomScale, gemRandomSpin } from '../util/gemstone-utils';
 import { SettingsService } from '../services/settings.service';
 import { GemsService } from '../services/gems.service';
+import { PerformanceService } from '../services/performance.service';
 
 extend({ OrbitControls });
 
@@ -72,12 +73,14 @@ export class SceneGraphGems implements OnDestroy {
   needsRandomColorsUpdateSub?: Subscription;
   settingsSub?: Subscription;
   gemsSub?: Subscription;
+  activeScenePausedSub?: Subscription;
 
   constructor(
     private themeService: ThemeService,
     private lampService: LampService,
     private settingsService: SettingsService,
-    private gemsService: GemsService) {
+    private gemsService: GemsService,
+    private performanceService: PerformanceService) {
 
     this.stats.init(this.gl());
 
@@ -158,6 +161,14 @@ export class SceneGraphGems implements OnDestroy {
     injectBeforeRender(({ delta }) => {
       this.stats.update();
     });
+    
+    this.activeScenePausedSub = this.performanceService.activeScenePaused$.subscribe(b => {
+      if (this.performanceService.activeScene === 'GEMS' && !b) {
+        setTimeout(() => {
+            invalidate();
+          }, 0);
+      }
+    });
   }
   
   setGemColor(g: Gemstone, c: Color) {
@@ -208,6 +219,7 @@ export class SceneGraphGems implements OnDestroy {
     this.themeSub?.unsubscribe();
     this.settingsSub?.unsubscribe();
     this.gemsSub?.unsubscribe();
+    this.activeScenePausedSub?.unsubscribe();
   }
 
   calculateStats() {

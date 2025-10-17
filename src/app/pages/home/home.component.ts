@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ThemeService } from '../../services/theme.service';
-import { LampService, LavaColor } from '../../services/lamp.service';
+import { LampService } from '../../services/lamp.service';
 
 import { LavaLampWallComponent } from '../../lava-lamp-wall/lava-lamp-wall.component';
 import { LavaLampSingleComponent } from '../../lava-lamp-single/lava-lamp-single.component';
@@ -24,10 +24,7 @@ import { ScrollSpy } from 'bootstrap';
 import { InViewportDirective } from '../../util/in-viewport.directive';
 import { GemstoneDashComponent } from '../../gemstone-dash/gemstone-dash.component'
 import { SettingsService } from '../../services/settings.service';
-import { About } from './about.model';
-import { HttpClient } from '@angular/common/http';
 import { getFullscreenElement } from '../../util/fullscreen-utils';
-import { Subscription } from 'rxjs';
 import { LanguageService } from '../../services/language.service';
 
 @Component({
@@ -39,23 +36,9 @@ import { LanguageService } from '../../services/language.service';
   providers: [{ provide: OverlayContainer, useClass: FullscreenOverlayContainer }]
 })
 export class HomeComponent implements OnDestroy {
-  settingsToggleButtonOuter = null;
-  
-  private static readonly SETTINGS_DISMISS_VIA_TOUCH_BREAKPOINT = 768;
   active = signal('');
-  lavaColor?: LavaColor;
-  rotate?: boolean;
-  
-  aboutData?: About;
-
-  showPicker = false;
-  autohide = false;
-  
-  isCollapsed = false;
   
   private scrollSpy?: ScrollSpy;
-  
-  languageSub?: Subscription;
 
   @ViewChild('viewport', { static: true }) viewportRef!: ElementRef<HTMLDivElement>;
   @ViewChild('contentContainer', { static: true }) contentContainer!: ElementRef<HTMLDivElement>;

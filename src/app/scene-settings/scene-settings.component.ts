@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, Input, NgZone, OnDestroy, Renderer
 import { BehaviorSubject, debounceTime, distinctUntilChanged, EMPTY, fromEvent, merge, share, startWith, Subscription, switchMap, tap } from 'rxjs';
 import { getDefaultTheme, Theme, ThemeService } from '../services/theme.service';
 import { LampService } from '../services/lamp.service';
-import { PerformanceService } from '../services/performance.service';
+import { ACTIVE_SCENE_KEY, PerformanceService } from '../services/performance.service';
 import { Color } from 'three';
 import { MiniColorPickerComponent } from '../util/mini-color-picker/mini-color-picker';
 import { FormsModule } from '@angular/forms'; 
@@ -35,6 +35,8 @@ export class SceneSettingsComponent implements OnDestroy {
     isCollapsed = false;
     
     fullscreenActive = false;
+    
+    previouslyPlayedScene: ACTIVE_SCENE_KEY = 'LAVA_SINGLE';
 
     private readonly autohide$ = new BehaviorSubject<boolean>(this.autohide);
     private autohideSub?: Subscription;
@@ -43,6 +45,7 @@ export class SceneSettingsComponent implements OnDestroy {
     private colorSub?: Subscription;
     private customColorSub?: Subscription;
     private fullscreenSub?: Subscription;
+    private activeSceneSub?: Subscription;
 
     private timesColorPickerToggled = 0;
     settingsOpen = false;
@@ -57,13 +60,13 @@ export class SceneSettingsComponent implements OnDestroy {
     readonly lightId = `${uid}-light`;
     readonly darkId = `${uid}-dark`;
     
-    @ViewChild('settingsToggleButtonOuter', { static: true }) settingsToggleButtonOuter!: ElementRef;
+    @ViewChild('settingsToggleButton', { static: true }) settingsToggleButton!: ElementRef;
     @ViewChild('minicolorpicker', { static: true }) minicolorpicker!: MiniColorPickerComponent;
 
     constructor(private readonly zone: NgZone,
         private readonly renderer: Renderer2,
         public readonly themeService: ThemeService,
-        private readonly performanceService: PerformanceService,
+        public readonly performanceService: PerformanceService,
         public readonly lampService: LampService,
         public readonly settingsService: SettingsService,
         private elementRef: ElementRef,
@@ -74,7 +77,7 @@ export class SceneSettingsComponent implements OnDestroy {
     const clickedInsideNavbar = this.elementRef.nativeElement.contains(event.target);
 
     if (!clickedInsideNavbar && this.areSettingsOpen() === true) {
-      this.settingsToggleButtonOuter.nativeElement.click();
+      this.settingsToggleButton.nativeElement.click();
     }
   }
 
@@ -100,7 +103,7 @@ export class SceneSettingsComponent implements OnDestroy {
     }
 
     ngAfterViewInit() {
-        const btn = this.settingsToggleButtonOuter.nativeElement;
+        const btn = this.settingsToggleButton.nativeElement;
         const show = () => this.renderer.removeClass(btn, 'is-hidden');
         const hide = () => this.renderer.addClass(btn, 'is-hidden');
 
@@ -139,6 +142,10 @@ export class SceneSettingsComponent implements OnDestroy {
          
          this.fullscreenSub = this.settingsService.fullscreenActive$.subscribe(a => {
           this.fullscreenActive = a;
+         });
+         
+         this.activeSceneSub = this.performanceService.activeScene$.subscribe(s => {
+          this.previouslyPlayedScene = s;
          });
     }
     
@@ -195,6 +202,7 @@ export class SceneSettingsComponent implements OnDestroy {
         this.colorSub?.unsubscribe();
         this.customColorSub?.unsubscribe();
         this.fullscreenSub?.unsubscribe();
+        this.activeSceneSub?.unsubscribe();
     }
     
     onAutoHideChange(next: boolean): void {
@@ -226,4 +234,13 @@ export class SceneSettingsComponent implements OnDestroy {
     this.lampService.setNeedRandomColorsUpdate(true);
   }
   
+  pauseScene() {
+    if (!this.performanceService.activeScenePaused) {
+      this.previouslyPlayedScene = this.performanceService.activeScene;
+      this.performanceService.setActiveScenePaused(true);
+    } else {
+      this.performanceService.setActiveScene(this.previouslyPlayedScene);
+      this.performanceService.setActiveScenePaused(false);
+    }
+  }
 }

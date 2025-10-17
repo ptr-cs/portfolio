@@ -73,6 +73,7 @@ export class SceneGraphWall {
     
     private lampSub?: Subscription;
     private settingsSub?: Subscription;
+    private activeScenePausedSub?: Subscription;
 
     widthX = (this.cols - 1) * this.spacingX;
     heightY = (this.rows - 1) * this.spacingY;
@@ -142,6 +143,14 @@ export class SceneGraphWall {
       }
       this.lampService.setNeedRandomColorsUpdate(false);
      });
+     
+     this.activeScenePausedSub = this.performanceService.activeScenePaused$.subscribe(b => {
+      if (this.performanceService.activeScene === 'LAVA_WALL' && !b) {
+        setTimeout(() => {
+            invalidate();
+          }, 0);
+      }
+     });
       
       this.stats.init( this.gl() );
       
@@ -152,6 +161,8 @@ export class SceneGraphWall {
   
   ngOnDestroy(): void {
     this.lampSub?.unsubscribe();
+    this.settingsSub?.unsubscribe();
+    this.activeScenePausedSub?.unsubscribe();
   }
   
   ngAfterViewInit(): void {

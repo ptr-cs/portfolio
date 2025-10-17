@@ -71,13 +71,6 @@ export class LampService {
     else this.setType(type);
   }
 
-  applyToWaxMaterial(mat: MeshPhysicalMaterial, emissiveIntensity = 0.15) {
-    mat.color.copy(this.color);
-    mat.emissive.copy(this.color);
-    (mat as any).emissiveIntensity = emissiveIntensity;
-    mat.needsUpdate = true;
-  }
-
   setRotate(next: boolean) {
     if (next !== this._rotate$.value) {
       this._rotate$.next(next);

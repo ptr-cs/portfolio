@@ -26,20 +26,31 @@ export class LavaLampSingleComponent {
   
   background = new THREE.Color(0xffffff);
   
-  performanceSub?: Subscription;
+  activeSceneSub?: Subscription;
+  activeScenePausedSub?: Subscription;
     
   constructor(public performanceService: PerformanceService, private settingsService: SettingsService) {}
   
   ngAfterViewInit() {
-    this.performanceSub = this.performanceService.activeScene$.subscribe(s => {
+    this.activeSceneSub = this.performanceService.activeScene$.subscribe(s => {
       if (s === "LAVA_SINGLE")
         this.frameloop.set("always");
       else
-        this.frameloop.set("demand")
+        this.frameloop.set("demand");
      });
+     
+    this.activeScenePausedSub = this.performanceService.activeScenePaused$.subscribe(b => {
+      if (this.performanceService.activeScene === "LAVA_SINGLE") {
+        if (b) {
+          this.frameloop.set("demand");
+        } else {
+          this.frameloop.set("always");
+        }
+      }
+    });
   }
   
   ngOnDestroy() {
-    this.performanceSub?.unsubscribe();
+    this.activeSceneSub?.unsubscribe();
   }
 }

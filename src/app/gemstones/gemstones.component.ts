@@ -27,17 +27,28 @@ export class GemstonesComponent {
 
   private observer!: IntersectionObserver;
   
-  performanceSub?: Subscription;
+  activeSceneSub?: Subscription;
+  activeScenePausedSub?: Subscription;
   
   constructor(public performanceService: PerformanceService, private settingsService: SettingsService) {
   }
   
   ngAfterViewInit() {
-    this.performanceSub = this.performanceService.activeScene$.subscribe(s => {
+    this.activeSceneSub = this.performanceService.activeScene$.subscribe(s => {
       if (s === "GEMS")
         this.frameloop.set("always");
       else
-        this.frameloop.set("demand")
+        this.frameloop.set("demand");
+     });
+     
+     this.activeScenePausedSub = this.performanceService.activeScenePaused$.subscribe(b => {
+      if (this.performanceService.activeScene === "GEMS") {
+        if (b) {
+          this.frameloop.set('demand');
+        } else {
+          this.frameloop.set('always');
+        }
+      }
      });
   }
 
@@ -46,6 +57,7 @@ export class GemstonesComponent {
       this.observer.unobserve(this.canvasContainer.nativeElement);
     }
     
-    this.performanceSub?.unsubscribe();
+    this.activeSceneSub?.unsubscribe();
+    this.activeScenePausedSub?.unsubscribe();
   }
 }

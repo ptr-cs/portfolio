@@ -1,5 +1,5 @@
 <div #canvasContainer class="canvas-container">
-  <app-scene-settings *ngIf="performanceService.activeScene === 'GEMS'" fullScreenTargetQuerySelector="gemstones" tabindex="0"></app-scene-settings>
+  <app-scene-settings *ngIf="performanceService.activeScene === 'GEMS'" fullScreenTargetQuerySelector="gemstones"></app-scene-settings>
  <ngt-canvas #canvas [sceneGraph]="sceneGraph" [frameloop]="frameloop()" [shadows]="false" [gl]="{
     antialias: true,
     powerPreference: 'high-performance',

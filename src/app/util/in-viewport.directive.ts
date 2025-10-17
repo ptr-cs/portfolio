@@ -37,6 +37,7 @@ export class InViewportDirective implements OnInit, OnDestroy {
                 this.performanceService.setActiveScene("LAVA_WALL")
             else if (entry.target.id === "gemstones")
                 this.performanceService.setActiveScene("GEMS")
+            this.performanceService.setActiveScenePaused(false);
             this.inViewportChange.emit(true);
             this.entered.emit();
           } else {

@@ -65,6 +65,7 @@ export class SceneGraphSingle {
     private performanceSub?: Subscription;
     private settingsSub?: Subscription;
     private themeSub?: Subscription;
+    private activeScenePausedSub?: Subscription;
     
     stats = new Stats();
     
@@ -115,6 +116,14 @@ export class SceneGraphSingle {
           (stats as any)!.classList.remove("show");
       });
       
+      this.activeScenePausedSub= this.performanceService.activeScenePaused$.subscribe(b => {
+        if (this.performanceService.activeScene === 'LAVA_SINGLE' && !b) {
+          setTimeout(() => {
+            invalidate();
+          }, 0);
+        }
+      });
+      
       injectBeforeRender(({ delta }) => {
         this.stats.update();
       });
@@ -149,5 +158,8 @@ export class SceneGraphSingle {
     ngOnDestroy(): void {
       this.lampSub?.unsubscribe();
       this.performanceSub?.unsubscribe();
+      this.activeScenePausedSub?.unsubscribe();
+      this.themeSub?.unsubscribe();
+      this.settingsSub?.unsubscribe();
     }
   }
