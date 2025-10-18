@@ -6,3 +6,6 @@
         color: var(--bs-btn-color);
     }
 }
+.navbar-toggler:focus {
+    box-shadow: var(--bs-btn-focus-box-shadow);
+}

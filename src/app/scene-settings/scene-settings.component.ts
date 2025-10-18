@@ -52,8 +52,8 @@ export class SceneSettingsComponent implements OnDestroy {
                 
     @Input() panelId?: string;
     @Input() labelId?: string;
-    @Input() schemeLightId?: string;
-    @Input() schemeDarkId?: string;
+    @Input() themeLightId?: string;
+    @Input() themeDarkId?: string;
     @Input() fullScreenTargetQuerySelector?: string;
     readonly uid = uid;
     readonly groupName = `${uid}-group`;
@@ -98,8 +98,8 @@ export class SceneSettingsComponent implements OnDestroy {
         
         this.panelId ??= `lampControlsInterface-${++uid}`;
         this.labelId ??= `lampControlsLabel-${++uid}`;
-        this.schemeLightId ?? `scheme-light-${++uid}`
-        this.schemeDarkId ?? `scheme-dark-${++uid}`
+        this.themeLightId ?? `theme-light-${++uid}`
+        this.themeDarkId ?? `theme-dark-${++uid}`
     }
 
     ngAfterViewInit() {

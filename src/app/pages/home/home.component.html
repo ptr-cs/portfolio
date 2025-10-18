@@ -24,10 +24,10 @@
                  <lava-lamp-single class="user-select-none"></lava-lamp-single>
             </div>
             <div class="gap-3 flex-wrap justify-content-center mb-3 position-relative z-10 d-xxl-none d-flex py-5">
-                <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')" tabindex="0">
+                <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')" tabindex="0">
                     <i class="bi bi-file-earmark-text"></i> {{languageService.getText(languageService.translationData?.home?.buttonResume)}}
                 </a>
-                <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm d-flex align-items-center gap-1 justify-content-center flex-grow-1 " type="button" (click)="goToSection('contactInfo')" tabindex="0">
+                <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1 " type="button" (click)="goToSection('contactInfo')" tabindex="0">
                     <i class="bi bi-envelope"></i> {{languageService.getText(languageService.translationData?.home?.buttonContact)}}
                 </a>
             </div>

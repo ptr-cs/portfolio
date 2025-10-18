@@ -92,11 +92,6 @@
   border-radius: var(--bs-border-radius, .375rem);
   transition: box-shadow .15s ease-in-out;
 }
-
-  .btn-group:has(:focus-visible),
-  .btn-group:has(.btn:focus-visible) {
-    box-shadow: 0 0 0 .25rem var(--bs-primary) !important;
-  }
   
   .text-white-force {
     color: white !important;

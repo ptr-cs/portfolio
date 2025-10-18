@@ -1,18 +1,20 @@
-<button #settingsToggleButton id="settingsToggleButton"
-    class="position-absolute top-0 btn btn-primary d-flex align-items-center gap-1 ms-2 z-2 mt-2 shadow-sm autofade"
-    type="button" data-bs-toggle="collapse" data-bs-target=".lamp-controls-ui" aria-expanded="false"
-    aria-controls="labelId panelId" [attr.aria-controls]="[panelId, labelId]">
-    <i class="bi bi-gear fs-4 fw-bold"></i>
-    <div class="lamp-controls-ui collapse collapse-horizontal text-nowrap" [class.show]="settingsOpen === true" [id]="labelId">
-        {{languageService.getText(languageService.translationData?.settings?.settings)}}</div>
-</button>
-
-<button #pauseSceneButton id="pauseSceneButton"
-    class="position-absolute btn btn-primary d-flex z-1 align-items-center gap-1 ms-2 mb-2 shadow-sm autofade w-auto bottom-0"
-    type="button" (click)="pauseScene()">
-    <i *ngIf="!performanceService.activeScenePaused" class="bi bi-pause fs-4 fw-bold"></i>
-    <i *ngIf="performanceService.activeScenePaused" class="bi bi-play fs-4 fw-bold"></i>
-</button>
+<div class="d-flex gap-2 position-absolute top-0 flex-nowrap z-2 mt-2 ms-2">
+    <button #pauseSceneButton id="pauseSceneButton"
+        class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto"
+        type="button" (click)="pauseScene()">
+        <i *ngIf="!performanceService.activeScenePaused" class="bi bi-pause fs-4 fw-bold"></i>
+        <i *ngIf="performanceService.activeScenePaused" class="bi bi-play fs-4 fw-bold"></i>
+    </button>
+    
+    <button #settingsToggleButton id="settingsToggleButton"
+        class="btn btn-primary d-flex align-items-center gap-1 autofade"
+        type="button" data-bs-toggle="collapse" data-bs-target=".lamp-controls-ui" aria-expanded="false"
+        aria-controls="labelId panelId" [attr.aria-controls]="[panelId, labelId]">
+        <i class="bi bi-gear fs-4 fw-bold"></i>
+        <div class="lamp-controls-ui collapse collapse-horizontal text-nowrap" [class.show]="settingsOpen === true" [id]="labelId">
+            {{languageService.getText(languageService.translationData?.settings?.settings)}}</div>
+    </button>
+</div>
 
 <div class="position-absolute top-0 collapse lamp-controls-ui rounded-end border-left-radius-0 z-1 shadow-sm lamp-controls-interface"
     [class.show]="settingsOpen === true" [id]="panelId">
@@ -21,7 +23,7 @@
             <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between">
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.theme)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.themeTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipTheme="matTooltip"
                     (click)="tooltipTheme.show()">
@@ -30,17 +32,17 @@
             </div>
 
             <div class="btn-group shadow-sm controls-group flex-grow-1" role="group" [attr.aria-label]="'Theme' + uid">
-                <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'scheme-light' + uid"
+                <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'theme-light' + uid"
                     [value]="'light'" [(ngModel)]="themeService.theme" (ngModelChange)="onThemeChange($event)" />
                 <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
-                    [for]="'scheme-light' + uid">
+                    [for]="'theme-light' + uid">
                     <i class="bi bi-sun fw-bold"></i> {{languageService.getText(languageService.translationData?.settings?.themeLight)}}
                 </label>
 
-                <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'scheme-dark' + uid" [value]="'dark'"
+                <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'theme-dark' + uid" [value]="'dark'"
                     [(ngModel)]="themeService.theme" (ngModelChange)="onThemeChange($event)" />
                 <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
-                    [for]="'scheme-dark' + uid">
+                    [for]="'theme-dark' + uid">
                     <i class="bi bi-moon fw-bold "></i> {{languageService.getText(languageService.translationData?.settings?.themeDark)}}
                 </label>
             </div>
@@ -49,7 +51,7 @@
             <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between">
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.display)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.displayTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm z-10" #tooltipDisplay="matTooltip"
                     (click)="tooltipDisplay.show()">
@@ -57,7 +59,7 @@
                 </button>
             </div>
 
-            <button class="btn btn-primary d-flex align-items-center gap-2 justify-content-center shadow-sm controls-group flex-grow-1"
+            <button class="btn btn-primary d-flex align-items-center gap-2 justify-content-center controls-group flex-grow-1 px-5"
                 type="button" (click)="toggleFullscreen()" [ngClass]="{'btn-danger': fullscreenActive }">
                 <i class="bi fs-6 fw-bold"
                     [ngClass]="{'bi-fullscreen': !fullscreenActive, 'bi-x-lg' : fullscreenActive, 'text-white-force': fullscreenActive }"></i>
@@ -68,7 +70,7 @@
             <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between">
                 <p class="mb-0  d-flex flex-column">{{languageService.getText(languageService.translationData?.settings?.stats)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.statsTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipStats="matTooltip"
                     (click)="tooltipStats.show()">
@@ -96,7 +98,7 @@
             <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between" [ngClass]="{'settings-label-long': (languageService.language === 'fr' || languageService.language === 'it')}">
                 <p class="mb-0 d-flex flex-column" [innerText]="languageService.getText(languageService.translationData?.settings?.autoHideSettings)"></p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.autoHideSettingsTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipAutohide="matTooltip"
                     (click)="tooltipAutohide.show()">
@@ -124,7 +126,7 @@
             <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between mt-0 mt-sm-2">
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.color)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
-                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.colorTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipColor="matTooltip"
                     (click)="tooltipColor.show()">
@@ -134,7 +136,7 @@
 
             <div class="d-flex flex-column gap-2 flex-grow-1">
                 <div class="d-flex flex-wrap gap-2 justify-content-start">
-                    <div class="btn-group shadow-sm flex-grow-1">
+                    <div class="btn-group shadow-sm flex-grow-1" role="group" [attr.aria-label]="'lava' + uid">
                         <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-red' + uid"
                             [value]="'red'" [(ngModel)]="lampService.type"
                             (ngModelChange)="onLavaColorChange($event)" />
@@ -190,11 +192,11 @@
                     </div>
                 </div>
                 <div class="d-flex flex-wrap flex-row gap-2">
-                    <button class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center shadow-sm flex-grow-1"
+                    <button class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center flex-grow-1"
                         (click)="randomColor()">
                         <i class="bi bi-question-lg"></i> {{languageService.getText(languageService.translationData?.settings?.colorRandom)}}
                     </button>
-                    <button class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center shadow-sm gap-2 flex-grow-1"
+                    <button class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center gap-2 flex-grow-1"
                             (click)="togglePicker()" [class.active]="showPicker === true" data-bs-toggle="collapse"
                             data-bs-target="#lampControlsColorPicker" aria-expanded="false"
                             aria-controls="lampControlsColorPicker">
