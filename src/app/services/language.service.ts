@@ -128,14 +128,15 @@ public supportedLanguages: {
         countryCode: string;  // ISO 3166-1 alpha-2
     };
     } = {
-    English:  { languageCode: "en", countryCode: "us" },
-    Japanese: { languageCode: "ja", countryCode: "jp" },
-    German:   { languageCode: "de", countryCode: "de" },
-    Italian:  { languageCode: "it", countryCode: "it" },
-    Norwegian:{ languageCode: "no", countryCode: "no" },
-    Swedish:  { languageCode: "sv", countryCode: "se" },
-    Danish:   { languageCode: "da", countryCode: "dk" },
-    French:   { languageCode: "fr", countryCode: "fr" },
+    English:  { languageCode: "en", countryCode: "US" },
+    Japanese: { languageCode: "ja", countryCode: "JP" },
+    German:   { languageCode: "de", countryCode: "DE" },
+    Italian:  { languageCode: "it", countryCode: "IT" },
+    Norwegian:{ languageCode: "no", countryCode: "NO" },
+    Swedish:  { languageCode: "sv", countryCode: "SE" },
+    Danish:   { languageCode: "da", countryCode: "DK" },
+    French:   { languageCode: "fr", countryCode: "FR" },
+    Spanish:  { languageCode: "es", countryCode: "ES"}
 };
 
     public translationData?: TranslationData;
@@ -213,5 +214,15 @@ public supportedLanguages: {
     
     getFormattedDate(date: Date): string {
         return this.datePipe.transform(date, "medium", undefined, this.language) ?? '';
+    }
+    
+    getBcp47String(languageCode: string) : string {
+        const entry = Object.values(this.supportedLanguages).find(
+            lang => lang.languageCode === languageCode
+        );
+        
+        if (!entry) return "";
+
+        return `${entry.languageCode}-${entry.countryCode}`;
     }
 }

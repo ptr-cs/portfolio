@@ -76,9 +76,15 @@ export class SceneSettingsComponent implements OnDestroy {
   handleClickOutside(event: MouseEvent) {
     const clickedInsideNavbar = this.elementRef.nativeElement.contains(event.target);
 
-    if (!clickedInsideNavbar && this.areSettingsOpen() === true) {
+    if (!clickedInsideNavbar && this.areSettingsOpen()) {
       this.settingsToggleButton.nativeElement.click();
     }
+  }
+  
+  @HostListener('document:keydown.escape', ['$event'])
+  handleEscape(event: KeyboardEvent): void {
+    if (this.areSettingsOpen())
+      this.settingsToggleButton.nativeElement.click(); 
   }
 
   private areSettingsOpen(): boolean | null {

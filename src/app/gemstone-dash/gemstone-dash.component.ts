@@ -229,6 +229,7 @@ export class GemstoneDashComponent implements OnDestroy {
     if (!this.totalValueHistoryChart) return;
     (this.totalValueHistoryChart.options.scales!['x'] as any)!.title!.text = this.languageService.translateGemEntry("time");
     (this.totalValueHistoryChart.options.scales!['y'] as any)!.title!.text = this.languageService.translateGemEntry("totalValueChartLabel") + " (USD)";
+    this.totalValueHistoryChart.options.locale = this.languageService.getBcp47String(this.languageService.language);
     this.totalValueHistoryChart.update();
   }
   

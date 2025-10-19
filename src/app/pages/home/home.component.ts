@@ -26,6 +26,7 @@ import { GemstoneDashComponent } from '../../gemstone-dash/gemstone-dash.compone
 import { SettingsService } from '../../services/settings.service';
 import { getFullscreenElement } from '../../util/fullscreen-utils';
 import { LanguageService } from '../../services/language.service';
+import { ACTIVE_SCENE_KEY, PerformanceService } from '../../services/performance.service';
 
 @Component({
   selector: 'app-home',
@@ -47,7 +48,8 @@ export class HomeComponent implements OnDestroy {
     public readonly lamp: LampService,
     private settingsService: SettingsService,
     public themeService: ThemeService,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    public performanceService: PerformanceService
   ) {}
   
   private onFullscreenChange = () => {
@@ -74,5 +76,10 @@ export class HomeComponent implements OnDestroy {
     let element = document.querySelector(`#${sectionId}`)
     if (element)
       element.scrollIntoView({ behavior: 'smooth'});
+  }
+  
+  sceneClicked(sceneKey: ACTIVE_SCENE_KEY) {
+    if (this.performanceService.activeScene !== sceneKey)
+      this.performanceService.setActiveScene(sceneKey);
   }
 }

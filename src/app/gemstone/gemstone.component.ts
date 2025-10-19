@@ -3,7 +3,7 @@ import { applyProps, injectBeforeRender, NgtArgs } from 'angular-three';
 import { injectGLTF } from 'angular-three-soba/loaders';
 import { Subscription } from 'rxjs';
 import { Color, DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMaterial, Object3D, Vector3 } from 'three';
-import { SkeletonUtils } from 'three-stdlib';
+import { SkeletonUtils, ThreeMFLoader } from 'three-stdlib';
 import { LampService } from '../services/lamp.service';
 import { rand } from "../util/random-utils"
 import { colorPresetActivated } from '../util/color-utils';
@@ -61,22 +61,24 @@ export class Gemstone {
   protected model = computed(() => {
     const gltf = this.gltf();
     if (!gltf) return null;
-    if (environment.diamondUrl.includes('placeholder')) {
-       this.diamondObj = gltf.scene.children.find(c => c.name === 'Cube');
-       return gltf.scene;
-    }
-      
+    
+    // if the 3D model is a placeholder, we are loading the objects within 
+    // the placeholder scene instead of the typical scene:
+    const isPlaceholder = environment.diamondUrl.includes('placeholder');
+    const materialKey = isPlaceholder ? "Material" : "Diamond";
+    const objectKey = isPlaceholder ? "Cube" : "Diamond_Diamond_0";
 
     const root = SkeletonUtils.clone(gltf.scene) as Object3D;
     const { materials } = gltf;
 
-    applyProps(materials['Diamond'], { color: this.color(), roughness: this.roughness(), specularIntensity: 1, metalness: 1, transparent: false, opacity: 1, transmission: 1, side: DoubleSide, thickness: 1 });
+    applyProps(materials[materialKey], { color: this.color(), roughness: this.roughness(), metalness: 1, transparent: false, opacity: 1 });
 
-    const diamondObj = root.children.find(c => c.name === 'Diamond_Diamond_0');
+    const diamondObj = root.children.find(c => c.name === objectKey);
     this.diamondObj = diamondObj!;
     this.diamondObj.position.setY(this.diamondObj.position.y - this.fall() * rand(0, 4000))
     this.diamondObj.rotateOnAxis(this.axis, this.spin() * rand(0, 1000))
 
+    // bind the clone references to allow independent manipulation of clone materials
     this.bindCloneRefs(root);
 
     return root;
@@ -95,9 +97,6 @@ export class Gemstone {
   constructor(private lampService: LampService, private gemsService: GemsService) {
     
     effect(() => {
-      const gltf = this.gltf();
-      if (!gltf) return;
-      
       this.initialPosition = this.position();
       this.fallVal = this.fall();
       this.spinVal = this.spin();

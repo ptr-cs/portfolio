@@ -15,7 +15,7 @@ extend(THREE);
   selector: 'gemstones',
   templateUrl: './gemstones.component.html',
   styleUrls: ['./gemstones.component.scss'],
-  imports: [NgtCanvas, SceneSettingsComponent, CommonModule]
+  imports: [NgtCanvas, SceneSettingsComponent, CommonModule],
 })
 export class GemstonesComponent {  
   protected sceneGraph = SceneGraphGems;
