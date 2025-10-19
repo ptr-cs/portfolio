@@ -59,6 +59,7 @@ export interface TranslationData {
             degree: TranslationEntry;
             highlights: TranslationEntry[];
         }[];
+        skills: TranslationEntry[];
     }
     gems?: {
         gemsData: TranslationEntry;
