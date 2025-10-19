@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { AnimationMixer, Box3, BufferGeometry, Color, ColorRepresentation, DoubleSide, Material, MathUtils, Matrix4, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, Object3D, Vector3 } from 'three';
 import { MarchingCubes, SkeletonUtils } from 'three-stdlib';
 import TinyColor from "tinycolor2";
-import { LampService } from '../services/lamp.service';
+import { LampService, PRESET_HEX } from '../services/lamp.service';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -52,7 +52,7 @@ export class LavaLamp {
   nzOld = 0
 
   position = input([0, 0, 0]);
-  color = input(new Color(0x00b5a9));
+  color = input(new Color(PRESET_HEX.blue));
   rotation = input([0, 0, 0]);
   scale = input(1);
   waxResolution = input(32);
@@ -60,7 +60,6 @@ export class LavaLamp {
   waxMatEmissiveIntensity = input(5);
   waxEnableColor = input(true);
   waxMaxPolygons = input(4000);
-  ignoreColorChanges = input(false);
   limitUpdates = input(false);
   waxBoundsTopOffset = input(0);
   private lampSub?: Subscription;
@@ -71,7 +70,7 @@ export class LavaLamp {
   public waxLocalMin = new Vector3();
   public waxLocalSize = new Vector3();
 
-  public waxColor = new Color(0x00b5a9);
+  public waxColor = new Color(PRESET_HEX.blue);
   public waxColorHex = this.waxColor.getHexString();
   public waxAttenuationColor = new Color(new TinyColor(this.waxColorHex).brighten(10).toHexString());
   public waxEmmissiveColor = new Color(new TinyColor(this.waxColorHex).brighten(10).toHexString());
@@ -147,9 +146,10 @@ export class LavaLamp {
   }
 
   resetColors(c: Color | null) {
-    if (c !== null)
+    if (c)
       this.recomputeColors(c);
-
+    
+    this.color().set(c!);
     this.waxMat.color = this.waxColor;
     this.waxMat.attenuationColor = this.waxAttenuationColor;
     this.waxMat.emissive = this.waxEmmissiveColor;
@@ -164,13 +164,11 @@ export class LavaLamp {
   }
 
   ngAfterViewInit() {
-    if (this.ignoreColorChanges() === false) {
-      this.lampSub = this.lampService.color$.subscribe(c => {
-        if (this.waxColor != c) {
-          this.resetColors(c);
-        }
-      });
-    }
+    this.lampSub = this.lampService.color$.subscribe(c => {
+      if (this.waxColor != c) {
+        this.resetColors(c);
+      }
+    });
   }
 
   private getLocalBounds(obj: Object3D): { min: Vector3; size: Vector3 } {

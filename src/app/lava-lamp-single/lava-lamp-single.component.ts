@@ -24,8 +24,6 @@ export class LavaLampSingleComponent {
 
   @ViewChild('canvasContainer', { static: true }) canvasContainer!: ElementRef;
   
-  background = new THREE.Color(0xffffff);
-  
   activeSceneSub?: Subscription;
   activeScenePausedSub?: Subscription;
     
