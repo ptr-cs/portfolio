@@ -20,7 +20,7 @@ export class LampService {
   private readonly KEY_ROTATE = 'lamp:rotate';
 
   private _type$ = new BehaviorSubject<LavaColor>('blue');
-  private _color$ = new BehaviorSubject<Color>(new Color(0x0090fe)); // intentionally set a "temp" color 
+  private _color$ = new BehaviorSubject<Color>(new Color(PRESET_HEX.blue));
   private _customColor$ = new BehaviorSubject<Color>(new Color(PRESET_HEX.custom));
   private _rotate$ = new BehaviorSubject<boolean>(true);
   private _needRandomColorsUpdate$ = new BehaviorSubject<boolean>(false);

@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": "Parker Rowland",
   "scripts": {
     "ng": "ng",
