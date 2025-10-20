@@ -8,7 +8,7 @@ import { MiniColorPickerComponent } from '../util/mini-color-picker/mini-color-p
 import { FormsModule } from '@angular/forms'; 
 import { MatTooltip } from '@angular/material/tooltip';
 import { OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
-import { SettingsService } from '../services/settings.service';
+import { RotationAction, SettingsService, ZoomAction } from '../services/settings.service';
 import { getRandomColor } from '../util/three-utils';
 import { exitFullscreen, getFullscreenElement, requestFullscreen } from '../util/fullscreen-utils';
 import { CommonModule } from '@angular/common';
@@ -109,9 +109,17 @@ export class SceneSettingsComponent implements OnDestroy {
     }
 
     ngAfterViewInit() {
-        const btn = this.settingsToggleButton.nativeElement;
-        const show = () => this.renderer.removeClass(btn, 'is-hidden');
-        const hide = () => this.renderer.addClass(btn, 'is-hidden');
+        const autohideElements = document.querySelectorAll(".autofade");
+        const show = () => {
+          autohideElements.forEach(element => {
+            this.renderer.removeClass(element, 'is-hidden');
+          });
+        };
+        const hide = () => {
+          autohideElements.forEach(element => {
+            this.renderer.addClass(element, 'is-hidden');
+          });
+        }
 
         this.zone.runOutsideAngular(() => {
             const activityEvents = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'pointermove', 'wheel'];
@@ -248,5 +256,17 @@ export class SceneSettingsComponent implements OnDestroy {
       this.performanceService.setActiveScene(this.previouslyPlayedScene);
       this.performanceService.setActiveScenePaused(false);
     }
+  }
+  
+  accessibilityControlsClicked() {
+    this.settingsService.setDisplayAccessibilityControls(!this.settingsService.displayAccessibilityControls);
+  }
+  
+  rotateCamera(action: RotationAction) {
+    this.settingsService.notifyRotateScene(action);
+  }
+  
+  zoomCamera(action: ZoomAction) {
+    this.settingsService.notifyZoomScene(action);
   }
 }

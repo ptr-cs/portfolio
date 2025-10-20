@@ -1,24 +1,32 @@
-<div class="d-flex gap-2 position-absolute top-0 flex-nowrap z-2 mt-2 ms-2">
-    <button #pauseSceneButton id="pauseSceneButton"
-        class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto"
-        type="button" (click)="pauseScene()">
-        <i *ngIf="!performanceService.activeScenePaused" class="bi bi-pause fs-4 fw-bold"></i>
-        <i *ngIf="performanceService.activeScenePaused" class="bi bi-play fs-4 fw-bold"></i>
-    </button>
-    
-    <button #settingsToggleButton id="settingsToggleButton"
-        class="btn btn-primary d-flex align-items-center gap-1 autofade"
-        type="button" data-bs-toggle="collapse" data-bs-target=".lamp-controls-ui" aria-expanded="false"
-        aria-controls="labelId panelId" [attr.aria-controls]="[panelId, labelId]">
-        <i class="bi bi-gear fs-4 fw-bold"></i>
-        <div class="lamp-controls-ui collapse collapse-horizontal text-nowrap" [class.show]="settingsOpen === true" [id]="labelId">
-            {{languageService.getText(languageService.translationData?.settings?.settings)}}</div>
+<div class="d-flex gap-2 position-absolute top-0 flex-wrap flex-column mt-2 ms-2 align-items-start">
+    <div class="d-flex flex-row gap-2 z-3 shadow-sm rounded">
+        <button #pauseSceneButton id="pauseSceneButton"
+            class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto"
+            type="button" (click)="pauseScene()">
+            <i *ngIf="!performanceService.activeScenePaused" class="bi bi-pause fs-4 fw-bold"></i>
+            <i *ngIf="performanceService.activeScenePaused" class="bi bi-play fs-4 fw-bold"></i>
+        </button>
+        
+        <button #settingsToggleButton id="settingsToggleButton"
+            class="btn btn-primary d-flex align-items-center gap-1 autofade"
+            type="button" data-bs-toggle="collapse" data-bs-target=".lamp-controls-ui" aria-expanded="false"
+            aria-controls="labelId panelId" [attr.aria-controls]="[panelId, labelId]">
+            <i class="bi bi-gear fs-4 fw-bold"></i>
+            <div class="lamp-controls-ui collapse collapse-horizontal text-nowrap" [class.show]="settingsOpen === true" [id]="labelId">
+                {{languageService.getText(languageService.translationData?.settings?.settings)}}</div>
+        </button>
+    </div>
+
+    <button #accessibilityButton id="accessibilityButton" (click)="accessibilityControlsClicked()"
+        class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto z-1 p-0" [ngClass]="{'active': settingsService.displayAccessibilityControls}"
+        type="button" data-bs-toggle="collapse" data-bs-target="#accessibilityUiPanel" [attr.aria-expanded]="settingsService.displayAccessibilityControls" aria-controls="accessibilityUiPanel">
+        <i class="bi bi-person-wheelchair fs-3 mx-auto"></i>
     </button>
 </div>
 
-<div class="position-absolute top-0 collapse lamp-controls-ui rounded-end border-left-radius-0 z-1 shadow-sm lamp-controls-interface"
+<div class="position-absolute top-0 collapse lamp-controls-ui rounded-end border-left-radius-0 z-2 shadow-sm lamp-controls-interface"
     [class.show]="settingsOpen === true" [id]="panelId">
-    <div class="d-flex flex-column flex-wrap column-gap-3 row-gap-2 mt-3 p-2 pt-5">
+    <div class="d-flex flex-column column-gap-3 row-gap-2 p-2" id="settings-container">
         <div class="d-flex justify-content-start flex-wrap align-items-baseline column-gap-3 row-gap-2">
             <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between">
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.display)}}</p>
@@ -212,6 +220,60 @@
                                 (colorChange)="onLavaHex($event)">
                             </app-mini-color-picker>
                         </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="collapse shadow-sm position-absolute bottom-0 z-1" id="accessibilityUiPanel" [ngClass]="{'show': settingsService.displayAccessibilityControls }">
+    <div class="accessibility-controls-interface autofade d-flex gap-2 collapse flex-row p-2 border-top-right-radius-rounded align-items-center">
+        <i class="bi bi-person-wheelchair fs-2 mx-auto"></i>
+        <div class="d-flex align-items-center flex-row flex-wrap column-gap-4 row-gap-2">
+            <div class="d-flex flew-row flex-wrap column-gap-3 row-gap-2 align-items-center">
+                <div class="d-flex flew-row gap-2 align-items-center">
+                    <p class="m-0 accessibility-control-label">Rotate</p>
+                    <button type="button" [attr.data-bs-theme]="themeService.theme"
+                        class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                        [matTooltip]="'Rotates the 3D scene around the center of the scene'"
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateScene="matTooltip"
+                        (click)="tooltipRotateScene.show()">
+                        <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
+                    </button>
+                </div>
+                <div class="d-flex gap-2 flex-row btn-group">
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-left')">
+                        <i class="bi bi-arrow-left mx-auto fs-3"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-right')">
+                        <i class="bi bi-arrow-right mx-auto fs-3"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-up')">
+                        <i class="bi bi-arrow-up mx-auto fs-3"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-down')">
+                        <i class="bi bi-arrow-down mx-auto fs-3"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="d-flex flew-row column-gap-3 row-gap-2 align-items-center flex-wrap">
+                <div class="d-flex flew-row gap-2 align-items-center">
+                    <p class="m-0 accessibility-control-label">Zoom</p>
+                    <button type="button" [attr.data-bs-theme]="themeService.theme"
+                        class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                        [matTooltip]="'Zooms the 3D scene in and out'"
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipZoomScene="matTooltip"
+                        (click)="tooltipZoomScene.show()">
+                        <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
+                    </button>
+                </div>
+                <div class="d-flex gap-2 flex-row btn-group">
+                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-out')">
+                        <i class="bi bi-zoom-out mx-auto fs-3"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-in')">
+                        <i class="bi bi-zoom-in mx-auto fs-3"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

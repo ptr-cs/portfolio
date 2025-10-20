@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, effect, OnDestroy, ViewChildren, QueryList } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, effect, OnDestroy, ViewChildren, QueryList, viewChild } from '@angular/core';
 import { injectStore, extend, NgtArgs, injectBeforeRender } from 'angular-three';
 import { EXRLoader, OrbitControls } from 'three-stdlib';
 import { NgtsAdaptiveDpr } from 'angular-three-soba/performances';
@@ -65,6 +65,8 @@ export class SceneGraphGems implements OnDestroy {
   protected invalidate = this.store.select('invalidate');
   protected scene = this.store.select('scene');
   protected gl = this.store.select('gl');
+  
+  cameraControlsRef = viewChild.required(NgtsOrbitControls);
 
   statsGlId = "statsGlGems";
 
@@ -74,6 +76,10 @@ export class SceneGraphGems implements OnDestroy {
   settingsSub?: Subscription;
   gemsSub?: Subscription;
   activeScenePausedSub?: Subscription;
+  rotateCameraSub?: Subscription;
+  zoomCameraSub?: Subscription;
+  
+  orbitControls?: OrbitControls;
 
   constructor(
     private themeService: ThemeService,
@@ -157,6 +163,38 @@ export class SceneGraphGems implements OnDestroy {
       }
       this.lampService.setNeedRandomColorsUpdate(false);
      });
+     
+     this.rotateCameraSub = this.settingsService.rotateScene$.subscribe(action => {
+        if (this.performanceService.activeScene !== 'GEMS') return;
+        if (!this.orbitControls) return;
+        const angleStep = 1;
+        const currentAzimuthal = this.orbitControls.getAzimuthalAngle();
+        const currentPolar = this.orbitControls.getPolarAngle();
+        if (action === 'rotate-left') {
+          this.orbitControls.setAzimuthalAngle(currentAzimuthal + angleStep);
+        } else if (action === 'rotate-right') {
+          this.orbitControls.setAzimuthalAngle(currentAzimuthal - angleStep);
+        } else if (action === 'rotate-up') {
+          this.orbitControls.setPolarAngle(currentPolar - angleStep/2);
+        } else if (action === 'rotate-down') {
+          this.orbitControls.setPolarAngle(currentPolar + angleStep/2);
+        }
+
+        this.orbitControls.update();
+      });
+      
+      this.zoomCameraSub = this.settingsService.zoomScene$.subscribe(action => {
+        if (this.performanceService.activeScene !== 'GEMS') return;
+        if (!this.orbitControls) return;
+        const zoomStep = 1.1;
+        if (action === 'zoom-in') {
+          this.orbitControls.dollyOut(zoomStep);
+        } else if (action === 'zoom-out') {
+          this.orbitControls.dollyIn(zoomStep);
+        }
+
+        this.orbitControls.update();
+      });
 
     injectBeforeRender(({ delta }) => {
       this.stats.update();
@@ -202,6 +240,11 @@ export class SceneGraphGems implements OnDestroy {
     this.stats.dom.id = this.statsGlId;
 
     document.querySelector("gemstones")?.appendChild(this.stats.dom);
+    
+    const controls = this.cameraControlsRef().controls() as OrbitControls;
+      if (controls) {
+        this.orbitControls = controls;
+      }
 
     this.calculateStats();
   }
@@ -220,6 +263,8 @@ export class SceneGraphGems implements OnDestroy {
     this.settingsSub?.unsubscribe();
     this.gemsSub?.unsubscribe();
     this.activeScenePausedSub?.unsubscribe();
+    this.rotateCameraSub?.unsubscribe();
+    this.zoomCameraSub?.unsubscribe();
   }
 
   calculateStats() {

@@ -13,11 +13,6 @@
   display: block;
 }
 
-
-.ui-button, .exit-button {
-    height: 46px;
-}
-
 .color-button {
     min-width: 48px;
 }
@@ -26,14 +21,26 @@
   display: block !important;
 }
 
-.lamp-controls-interface {
+.lamp-controls-interface, .accessibility-controls-interface {
   background-color: rgba(var(--bs-tertiary-bg-rgb), .8);
   backdrop-filter: blur(6px);
   border-top-right-radius: 0 !important;
 }
 
+#settings-container {
+  max-height: calc(100vh - 80px);
+  max-width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 64px;
+}
+
 .border-top-left-radius-0 {
   border-top-left-radius: 0 !important;
+}
+
+.border-top-right-radius-rounded {
+  border-top-right-radius: var(--bs-border-radius) !important;
 }
 
 .color-button-bar {
@@ -70,10 +77,6 @@
 :fullscreen .non-fs-only { display: none !important; }
 :-webkit-full-screen .non-fs-only { display: none !important; }
 
-.exit-button {
-  color: var(--bs-btn-color);
-}
-
 .settings-label {
   max-width: 130px;
   min-width: 130px;
@@ -84,8 +87,8 @@
   min-width: 170px;
 }
 
-.autofade.collapsed { transition: opacity .3s ease; }
-.autofade.collapsed.is-hidden { opacity: 0; pointer-events: none; }
+.autofade { transition: opacity .3s ease; }
+.autofade.is-hidden { opacity: 0; pointer-events: none; }
 
 .btn-group {
   position: relative;
@@ -102,7 +105,7 @@
   }
   
   .custom-color-control {
-    min-width: 46px;
+    min-width: 48px;
   }
   
   .controls-group {
@@ -113,3 +116,9 @@
     min-height: 48px;
     min-width: 48px;
   }
+  
+  .accessibility-control-label {
+    min-width: 56px;
+  }
+  
+input[type="button"]{ touch-action: manipulation; }

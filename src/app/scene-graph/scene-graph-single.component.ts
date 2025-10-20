@@ -1,5 +1,5 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, effect, ViewChild } from '@angular/core';
-import { injectStore, extend, NgtArgs, injectBeforeRender, NgtSpotLight } from 'angular-three';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, effect, ViewChild, input, viewChild } from '@angular/core';
+import { injectStore, extend, NgtArgs, injectBeforeRender, NgtSpotLight, NgtCameraManual } from 'angular-three';
 import { EXRLoader, OrbitControls } from 'three-stdlib';
 import { LavaLamp } from '../lava-lamp/lava-lamp.component';
 import { NgtsAdaptiveDpr } from 'angular-three-soba/performances';
@@ -14,6 +14,7 @@ import { ThemeService } from '../services/theme.service';
 import city from '@pmndrs/assets/hdri/city.exr'
 import Stats from 'stats-gl'
 import { SettingsService } from '../services/settings.service';
+
 
 extend({ OrbitControls });
 
@@ -61,18 +62,25 @@ export class SceneGraphSingle {
     protected invalidate = this.store.select('invalidate');
     protected scene = this.store.select('scene');
     
+    rotate = input<keyof any | 'none'>('none');
+
+    cameraControlsRef = viewChild.required(NgtsOrbitControls);
+    
     private lampSub?: Subscription;
     private performanceSub?: Subscription;
     private settingsSub?: Subscription;
     private themeSub?: Subscription;
     private activeScenePausedSub?: Subscription;
+    private rotateCameraSub?: Subscription;
+    private zoomCameraSub?: Subscription;
+    
+    orbitControls?: OrbitControls;
     
     stats = new Stats();
     
     statsGlId = "statsGlSingle";
     
     @ViewChild('light') lightRef?: NgtSpotLight;
-    @ViewChild('orbitControls') orbitControls?: any;
     
     private setStartView = effect(() => {
         const cam = this.camera();
@@ -116,12 +124,44 @@ export class SceneGraphSingle {
           (stats as any)!.classList.remove("show");
       });
       
-      this.activeScenePausedSub= this.performanceService.activeScenePaused$.subscribe(b => {
+      this.activeScenePausedSub = this.performanceService.activeScenePaused$.subscribe(b => {
         if (this.performanceService.activeScene === 'LAVA_SINGLE' && !b) {
           setTimeout(() => {
             invalidate();
           }, 0);
         }
+      });
+      
+      this.rotateCameraSub = this.settingsService.rotateScene$.subscribe(action => {
+        if (this.performanceService.activeScene !== 'LAVA_SINGLE') return;
+        if (!this.orbitControls) return;
+        const angleStep = 1;
+        const currentAzimuthal = this.orbitControls.getAzimuthalAngle();
+        const currentPolar = this.orbitControls.getPolarAngle();
+        if (action === 'rotate-left') {
+          this.orbitControls.setAzimuthalAngle(currentAzimuthal + angleStep);
+        } else if (action === 'rotate-right') {
+          this.orbitControls.setAzimuthalAngle(currentAzimuthal - angleStep);
+        } else if (action === 'rotate-up') {
+          this.orbitControls.setPolarAngle(currentPolar - angleStep/2);
+        } else if (action === 'rotate-down') {
+          this.orbitControls.setPolarAngle(currentPolar + angleStep/2);
+        }
+
+        this.orbitControls.update();
+      });
+      
+      this.zoomCameraSub = this.settingsService.zoomScene$.subscribe(action => {
+        if (this.performanceService.activeScene !== 'LAVA_SINGLE') return;
+        if (!this.orbitControls) return;
+        const zoomStep = 1.1;
+        if (action === 'zoom-in') {
+          this.orbitControls.dollyOut(zoomStep);
+        } else if (action === 'zoom-out') {
+          this.orbitControls.dollyIn(zoomStep);
+        }
+
+        this.orbitControls.update();
       });
       
       injectBeforeRender(({ delta }) => {
@@ -153,6 +193,13 @@ export class SceneGraphSingle {
       this.stats.dom.id = this.statsGlId;
       
       document.querySelector("lava-lamp-single")?.appendChild( this.stats.dom );
+      
+      
+      const controls = this.cameraControlsRef().controls() as OrbitControls;
+      if (controls) {
+        this.orbitControls = controls;
+      }
+        
     }
     
     ngOnDestroy(): void {
@@ -161,5 +208,7 @@ export class SceneGraphSingle {
       this.activeScenePausedSub?.unsubscribe();
       this.themeSub?.unsubscribe();
       this.settingsSub?.unsubscribe();
+      this.rotateCameraSub?.unsubscribe();
+      this.zoomCameraSub?.unsubscribe();
     }
   }

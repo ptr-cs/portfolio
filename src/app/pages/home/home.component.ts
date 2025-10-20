@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   OnDestroy,
   signal,
   ViewChild,
@@ -27,10 +28,11 @@ import { SettingsService } from '../../services/settings.service';
 import { getFullscreenElement } from '../../util/fullscreen-utils';
 import { LanguageService } from '../../services/language.service';
 import { ACTIVE_SCENE_KEY, PerformanceService } from '../../services/performance.service';
+import { ScrollIntoViewOnFocusDirective } from '../../util/scroll-into-view-on-focus.directive';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterModule, CommonModule, FormsModule, LavaLampWallComponent, LavaLampSingleComponent, ResumeComponent, ContactComponent, GemstonesComponent, InViewportDirective, GemstoneDashComponent],
+  imports: [RouterModule, CommonModule, FormsModule, LavaLampWallComponent, LavaLampSingleComponent, ResumeComponent, ContactComponent, GemstonesComponent, InViewportDirective, GemstoneDashComponent, ScrollIntoViewOnFocusDirective ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   encapsulation: ViewEncapsulation.None, // set for the tooltips to recieve custom styling 

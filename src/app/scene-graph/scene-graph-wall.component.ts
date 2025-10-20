@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, effect, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, effect, ViewChild, ViewChildren, QueryList, viewChild } from '@angular/core';
 import { injectStore, extend, NgtArgs, injectBeforeRender, NgtSpotLight } from 'angular-three';
 import { OrbitControls } from 'three-stdlib';
 import { LavaLamp } from '../lava-lamp/lava-lamp.component';
@@ -65,6 +65,8 @@ export class SceneGraphWall {
     protected invalidate = this.store.select('invalidate');
     protected scene = this.store.select('scene');
     
+    cameraControlsRef = viewChild.required(NgtsOrbitControls);
+    
     protected positions: any = [];
     rows = 5;
     cols = 5;
@@ -82,6 +84,10 @@ export class SceneGraphWall {
     
     themeSub?: Subscription;
     needsRandomColorsUpdateSub?: Subscription;
+    private rotateCameraSub?: Subscription;
+    private zoomCameraSub?: Subscription;
+    
+    orbitControls?: OrbitControls;
     
     stats = new Stats();
     
@@ -151,6 +157,38 @@ export class SceneGraphWall {
           }, 0);
       }
      });
+     
+     this.rotateCameraSub = this.settingsService.rotateScene$.subscribe(action => {
+        if (this.performanceService.activeScene !== 'LAVA_WALL') return;
+        if (!this.orbitControls) return;
+        const angleStep = 1;
+        const currentAzimuthal = this.orbitControls.getAzimuthalAngle();
+        const currentPolar = this.orbitControls.getPolarAngle();
+        if (action === 'rotate-left') {
+          this.orbitControls.setAzimuthalAngle(currentAzimuthal + angleStep);
+        } else if (action === 'rotate-right') {
+          this.orbitControls.setAzimuthalAngle(currentAzimuthal - angleStep);
+        } else if (action === 'rotate-up') {
+          this.orbitControls.setPolarAngle(currentPolar - angleStep/2);
+        } else if (action === 'rotate-down') {
+          this.orbitControls.setPolarAngle(currentPolar + angleStep/2);
+        }
+
+        this.orbitControls.update();
+      });
+      
+      this.zoomCameraSub = this.settingsService.zoomScene$.subscribe(action => {
+        if (this.performanceService.activeScene !== 'LAVA_WALL') return;
+        if (!this.orbitControls) return;
+        const zoomStep = 1.1;
+        if (action === 'zoom-in') {
+          this.orbitControls.dollyOut(zoomStep);
+        } else if (action === 'zoom-out') {
+          this.orbitControls.dollyIn(zoomStep);
+        }
+
+        this.orbitControls.update();
+      });
       
       this.stats.init( this.gl() );
       
@@ -163,6 +201,9 @@ export class SceneGraphWall {
     this.lampSub?.unsubscribe();
     this.settingsSub?.unsubscribe();
     this.activeScenePausedSub?.unsubscribe();
+    this.needsRandomColorsUpdateSub?.unsubscribe();
+    this.rotateCameraSub?.unsubscribe();
+    this.zoomCameraSub?.unsubscribe();
   }
   
   ngAfterViewInit(): void {
@@ -175,6 +216,11 @@ export class SceneGraphWall {
       this.stats.dom.id = this.statsGlId;
       
       document.querySelector("lava-lamp-wall")?.appendChild( this.stats.dom );
+      
+      const controls = this.cameraControlsRef().controls() as OrbitControls;
+      if (controls) {
+        this.orbitControls = controls;
+      }
   }
   
   private setStartView = effect(() => {
