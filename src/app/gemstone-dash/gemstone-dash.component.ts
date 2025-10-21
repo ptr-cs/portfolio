@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Renderer2, NgZone, signal, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnDestroy, Renderer2, NgZone, signal, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { Chart, LineController, DoughnutController, CategoryScale, LinearScale, ArcElement, PointElement, LineElement, Filler, ChartConfiguration } from 'chart.js'
 import { GemsService } from '../services/gems.service';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,8 @@ Chart.register(DoughnutController, LineController, ArcElement, CategoryScale, Li
   selector: 'gemstone-dash',
   templateUrl: './gemstone-dash.component.html',
   styleUrls: ['./gemstone-dash.component.scss'],
-  imports: [MatTooltip, CommonModule]
+  imports: [MatTooltip, CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GemstoneDashComponent implements OnDestroy {
 
@@ -97,7 +98,7 @@ export class GemstoneDashComponent implements OnDestroy {
     });
     
     this.gemsSubRecentlyAdded = this.gemsService.recentlyAdded$.subscribe(r => {
-      this.mostRecentItems = (r);
+      this.mostRecentItems = r.reverse();
     });
     
     this.languageSub = this.languageService.language$.subscribe(l => {
@@ -257,5 +258,9 @@ export class GemstoneDashComponent implements OnDestroy {
     chart.data.datasets[0].data = [];
     chart.data.datasets[0].data = newData;
     chart.update();
+  }
+  
+  trackById(index: number, item: any) {
+    return item.id ?? item.timestamp ?? index;
   }
 }

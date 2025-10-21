@@ -203,10 +203,12 @@ export class SceneSettingsComponent implements OnDestroy {
   togglePicker(): void {
     this.showPicker = !this.showPicker;
     this.timesColorPickerToggled++;
-  }
-
-  onRotateChange(rotate: boolean): void {
-    this.lampService.setRotate(rotate);
+    // const element = document.getElementById('minicolorpicker');
+    // if (element) {
+    //   setTimeout(() => {
+    //     element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    //   }, 500);
+    // }
   }
 
     ngOnDestroy(): void {

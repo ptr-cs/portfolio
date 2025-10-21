@@ -19,34 +19,30 @@ export class LampService {
   private readonly KEY_CUSTOM = 'lamp:lavaCustomHex';
   private readonly KEY_ROTATE = 'lamp:rotate';
 
-  private _type$ = new BehaviorSubject<LavaColor>('blue');
+  private _type$ = new BehaviorSubject<LavaColor>('none');
   private _color$ = new BehaviorSubject<Color>(new Color(PRESET_HEX.blue));
   private _customColor$ = new BehaviorSubject<Color>(new Color(PRESET_HEX.custom));
-  private _rotate$ = new BehaviorSubject<boolean>(true);
   private _needRandomColorsUpdate$ = new BehaviorSubject<boolean>(false);
 
   readonly type$ = this._type$.asObservable();
   readonly color$ = this._color$.asObservable();
   readonly customColor$ = this._customColor$.asObservable();
-  readonly rotate$ = this._rotate$.asObservable();
   readonly needRandomColorsUpdate$ = this._needRandomColorsUpdate$.asObservable();
 
   get type(): LavaColor { return this._type$.value; }
   set type(type: LavaColor) { this.setType(type); }
   get color(): Color { return this._color$.value; }
   get customColor(): Color { return this._customColor$.value; }
-  get rotate(): boolean { return this._rotate$.value; }
   get needRandomColorsUpdate(): boolean { return this._needRandomColorsUpdate$.value; }
   toHex(): string { return '#' + this.color.getHexString(); }
 
   loadSaved(defaultType: LavaColor = 'blue', defaultCustom = PRESET_HEX['custom']) {
     const savedType = (localStorage.getItem(this.KEY_TYPE) as LavaColor) || defaultType;
     const savedCustom = localStorage.getItem(this.KEY_CUSTOM) || defaultCustom;
-    if (savedType === 'custom') this.setCustomColor(savedCustom);
-    else this.setType(savedType);
-
-    const savedRotate = (localStorage.getItem(this.KEY_ROTATE) ?? 'false') === 'true';
-    this._rotate$.next(savedRotate);
+    if (savedType === 'custom') 
+      this.setCustomColor(savedCustom);
+    else 
+      this.setType(savedType);
   }
 
   setType(next: LavaColor) {
@@ -64,24 +60,6 @@ export class LampService {
     this._customColor$.next(new Color(hex));
     localStorage.setItem(this.KEY_TYPE, 'custom');
     localStorage.setItem(this.KEY_CUSTOM, hex);
-  }
-
-  setLava(type: LavaColor, customHex?: string) {
-    if (type === 'custom') this.setCustomColor(customHex ?? localStorage.getItem(this.KEY_CUSTOM) ?? '#00cfc2');
-    else this.setType(type);
-  }
-
-  setRotate(next: boolean) {
-    if (next !== this._rotate$.value) {
-      this._rotate$.next(next);
-      localStorage.setItem(this.KEY_ROTATE, String(next));
-    }
-  }
-
-  toggleRotate(): boolean {
-    const next = !this._rotate$.value;
-    this.setRotate(next);
-    return next;
   }
 
   setNeedRandomColorsUpdate(next: boolean) {

@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, input, OnDestroy, signal, WritableSignal } from '@angular/core';
-import { applyProps, injectBeforeRender, NgtArgs } from 'angular-three';
+import { ChangeDetectionStrategy, Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, input, model, NgZone, OnDestroy, Signal, signal, ViewChild, WritableSignal } from '@angular/core';
+import { applyProps, injectBeforeRender, NgtArgs, NgtPrimitive, NgtVector3 } from 'angular-three';
 import { injectGLTF } from 'angular-three-soba/loaders';
 import { Subscription } from 'rxjs';
 import { Color, DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMaterial, Object3D, Vector3 } from 'three';
 import { SkeletonUtils, ThreeMFLoader } from 'three-stdlib';
 import { LampService } from '../services/lamp.service';
 import { rand } from "../util/random-utils"
-import { colorPresetActivated } from '../util/color-utils';
 import { calculateGemValue, classifyGem, gemRandomColor, gemRandomFall, gemRandomRoughness, gemRandomScale, gemRandomSpin } from '../util/gemstone-utils';
 import { GemsService } from '../services/gems.service';
 import { environment } from '../../environments/environment';
@@ -24,32 +23,20 @@ import { Obj } from '@popperjs/core';
   standalone: true,
 })
 export class Gemstone {
-  position = input([0, 0, 0]);
-  positionSignal: WritableSignal<number[]> = signal<number[]>(this.position());
-  rotation = input([0, 0, 0]);
-  rotationSignal: WritableSignal<number[]> = signal<number[]>(this.rotation());
-  spin = input(0);
-  spinSignal: WritableSignal<number> = signal<number>(this.spin());
-  fall = input(0);
-  fallSignal: WritableSignal<number> = signal<number>(this.fall());
-  color = input(new Color(0xFF69B4));
-  colorSignal: WritableSignal<Color> = signal<Color>(this.color());
-  colorReadable: Color = this.colorSignal();
-  roughness = input(0.4);
-  roughnessSignal: WritableSignal<number> = signal<number>(this.roughness());
-  roughnessReadable: number = this.roughnessSignal();
-  scale = input(1);
-  scaleSignal: WritableSignal<number> = signal<number>(this.scale());
-  scaleReadable: number = this.scaleSignal();
-  topY = input(0);
+  position = model<NgtVector3>([0,0,0]);
+  rotation = model<NgtVector3>([0,0,0]);
+  spin = model<number>(0);
+  fall = model<number>(0);
+  color = model<Color>(new Color(0x00ff00));
+  roughness = model<number>(0);
+  scale = model<number>(1);
+  topY = model<number>(0);
   
   gltf = injectGLTF(() => environment.diamondUrl);
   diamondObj?: Object3D;
   spinVal: number = 0;
   fallVal: number = 0;
-  valuation = input(0);
-  valuationSignal: WritableSignal<number> = signal<number>(this.valuation());
-  valuationReadable: number = this.valuationSignal().valueOf();
+  valuation = model(0);
 
   gemsResetMinY = -.7
   fallCounter = 0;
@@ -75,8 +62,8 @@ export class Gemstone {
 
     const diamondObj = root.children.find(c => c.name === objectKey);
     this.diamondObj = diamondObj!;
-    this.diamondObj.position.setY(this.diamondObj.position.y - this.fall() * rand(0, 4000))
-    this.diamondObj.rotateOnAxis(this.axis, this.spin() * rand(0, 1000))
+    this.diamondObj.position.setY(this.diamondObj.position.y - this.fall()! * rand(0, 4000))
+    this.diamondObj.rotateOnAxis(this.axis, this.spin()! * rand(0, 1000))
 
     // bind the clone references to allow independent manipulation of clone materials
     this.bindCloneRefs(root);
@@ -94,17 +81,12 @@ export class Gemstone {
     });
   }
 
-  constructor(private lampService: LampService, private gemsService: GemsService) {
+  constructor(private lampService: LampService, private gemsService: GemsService, private zone: NgZone) {
     
     effect(() => {
       this.initialPosition = this.position();
-      this.fallVal = this.fall();
-      this.spinVal = this.spin();
-      
-      this.valuationReadable = this.valuation();
-      this.scaleReadable = this.scale();
-      this.roughnessReadable = this.roughness();
-      this.colorReadable = this.color();
+      this.fallVal = this.fall()!;
+      this.spinVal = this.spin()!; 
     });
 
     const now = new Date();
@@ -120,7 +102,7 @@ export class Gemstone {
           this.gemsService.setTotalValueDirty(true);
           if (this.gemsService.recentlyAdded.length >= 3)
             this.gemsService.shiftRecentlyAdded();
-          this.gemsService.addToRecentlyAdded({"type": classifyGem(this.colorReadable), "scale": this.scaleReadable, "roughness": this.roughnessReadable, "value": this.valuationReadable.toFixed(2), "timestamp": new Date()});
+          this.gemsService.addToRecentlyAdded({"type": classifyGem(this.color()!), "scale": this.scale(), "roughness": this.roughness(), "value": this.valuation().toFixed(2), "timestamp": new Date()});
         }
       }
     });
@@ -128,19 +110,35 @@ export class Gemstone {
   
   randomize(colorOverride: Color | undefined = undefined) {
     let s = gemRandomScale();
-    let c = colorPresetActivated(this.lampService.color, this.lampService.customColor) ? this.lampService.color : gemRandomColor();
+    let c = this.lampService.type !== 'none' ? this.lampService.color : gemRandomColor();
     let r = gemRandomRoughness();
-    this.rotationSignal.set([0,0,0]);
-    this.fallSignal.set(gemRandomFall());
-    this.spinSignal.set(gemRandomSpin());
-    this.scaleSignal.set(s);
-    this.scaleReadable = s;
-    this.colorSignal.set(c);
-    this.colorReadable = c;
-    this.roughnessSignal.set(r);
-    this.roughnessReadable = r;
+    this.rotation.set([0,0,0]);
+    this.fall.set(gemRandomFall());
+    this.spin.set(gemRandomSpin());
+    this.scale.set(s);
+    this.color.set(c);
+    this.roughness.set(r);
     const newVal = calculateGemValue(s,c,r);
-    this.valuationSignal.set(newVal);
-    this.valuationReadable = newVal;
+    this.valuation.set(newVal);
+  }
+  
+  // operate directly on the mesh material instead of the color property, which incurs update delays
+  setColorFast(c: Color) {
+  this.zone.runOutsideAngular(() => {
+    const mesh = (this.diamondObj as any);
+    if (!mesh) return;
+    const mat = mesh?.material as any;
+    if (!mat) return;
+    mat?.color?.set(c);
+  });
+}
+  
+  // operate directly on the mesh material instead of the color property, which incurs update delays
+  getColorFast(): Color | undefined {
+    const mesh = (this.diamondObj as any);
+    if (!mesh) return;
+    const mat = mesh?.material as any;
+    if (!mat) return;
+    return mat.color;
   }
 }

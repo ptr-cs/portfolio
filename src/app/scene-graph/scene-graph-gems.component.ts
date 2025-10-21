@@ -27,7 +27,7 @@ extend({ OrbitControls });
         <ngt-directional-light [position]="[-1, -2, 5]" [intensity]=".75 * Math.PI" color="white" />
 
     @for (p of gemProperties; track $index) {
-      <gemstone [position]="p.position" [color]="p.color" [roughness]="p.roughness" [rotation]="p.rotation" [scale]="p.scale" [spin]="p.spin" [fall]="p.fall" [topY]="p.topY" [valuation]="p.valuation" />
+      <gemstone [(position)]="p.position" [color]="p.color" [roughness]="p.roughness" [rotation]="p.rotation" [scale]="p.scale" [spin]="p.spin" [fall]="p.fall" [topY]="p.topY" [valuation]="p.valuation" />
 		}
     
     <ngtp-effect-composer [options]="{ multisampling: 2 }">
@@ -113,6 +113,7 @@ export class SceneGraphGems implements OnDestroy {
     this.gemsSub = this.gemsService.totalValueDirty$.subscribe(t => {
       if (t === true) {
         this.calculateStats();
+        this.gemsService.setTotalValueDirty(false);
       }
     });
 
@@ -137,32 +138,29 @@ export class SceneGraphGems implements OnDestroy {
         (stats as any)!.classList.remove("show");
     });
 
-    this.lampSub = this.lampService.color$.subscribe(c => {
+    this.lampSub = this.lampService.color$
+    .pipe()
+    .subscribe(c => {
       if (this.gemstoneComponents) {
-        this.gemstoneComponents.forEach(g => {
-          this.setGemColor(g, c);
+        this.gemstoneComponents.forEach((g) => {
+          g.setColorFast(c);
         });
-        setTimeout(() => {
-          this.calculateStats();
-        }, 0)
         invalidate();
+        queueMicrotask(() => this.calculateStats());
       }
     });
     
-    this.needsRandomColorsUpdateSub = this.lampService.needRandomColorsUpdate$.subscribe(b => {
-      if (b === true) {
-        if (this.gemstoneComponents) {
-        this.gemstoneComponents.forEach(g => {
-          this.setGemColor(g, getRandomColor());
+    this.needsRandomColorsUpdateSub = this.lampService.needRandomColorsUpdate$.pipe()
+    .subscribe(c => {
+      if (this.gemstoneComponents) {
+        this.gemstoneComponents.forEach((g) => {
+          g.setColorFast(getRandomColor());
         });
-        setTimeout(() => {
-          this.calculateStats();
-        }, 0)
         invalidate();
+        queueMicrotask(() => this.calculateStats());
+        this.lampService.setNeedRandomColorsUpdate(false);
       }
-      }
-      this.lampService.setNeedRandomColorsUpdate(false);
-     });
+    });
      
      this.rotateCameraSub = this.settingsService.rotateScene$.subscribe(action => {
         if (this.performanceService.activeScene !== 'GEMS') return;
@@ -210,17 +208,15 @@ export class SceneGraphGems implements OnDestroy {
   }
   
   setGemColor(g: Gemstone, c: Color) {
-    g.colorSignal.set(c);
-    g.colorReadable = c;
+    g.color.set(c);
     let m = (g.diamondObj as Mesh);
     const material = m.material;
     if ('color' in material) {
       (material as any).color.set(c);
       (material as any).needsUpdate = true;
     }
-    const newValuation = calculateGemValue(g.scaleReadable, c, g.roughnessReadable);
-    g.valuationSignal.set(newValuation);
-    g.valuationReadable = newValuation;
+    const newValuation = calculateGemValue(g.scale()!, c, g.roughness()!);
+    g.valuation.set(newValuation);
   }
 
   ngAfterViewInit() {
@@ -283,10 +279,13 @@ export class SceneGraphGems implements OnDestroy {
     let totalAmethysts = 0;
     let totalUnknown = 0;
     this.gemstoneComponents.forEach((g, i) => {
-      totalValue += g.valuationReadable
-      totalScale += g.scaleReadable
-      totalRoughness += g.roughnessReadable
-      const c = classifyGem(g.colorReadable)
+      totalValue += g.valuation()
+      totalScale += g.scale()!
+      totalRoughness += g.roughness()!
+      
+      const color = g.getColorFast();
+      if (!color) return;
+      const c = classifyGem(color)
       if (c === 'diamond')
         totalDiamonds++;
       else if (c === 'ruby')
@@ -312,7 +311,6 @@ export class SceneGraphGems implements OnDestroy {
     this.gemsService.setAverageValue(averageValue);
     this.gemsService.setAverageScale(averageScale);
     this.gemsService.setAverageRoughness(averageRoughness);
-    this.gemsService.setTotalValueDirty(false);
     this.gemsService.setDistribution(distribution);
     
     if (totalValue > 0)

@@ -165,7 +165,7 @@ export class LavaLamp {
 
   ngAfterViewInit() {
     this.lampSub = this.lampService.color$.subscribe(c => {
-      if (this.waxColor != c) {
+      if (this.waxColor != c && this.lampService.type !== 'none') {
         this.resetColors(c);
       }
     });

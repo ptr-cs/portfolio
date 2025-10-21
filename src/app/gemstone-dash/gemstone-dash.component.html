@@ -159,10 +159,10 @@
                                     </button>
                                 </div>
                                 <ul class="list-group list-group-flush">
-                                    <li *ngFor="let item of mostRecentItems.reverse()" class="list-group-item">
+                                    <li *ngFor="let item of mostRecentItems; trackBy: trackById" class="list-group-item">
                                         <div class="row g-0 align-items-center">
                                             <div class="col me-2">
-                                                <h6 class="mb-0"><strong>{{languageService.translateGemEntry(item.type)}}</strong> - {{formatCurrency(item.value, languageService.language, "$", "USD")}}</h6><span class="text-xs text-muted">{{ languageService.getFormattedDate(item.timestamp) }}</span>
+                                                <h6 class="mb-0"><strong>{{languageService.translateGemEntry(item.type)}}</strong> - {{ item.value | currency:'USD':'symbol':'1.2-2':languageService.language }}</h6><span class="text-xs text-muted">{{ languageService.getFormattedDate(item.timestamp) }}</span>
                                             </div>
                                         </div>
                                     </li>

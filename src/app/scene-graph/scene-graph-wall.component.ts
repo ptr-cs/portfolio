@@ -112,7 +112,7 @@ export class SceneGraphWall {
       const invalidate = this.invalidate();
       
       this.lampSub = this.lampService.color$.subscribe(c => {
-          if (this.lightRef)
+          if (this.lightRef && this.lampService.type !== 'none')
             ((this.lightRef as any).nativeElement as SpotLight).color = this.lampService.color;
           invalidate();
         });

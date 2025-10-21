@@ -216,7 +216,7 @@
                         </button>
                 </div>
                 <div class="collapse" id="lampControlsColorPicker">
-                            <app-mini-color-picker #minicolorpicker [hex]="lampService.customColor.getHexString()" [hexString]="languageService.getText(languageService.translationData?.settings?.colorHex)"
+                            <app-mini-color-picker #minicolorpicker id="minicolorpicker" [hex]="lampService.customColor.getHexString()" [hexString]="languageService.getText(languageService.translationData?.settings?.colorHex)"
                                 (colorChange)="onLavaHex($event)">
                             </app-mini-color-picker>
                         </div>
@@ -225,11 +225,11 @@
     </div>
 </div>
 
-<div class="collapse shadow-sm position-absolute bottom-0 z-1" id="accessibilityUiPanel" [ngClass]="{'show': settingsService.displayAccessibilityControls }">
+<div class="collapse shadow-sm position-absolute bottom-0 z-1 pe-4" id="accessibilityUiPanel" [ngClass]="{'show': settingsService.displayAccessibilityControls }">
     <div class="accessibility-controls-interface autofade d-flex gap-2 collapse flex-row p-2 border-top-right-radius-rounded align-items-center">
         <i class="bi bi-person-wheelchair fs-2 mx-auto"></i>
         <div class="d-flex align-items-center flex-row flex-wrap column-gap-4 row-gap-2">
-            <div class="d-flex flew-row flex-wrap column-gap-3 row-gap-2 align-items-center">
+            <div class="d-flex flew-row flex-wrap column-gap-4 column-gap-sm-3 row-gap-2 align-items-center">
                 <div class="d-flex flew-row gap-2 align-items-center">
                     <p class="m-0 accessibility-control-label">Rotate</p>
                     <button type="button" [attr.data-bs-theme]="themeService.theme"
@@ -255,7 +255,7 @@
                     </button>
                 </div>
             </div>
-            <div class="d-flex flew-row column-gap-3 row-gap-2 align-items-center flex-wrap">
+            <div class="d-flex flew-row column-gap-4 column-gap-sm-3 row-gap-2 align-items-center flex-wrap">
                 <div class="d-flex flew-row gap-2 align-items-center">
                     <p class="m-0 accessibility-control-label">Zoom</p>
                     <button type="button" [attr.data-bs-theme]="themeService.theme"
