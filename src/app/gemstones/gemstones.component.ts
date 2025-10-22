@@ -60,4 +60,12 @@ export class GemstonesComponent {
     this.activeSceneSub?.unsubscribe();
     this.activeScenePausedSub?.unsubscribe();
   }
+
+  areSettingsOpen(): boolean {
+    const lampControls = document.querySelector('.lamp-controls-ui')
+    if (lampControls) {
+      return lampControls.classList.contains("show");
+    }
+    return false;
+  }
 }

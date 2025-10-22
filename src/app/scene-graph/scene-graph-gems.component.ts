@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, effect, OnDestroy, ViewChildren, QueryList, viewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, effect, OnDestroy, ViewChildren, QueryList, viewChild, signal, viewChildren } from '@angular/core';
 import { injectStore, extend, NgtArgs, injectBeforeRender } from 'angular-three';
 import { EXRLoader, OrbitControls } from 'three-stdlib';
 import { NgtsAdaptiveDpr } from 'angular-three-soba/performances';
@@ -17,6 +17,9 @@ import { calculateGemValue, classifyGem, gemRandomFall, gemRandomPosition, gemRa
 import { SettingsService } from '../services/settings.service';
 import { GemsService } from '../services/gems.service';
 import { PerformanceService } from '../services/performance.service';
+import { NgtrCuboidCollider, NgtrPhysics } from 'angular-three-rapier';
+import { NgtcPhysics } from 'angular-three-cannon';
+import { Floor } from '../floor/floor.component';
 
 extend({ OrbitControls });
 
@@ -25,10 +28,15 @@ extend({ OrbitControls });
     <ngt-ambient-light [intensity]="1 * Math.PI"/>
         <ngt-directional-light [position]="[-10, 0, -5]" [intensity]=".25 * Math.PI" color="white" />
         <ngt-directional-light [position]="[-1, -2, 5]" [intensity]=".75 * Math.PI" color="white" />
-
-    @for (p of gemProperties; track $index) {
-      <gemstone [(position)]="p.position" [color]="p.color" [roughness]="p.roughness" [rotation]="p.rotation" [scale]="p.scale" [spin]="p.spin" [fall]="p.fall" [topY]="p.topY" [valuation]="p.valuation" />
-		}
+    <ngtc-physics [options]="{ gravity: [0, -.05, 0], isPaused: isPaused() }">
+      <app-floor/>
+      @if (gemProperties?.length) {
+          @for (p of gemProperties; track $index) {
+            <gemstone [position]="p.position" [color]="p.color" [roughness]="p.roughness" [scale]="p.scale" [topY]="p.topY" [valuation]="p.valuation" />
+          }
+      }
+    </ngtc-physics>
+    
     
     <ngtp-effect-composer [options]="{ multisampling: 2 }">
 		<ngtp-bloom [options]="{ kernelSize: 4, luminanceThreshold: .9, luminanceSmoothing: .9, intensity: 3 }" />
@@ -42,12 +50,15 @@ extend({ OrbitControls });
   `,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Gemstone, NgtArgs, NgtsBakeShadows, NgtsOrbitControls, NgtpEffectComposer, NgtpBloom, NgtsAdaptiveDpr],
+  imports: [Gemstone, NgtArgs, NgtsBakeShadows, NgtsOrbitControls, NgtpEffectComposer, NgtpBloom, NgtsAdaptiveDpr, NgtcPhysics, Floor],
 })
 export class SceneGraphGems implements OnDestroy {
-  GEMS_COUNT = 600;
+  GEMS_COUNT = 400;
 
   topY: number = 2;
+  
+  // grav: number[] = [0, -1, 0];
+  // gravity = signal(this.grav);
 
   @ViewChildren(Gemstone) gemstoneComponents!: QueryList<Gemstone>;
 
@@ -75,11 +86,16 @@ export class SceneGraphGems implements OnDestroy {
   needsRandomColorsUpdateSub?: Subscription;
   settingsSub?: Subscription;
   gemsSub?: Subscription;
+  activeSceneSub?: Subscription;
   activeScenePausedSub?: Subscription;
   rotateCameraSub?: Subscription;
   zoomCameraSub?: Subscription;
   
   orbitControls?: OrbitControls;
+  
+  cubes = viewChildren(Gemstone);
+  
+  isPaused = signal(false)
 
   constructor(
     private themeService: ThemeService,
@@ -112,7 +128,7 @@ export class SceneGraphGems implements OnDestroy {
 
     this.gemsSub = this.gemsService.totalValueDirty$.subscribe(t => {
       if (t === true) {
-        this.calculateStats();
+        queueMicrotask(() => this.calculateStats());
         this.gemsService.setTotalValueDirty(false);
       }
     });
@@ -144,9 +160,10 @@ export class SceneGraphGems implements OnDestroy {
       if (this.gemstoneComponents) {
         this.gemstoneComponents.forEach((g) => {
           g.setColorFast(c);
+          g.valuation.set(calculateGemValue(g.scale(), c, g.roughness()));
         });
         invalidate();
-        queueMicrotask(() => this.calculateStats());
+        this.gemsService.setTotalValueDirty(true);
       }
     });
     
@@ -154,10 +171,12 @@ export class SceneGraphGems implements OnDestroy {
     .subscribe(c => {
       if (this.gemstoneComponents) {
         this.gemstoneComponents.forEach((g) => {
-          g.setColorFast(getRandomColor());
+          const c = getRandomColor();
+          g.setColorFast(c);
+          g.valuation.set(calculateGemValue(g.scale(), c, g.roughness()));
         });
         invalidate();
-        queueMicrotask(() => this.calculateStats());
+        this.gemsService.setTotalValueDirty(true);
         this.lampService.setNeedRandomColorsUpdate(false);
       }
     });
@@ -200,11 +219,23 @@ export class SceneGraphGems implements OnDestroy {
     
     this.activeScenePausedSub = this.performanceService.activeScenePaused$.subscribe(b => {
       if (this.performanceService.activeScene === 'GEMS' && !b) {
+        this.isPaused.set(false);
         setTimeout(() => {
             invalidate();
           }, 0);
+      } else if (this.performanceService.activeScene === 'GEMS' && b) {
+        this.isPaused.set(true);
       }
     });
+    
+    this.activeSceneSub = this.performanceService.activeScene$.subscribe(active => {
+      if (active !== 'GEMS') {
+        this.isPaused.set(true);
+      } else {
+        if (!this.performanceService.activeScenePaused)
+          this.isPaused.set(false);
+      }
+    })
   }
   
   setGemColor(g: Gemstone, c: Color) {
@@ -248,7 +279,7 @@ export class SceneGraphGems implements OnDestroy {
   private setStartView = effect(() => {
     const cam = this.camera();
     if (!cam) return;
-    cam.position.set(0, -1, -4);
+    cam.position.set(0, 0, -4);
 
     cam.updateProjectionMatrix?.();
   });
@@ -261,6 +292,7 @@ export class SceneGraphGems implements OnDestroy {
     this.activeScenePausedSub?.unsubscribe();
     this.rotateCameraSub?.unsubscribe();
     this.zoomCameraSub?.unsubscribe();
+    this.activeSceneSub?.unsubscribe();
   }
 
   calculateStats() {

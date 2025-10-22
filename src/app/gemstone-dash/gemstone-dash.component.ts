@@ -9,6 +9,7 @@ import { LampService } from '../services/lamp.service';
 import { getDefaultTheme, Theme, ThemeService } from '../services/theme.service';
 import { LanguageService } from '../services/language.service';
 import { language } from '../../translations/language';
+import { PerformanceService } from '../services/performance.service';
 
 Chart.register(DoughnutController, LineController, ArcElement, CategoryScale, LinearScale, PointElement, LineElement, ChartDataLabels, Filler);
 
@@ -16,8 +17,7 @@ Chart.register(DoughnutController, LineController, ArcElement, CategoryScale, Li
   selector: 'gemstone-dash',
   templateUrl: './gemstone-dash.component.html',
   styleUrls: ['./gemstone-dash.component.scss'],
-  imports: [MatTooltip, CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [MatTooltip, CommonModule]
 })
 export class GemstoneDashComponent implements OnDestroy {
 
@@ -55,7 +55,8 @@ export class GemstoneDashComponent implements OnDestroy {
     private gemsService: GemsService, 
     private lampService: LampService,
     public themeService: ThemeService,
-    public languageService: LanguageService) {
+    public languageService: LanguageService,
+    public performanceService: PerformanceService) {
   }
   ngOnDestroy(): void {
     this.gemsSubTotalValue?.unsubscribe()
@@ -183,7 +184,7 @@ export class GemstoneDashComponent implements OnDestroy {
         responsive: true,
         maintainAspectRatio: false,
         animation: {
-          duration: 100
+          duration: 0
         },
         scales: {
           x: {
@@ -262,5 +263,17 @@ export class GemstoneDashComponent implements OnDestroy {
   
   trackById(index: number, item: any) {
     return item.id ?? item.timestamp ?? index;
+  }
+  
+  toggleData() {
+    if (this.performanceService.activeScene !== "GEMS")
+      this.performanceService.setActiveScene("GEMS");
+    if (this.performanceService.activeScene === "GEMS") {
+      if (this.performanceService.activeScenePaused) {
+        this.performanceService.setActiveScenePaused(false);
+      } else {
+        this.performanceService.setActiveScenePaused(true);
+      }
+    }
   }
 }

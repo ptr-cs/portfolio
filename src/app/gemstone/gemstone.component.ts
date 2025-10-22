@@ -1,8 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, input, model, NgZone, OnDestroy, Signal, signal, ViewChild, WritableSignal } from '@angular/core';
-import { applyProps, injectBeforeRender, NgtArgs, NgtPrimitive, NgtVector3 } from 'angular-three';
+import { ChangeDetectionStrategy, Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, ElementRef, EnvironmentInjector, input, model, NgZone, OnDestroy, runInInjectionContext, Signal, signal, viewChild, ViewChild, WritableSignal } from '@angular/core';
+import { applyProps, injectBeforeRender, NgtArgs, NgtPrimitive, NgtVector3, } from 'angular-three';
+import {
+	injectStore,
+	NgtEuler,
+	NgtObjectEvents,
+	NgtThreeEvent,
+} from 'angular-three';
 import { injectGLTF } from 'angular-three-soba/loaders';
 import { Subscription } from 'rxjs';
-import { Color, DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMaterial, Object3D, Vector3 } from 'three';
+import { Color, DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMaterial, Object3D, Sphere, Vector3 } from 'three';
 import { SkeletonUtils, ThreeMFLoader } from 'three-stdlib';
 import { LampService } from '../services/lamp.service';
 import { rand } from "../util/random-utils"
@@ -11,15 +17,24 @@ import { GemsService } from '../services/gems.service';
 import { environment } from '../../environments/environment';
 import { centerAtWorldOrigin } from '../util/three-utils';
 import { Obj } from '@popperjs/core';
+import { injectBox } from 'angular-three-cannon/body';
+import { NgtsCenter } from 'angular-three-soba/staging';
+import { NgtrRigidBody } from 'angular-three-rapier';
+import { Triplet } from '@pmndrs/cannon-worker-api';
 
 @Component({
   selector: 'gemstone',
   template: `
-        <ngt-primitive *args="[model()]" [position]="position()" [rotation]="rotation()" [scale]="scale()" [color]="color()" [roughness]="roughness()" [spin]="spin()" [fall]="fall()" [topY]="topY()" [valuation]="valuation()"/>
+  <ngt-mesh #mesh>
+    <ngts-center>
+      <ngt-primitive *args="[model()]" 
+          [color]="color()" [scale]="scale()" [roughness]="roughness()" [spin]="spin()" [fall]="fall()" [topY]="topY()" [valuation]="valuation()"/>
+    </ngts-center>
+  </ngt-mesh>
     `,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgtArgs],
+  imports: [NgtArgs, NgtsCenter],
   standalone: true,
 })
 export class Gemstone {
@@ -31,6 +46,8 @@ export class Gemstone {
   roughness = model<number>(0);
   scale = model<number>(1);
   topY = model<number>(0);
+  
+  rand = rand;
   
   gltf = injectGLTF(() => environment.diamondUrl);
   diamondObj?: Object3D;
@@ -44,10 +61,33 @@ export class Gemstone {
   resetThreshold = -1.5;
 
   axis = new Vector3(1, 1, 0).normalize();
+  
+  meshRef = viewChild.required<ElementRef<Mesh>>('mesh');
+
+  boxApi = injectBox(
+    () => ({ mass: .5, position: this.position() as Triplet, rotation: [0.4, 0.2, 0.5], args: [1, 1, 1], onCollide: (e: any) => this.onCollide(e) }),
+    this.meshRef,
+  );
+  
+  private onCollide(e: any) {
+    const other = e.body;
+    const isFloor = other?.userData?.type === 'floor'; 
+    if (!isFloor) return;
+
+    const api = this.boxApi()!;
+
+    this.randomize();
+    this.gemsService.setTotalValueDirty(true);
+    if (this.gemsService.recentlyAdded.length >= 3)
+      this.gemsService.shiftRecentlyAdded();
+    this.gemsService.addToRecentlyAdded({"type": classifyGem(this.color()!), "scale": this.scale(), "roughness": this.roughness(), "value": this.valuation().toFixed(2), "timestamp": new Date()});
+    api.position.set(this.meshRef().nativeElement.position.x, 10, this.meshRef().nativeElement.position.z)
+    
+  }
 
   protected model = computed(() => {
     const gltf = this.gltf();
-    if (!gltf) return null;
+    if (!gltf) return null
     
     // if the 3D model is a placeholder, we are loading the objects within 
     // the placeholder scene instead of the typical scene:
@@ -62,8 +102,6 @@ export class Gemstone {
 
     const diamondObj = root.children.find(c => c.name === objectKey);
     this.diamondObj = diamondObj!;
-    this.diamondObj.position.setY(this.diamondObj.position.y - this.fall()! * rand(0, 4000))
-    this.diamondObj.rotateOnAxis(this.axis, this.spin()! * rand(0, 1000))
 
     // bind the clone references to allow independent manipulation of clone materials
     this.bindCloneRefs(root);
@@ -81,7 +119,7 @@ export class Gemstone {
     });
   }
 
-  constructor(private lampService: LampService, private gemsService: GemsService, private zone: NgZone) {
+  constructor(private lampService: LampService, private gemsService: GemsService, private zone: NgZone, private env: EnvironmentInjector) {
     
     effect(() => {
       this.initialPosition = this.position();
@@ -90,31 +128,13 @@ export class Gemstone {
     });
 
     const now = new Date();
-
-    injectBeforeRender(({ delta }) => {
-      if (this.diamondObj) {
-        this.diamondObj.position.y -= this.fallVal;
-
-        this.diamondObj.rotateOnAxis(this.axis, this.spinVal);
-        if (this.diamondObj.position.y <= this.resetThreshold) {
-          this.diamondObj.position.set(0, 0, 0);
-          this.randomize();
-          this.gemsService.setTotalValueDirty(true);
-          if (this.gemsService.recentlyAdded.length >= 3)
-            this.gemsService.shiftRecentlyAdded();
-          this.gemsService.addToRecentlyAdded({"type": classifyGem(this.color()!), "scale": this.scale(), "roughness": this.roughness(), "value": this.valuation().toFixed(2), "timestamp": new Date()});
-        }
-      }
-    });
+    
   }
   
   randomize(colorOverride: Color | undefined = undefined) {
     let s = gemRandomScale();
     let c = this.lampService.type !== 'none' ? this.lampService.color : gemRandomColor();
     let r = gemRandomRoughness();
-    this.rotation.set([0,0,0]);
-    this.fall.set(gemRandomFall());
-    this.spin.set(gemRandomSpin());
     this.scale.set(s);
     this.color.set(c);
     this.roughness.set(r);

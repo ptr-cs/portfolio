@@ -2,8 +2,9 @@ import { Color } from "three";
 import { rand } from "./random-utils"
 import { getRandomColor } from "./three-utils";
 
-const GEM_SPREAD_X: number = 6;
-const GEM_SPREAD_Z: number = 1;
+const GEM_SPREAD_X: number = 10;
+const GEM_SPREAD_Y: number = 10;
+const GEM_SPREAD_Z: number = 5;
 const GEM_MIN_FALL: number = .0001;
 const GEM_MAX_FALL: number = .0004;
 const GEM_MIN_SPIN: number = .001;
@@ -14,7 +15,7 @@ const GEM_MIN_ROUGHNESS: number = .4;
 const GEM_MAX_ROUGHNESS: number = .5;
 
 export function gemRandomPosition(): number[] {
-    return [rand(-GEM_SPREAD_X, GEM_SPREAD_X), 8, rand(-GEM_SPREAD_Z, GEM_SPREAD_Z)] 
+    return [rand(-GEM_SPREAD_X, GEM_SPREAD_X), rand(GEM_SPREAD_Y,-GEM_SPREAD_Y * 2), rand(-GEM_SPREAD_Z, GEM_SPREAD_Z)] 
 }
 
 export function gemRandomScale(): number {
