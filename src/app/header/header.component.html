@@ -5,7 +5,7 @@
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="bi bi-list"></i></button>
     <div class="collapse navbar-collapse gap-1" id="navbarSupportedContent" #navbarContent>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder d-flex flex-column flex-sm-row flex-lg-row column-gap-4">
         <li class="nav-item"><a class="nav-link" href="#home"><i class="bi bi-house-door me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuHome)}}</a></li>
         <li *ngIf="languageService.translationData?.resume" class="nav-item"><a class="nav-link" href="#resumeInfo"><i class="bi bi-file-earmark-text me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuResume)}}</a></li>
         <li class="nav-item"><a class="nav-link" href="#contactInfo"><i class="bi bi-envelope me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuContact)}}</a></li>
@@ -22,7 +22,7 @@
             {{languageService.getText(languageService.translationData?.header?.language)}}
           </div>
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu language-menu">
           <li *ngFor="let language of languageService.translationData?.languages">
             <button class="dropdown-item d-flex align-items-center gap-2" (click)="languageService.setLanguage(language)">
               <span class="fi" [ngClass]="languageService.getFlagClass(language)"></span> {{languageService.getText(language)}}

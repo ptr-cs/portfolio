@@ -271,8 +271,10 @@ export class GemstoneDashComponent implements OnDestroy {
     if (this.performanceService.activeScene === "GEMS") {
       if (this.performanceService.activeScenePaused) {
         this.performanceService.setActiveScenePaused(false);
+        this.performanceService.setPausedFromGemsDash(false);
       } else {
         this.performanceService.setActiveScenePaused(true);
+        this.performanceService.setPausedFromGemsDash(true);
       }
     }
   }

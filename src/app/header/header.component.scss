@@ -9,3 +9,8 @@
 .navbar-toggler:focus {
     box-shadow: var(--bs-btn-focus-box-shadow);
 }
+
+.language-menu {
+    max-height: 200px;
+    overflow-y: scroll;
+}

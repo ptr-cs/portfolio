@@ -37,9 +37,9 @@ export class LavaLampWallComponent {
         this.frameloop.set("demand")
      });
      
-     this.activeScenePausedSub = this.performanceService.activeScenePaused$.subscribe(b => {
+     this.activeScenePausedSub = this.performanceService.activeScenePaused$.subscribe(paused => {
       if (this.performanceService.activeScene === 'LAVA_WALL') {
-        if (b) {
+        if (paused) {
           this.frameloop.set("demand");
         } else {
           this.frameloop.set("always");

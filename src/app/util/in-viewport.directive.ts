@@ -31,13 +31,17 @@ export class InViewportDirective implements OnInit, OnDestroy {
           const inView = entry.isIntersecting && entry.intersectionRatio > 0;
           this.intersect.emit(entry);
           if (inView) {
-            if (entry.target.id === "home")
-                this.performanceService.setActiveScene("LAVA_SINGLE")
-            else if (entry.target.id === "lavaLampWall")
-                this.performanceService.setActiveScene("LAVA_WALL")
-            else if (entry.target.id === "gemstones")
-                this.performanceService.setActiveScene("GEMS")
-            this.performanceService.setActiveScenePaused(false);
+            if (entry.target.id === "home") {
+              this.performanceService.setActiveScene("LAVA_SINGLE") 
+              this.performanceService.setActiveScenePaused(false);
+            } else if (entry.target.id === "lavaLampWall") {
+              this.performanceService.setActiveScene("LAVA_WALL")
+              this.performanceService.setActiveScenePaused(false);
+            } else if (entry.target.id === "gemstones") {
+              this.performanceService.setActiveScene("GEMS")
+              if (this.performanceService.pausedFromGemsDash === false)
+                this.performanceService.setActiveScenePaused(false);
+            }
             this.inViewportChange.emit(true);
             this.entered.emit();
           } else {

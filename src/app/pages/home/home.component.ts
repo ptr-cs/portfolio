@@ -65,6 +65,10 @@ export class HomeComponent implements OnDestroy {
     document.addEventListener('mozfullscreenchange', this.onFullscreenChange);
     document.addEventListener('MSFullscreenChange', this.onFullscreenChange);
   }
+  
+  ngAfterViewInit(): void {
+    this.performanceService.setActiveScene("LAVA_SINGLE");
+  }
 
   ngOnDestroy(): void {
     this.scrollSpy?.dispose();
