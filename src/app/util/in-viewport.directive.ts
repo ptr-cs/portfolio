@@ -30,7 +30,7 @@ export class InViewportDirective implements OnInit, OnDestroy {
           const entry = entries[0];
           const inView = entry.isIntersecting && entry.intersectionRatio > 0;
           this.intersect.emit(entry);
-          if (inView) {
+          if (inView && this.performanceService.homeLoaded === true) {
             if (entry.target.id === "home") {
               this.performanceService.setActiveScene("LAVA_SINGLE") 
               this.performanceService.setActiveScenePaused(false);

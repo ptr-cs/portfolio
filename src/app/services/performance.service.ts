@@ -13,6 +13,9 @@ export class PerformanceService {
   
   private _pausedFromGemsDash$ = new BehaviorSubject<boolean>(false);
   readonly pausedFromGemsDash$ = this._pausedFromGemsDash$.asObservable();
+  
+  private _homeLoaded$ = new BehaviorSubject<boolean>(false);
+  readonly homeLoaded$ = this._homeLoaded$.asObservable();
 
   get activeScene(): ACTIVE_SCENE_KEY {
     return this._activeScene$.value;
@@ -43,6 +46,16 @@ export class PerformanceService {
   setPausedFromGemsDash(q: boolean): void {
     if (q !== this._pausedFromGemsDash$.value) {
       this._pausedFromGemsDash$.next(q);
+    }
+  }
+  
+  get homeLoaded(): boolean {
+    return this._homeLoaded$.value;
+  }
+
+  setHomeLoaded(q: boolean): void {
+    if (q !== this._homeLoaded$.value) {
+      this._homeLoaded$.next(q);
     }
   }
 }
