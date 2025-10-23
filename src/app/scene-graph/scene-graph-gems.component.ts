@@ -13,13 +13,16 @@ import { getRandomColor } from '../util/three-utils';
 import { ThemeService } from '../services/theme.service';
 import city from '@pmndrs/assets/hdri/city.exr'
 import Stats from 'stats-gl'
-import { calculateGemValue, classifyGem, gemRandomFall, gemRandomPosition, gemRandomRoughness, gemRandomScale, gemRandomSpin } from '../util/gemstone-utils';
+import { calculateGemValue, classifyGem, gemRandomFall, gemRandomPosition, gemRandomRotation, gemRandomRoughness, gemRandomScale, gemRandomSpin } from '../util/gemstone-utils';
 import { SettingsService } from '../services/settings.service';
 import { GemsService } from '../services/gems.service';
 import { PerformanceService } from '../services/performance.service';
 import { NgtrCuboidCollider, NgtrPhysics } from 'angular-three-rapier';
 import { NgtcPhysics } from 'angular-three-cannon';
 import { Floor } from '../floor/floor.component';
+import { NgtcDebug } from 'angular-three-cannon/debug';
+import { Wall } from '../wall/wall.component';
+import { rand } from '../util/random-utils';
 
 extend({ OrbitControls });
 
@@ -28,11 +31,19 @@ extend({ OrbitControls });
     <ngt-ambient-light [intensity]="1 * Math.PI"/>
         <ngt-directional-light [position]="[-10, 0, -5]" [intensity]=".25 * Math.PI" color="white" />
         <ngt-directional-light [position]="[-1, -2, 5]" [intensity]=".75 * Math.PI" color="white" />
-    <ngtc-physics [options]="{ gravity: [0, -.05, 0], isPaused: isPaused() }">
-      <app-floor/>
+    <ngtc-physics [options]="{ gravity: [0, -.05, 0], isPaused: isPaused() }" [debug]="{ enabled: false, color: 'red', scale: 1.1 }">
+      
+      <app-floor [position]="[0, 7, 0]" [rotation]="[Math.PI / 2, 0, 0]" [floorType]="'ceiling'"/>
+      <app-wall [position]="[12.5, -6.5, 0]" [rotation]="[0, Math.PI / 2, 0]"></app-wall>
+      <app-wall [position]="[-12.5, -6.5, 0]" [rotation]="[0, Math.PI / 2, 0]"></app-wall>
+      <app-wall [position]="[0, -6.5, 12.5]" [rotation]="[0, Math.PI, 0]"></app-wall>
+      <app-wall [position]="[0, -6.5, -12.5]" [rotation]="[0, Math.PI, 0]"></app-wall>
+      <app-floor [position]="[0, -20, 0]" [rotation]="[-Math.PI / 2, 0, 0]" [floorType]="'floor'"/>
+      
+
       @if (gemProperties?.length) {
           @for (p of gemProperties; track $index) {
-            <gemstone [position]="p.position" [color]="p.color" [roughness]="p.roughness" [scale]="p.scale" [topY]="p.topY" [valuation]="p.valuation" />
+            <gemstone [position]="p.position" [rotation]="p.rotation" [color]="p.color" [roughness]="p.roughness" [scale]="p.scale" [topY]="p.topY" [valuation]="p.valuation" />
           }
       }
     </ngtc-physics>
@@ -50,15 +61,12 @@ extend({ OrbitControls });
   `,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Gemstone, NgtArgs, NgtsBakeShadows, NgtsOrbitControls, NgtpEffectComposer, NgtpBloom, NgtsAdaptiveDpr, NgtcPhysics, Floor],
+  imports: [Gemstone, NgtArgs, NgtsBakeShadows, NgtsOrbitControls, NgtpEffectComposer, NgtpBloom, NgtsAdaptiveDpr, NgtcPhysics, NgtcDebug, Floor, Wall],
 })
 export class SceneGraphGems implements OnDestroy {
   GEMS_COUNT = 400;
 
-  topY: number = 2;
-  
-  // grav: number[] = [0, -1, 0];
-  // gravity = signal(this.grav);
+  topY: number = 1.5;
 
   @ViewChildren(Gemstone) gemstoneComponents!: QueryList<Gemstone>;
 
@@ -115,7 +123,7 @@ export class SceneGraphGems implements OnDestroy {
       const val = calculateGemValue(scale, color, roughness);
       this.gemProperties.push({
         'position': gemRandomPosition(),
-        'rotation': [0, 0, 0],
+        'rotation': gemRandomRotation(),
         'scale': scale,
         'color': color,
         'roughness': roughness,

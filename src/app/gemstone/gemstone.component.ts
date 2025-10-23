@@ -65,7 +65,7 @@ export class Gemstone {
   meshRef = viewChild.required<ElementRef<Mesh>>('mesh');
 
   boxApi = injectBox(
-    () => ({ mass: .5, position: this.position() as Triplet, rotation: [0.4, 0.2, 0.5], args: [1, 1, 1], onCollide: (e: any) => this.onCollide(e) }),
+    () => ({ mass: 1, position: this.position() as Triplet, rotation: this.rotation() as Triplet, args: [1, 1, 1], onCollide: (e: any) => this.onCollide(e) }),
     this.meshRef,
   );
   
@@ -74,14 +74,15 @@ export class Gemstone {
     const isFloor = other?.userData?.type === 'floor'; 
     if (!isFloor) return;
 
-    const api = this.boxApi()!;
+    const api = this.boxApi();
+    if (!api) return;
 
     this.randomize();
     this.gemsService.setTotalValueDirty(true);
     if (this.gemsService.recentlyAdded.length >= 3)
       this.gemsService.shiftRecentlyAdded();
     this.gemsService.addToRecentlyAdded({"type": classifyGem(this.color()!), "scale": this.scale(), "roughness": this.roughness(), "value": this.valuation().toFixed(2), "timestamp": new Date()});
-    api.position.set(this.meshRef().nativeElement.position.x, 10, this.meshRef().nativeElement.position.z)
+    api.position.set(this.meshRef().nativeElement.position.x, 5, this.meshRef().nativeElement.position.z)
     
   }
 

@@ -4,18 +4,22 @@ import { getRandomColor } from "./three-utils";
 
 const GEM_SPREAD_X: number = 10;
 const GEM_SPREAD_Y: number = 10;
-const GEM_SPREAD_Z: number = 5;
+const GEM_SPREAD_Z: number = 10;
 const GEM_MIN_FALL: number = .0001;
 const GEM_MAX_FALL: number = .0004;
 const GEM_MIN_SPIN: number = .001;
 const GEM_MAX_SPIN: number = .01;
-const GEM_MIN_SCALE: number = 3;
-const GEM_MAX_SCALE: number = 30;
+const GEM_MIN_SCALE: number = 5;
+const GEM_MAX_SCALE: number = 50;
 const GEM_MIN_ROUGHNESS: number = .4;
 const GEM_MAX_ROUGHNESS: number = .5;
 
 export function gemRandomPosition(): number[] {
-    return [rand(-GEM_SPREAD_X, GEM_SPREAD_X), rand(GEM_SPREAD_Y,-GEM_SPREAD_Y * 2), rand(-GEM_SPREAD_Z, GEM_SPREAD_Z)] 
+    return [rand(-GEM_SPREAD_X, GEM_SPREAD_X), rand(-20,5), rand(-GEM_SPREAD_Z, GEM_SPREAD_Z)] 
+}
+
+export function gemRandomRotation(): number[] {
+    return [rand(0, Math.PI * 2), rand(0, Math.PI * 2), rand(0, Math.PI * 2)] 
 }
 
 export function gemRandomScale(): number {
