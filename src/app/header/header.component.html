@@ -4,13 +4,13 @@
     <button #navbarToggler class="btn btn-primary navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="bi bi-list"></i></button>
-    <div class="collapse navbar-collapse gap-1" id="navbarSupportedContent" #navbarContent>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder d-flex flex-column flex-sm-row flex-lg-row column-gap-4">
-        <li class="nav-item"><a class="nav-link" href="#home"><i class="bi bi-house-door me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuHome)}}</a></li>
-        <li *ngIf="languageService.translationData?.resume" class="nav-item"><a class="nav-link" href="#resumeInfo"><i class="bi bi-file-earmark-text me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuResume)}}</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contactInfo"><i class="bi bi-envelope me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuContact)}}</a></li>
+    <div class="collapse navbar-collapse gap-1 column-gap-4 justify-content-end" id="navbarSupportedContent" #navbarContent>
+      <ul class="navbar-nav mb-2 mb-lg-0 fw-bolder d-flex flex-column flex-sm-row flex-lg-row column-gap-4 justify-content-lg-center">
+        <li class="nav-item"><a class="nav-link text-nowrap" href="#home"><i class="bi bi-house-door me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuHome)}}</a></li>
+        <li *ngIf="languageService.translationData?.resume" class="nav-item text-nowrap"><a class="nav-link" href="#resumeInfo"><i class="bi bi-file-earmark-text me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuResume)}}</a></li>
+        <li class="nav-item"><a class="nav-link text-nowrap" href="#contactInfo"><i class="bi bi-envelope me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuContact)}}</a></li>
       </ul>
-      <div class="d-flex flex-wrap gap-2">
+      <div class="d-flex gap-2 flex-wrap flex-sm-nowrap">
         <button class="btn btn-primary text-nowrap flex-grow-1" type="button" aria-label="Toggle theme" (click)="toggleTheme()">
           <span *ngIf="themeService.theme === 'light'" class="d-flex gap-2"><i class="bi bi-sun"></i> {{languageService.getText(languageService.translationData?.header?.themeLight)}}</span>
           <span *ngIf="themeService.theme === 'dark'" class="d-flex gap-2"><i class="bi bi-moon"></i> {{languageService.getText(languageService.translationData?.header?.themeDark)}}</span>
