@@ -30,7 +30,7 @@ export class InViewportDirective implements OnInit, OnDestroy {
           const entry = entries[0];
           const inView = entry.isIntersecting && entry.intersectionRatio > 0;
           this.intersect.emit(entry);
-          if (inView && this.performanceService.homeLoaded === true) {
+          if (inView) {
             if (entry.target.id === "home") {
               this.performanceService.setActiveScene("LAVA_SINGLE") 
               this.performanceService.setActiveScenePaused(false);
@@ -41,13 +41,11 @@ export class InViewportDirective implements OnInit, OnDestroy {
               this.performanceService.setActiveScene("GEMS")
               if (this.performanceService.pausedFromGemsDash === false)
                 this.performanceService.setActiveScenePaused(false);
-            } 
-            this.inViewportChange.emit(true);
-            this.entered.emit();
-          } else if (inView && this.performanceService.homeLoaded === false) {
-            if (entry.target.id === "gemstonesDash" || entry.target.id === "contactInfo") {
+            } else if (entry.target.id === "gemstonesDash" || entry.target.id === "contactInfo") {
               this.performanceService.setActiveScene("GEMS");
             }
+            this.inViewportChange.emit(true);
+            this.entered.emit();
           } else {
             this.inViewportChange.emit(false);
             this.exited.emit();

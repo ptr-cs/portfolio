@@ -218,10 +218,34 @@ public supportedLanguages: {
         const language = translationEntry['en'];
         if (!language) return;
         
-        const languageEntry = this.supportedLanguages[language];
-
-        if (languageEntry) {
-            this.language = languageEntry.languageCode;
+        const entry = this.supportedLanguages[language];
+        
+        if (entry) {
+            this.language = entry.languageCode;
+            
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', this.language);
+            window.history.replaceState({}, '', url.toString());
+            
+            this.updateDocumentLang(entry.languageCode);
+        }
+    }
+    
+    setLanguageByCode(languageCode: string): void {
+        const entry = Object.values(this.supportedLanguages).find(
+            lang => lang.languageCode === languageCode
+        );
+        
+        if (!entry) return;
+        
+        if (entry) {
+            this.language = languageCode;
+            
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', this.language);
+            window.history.replaceState({}, '', url.toString());
+            
+            this.updateDocumentLang(entry.languageCode);
         }
     }
     
@@ -242,5 +266,26 @@ public supportedLanguages: {
         if (!entry) return "";
 
         return `${entry.languageCode}-${entry.countryCode}`;
+    }
+    
+    applyLanguageFromUrl(): void {
+        const url = new URL(window.location.href);
+        const langParam = url.searchParams.get('lang');
+
+        if (!langParam) return;
+
+        const entry = Object.values(this.supportedLanguages).find(
+            (lang: any) => lang.languageCode === langParam
+        );
+        if (entry) {
+            this.setLanguageByCode(entry.languageCode);
+        }
+    }
+    
+    private updateDocumentLang(languageCode: string): void {
+        const html = document.documentElement;
+        if (!html) return;
+
+        html.setAttribute('lang', languageCode);
     }
 }

@@ -68,9 +68,11 @@ export class HomeComponent implements OnDestroy {
   
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.performanceService.setHomeLoaded(true);
       this.performanceService.setActiveScene(this.performanceService.activeScene);
     }, 250);
+    setTimeout(() => {
+      this.languageService.applyLanguageFromUrl();
+    }, 0);
   }
 
   ngOnDestroy(): void {
