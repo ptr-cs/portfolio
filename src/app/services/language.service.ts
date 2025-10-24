@@ -38,6 +38,7 @@ export interface TranslationData {
         publicationsHeader: TranslationEntry;
         educationHeader: TranslationEntry;
         highlightsHeader: TranslationEntry;
+        skillsHeader: TranslationEntry;
         experience: {
             duration: TranslationEntry;
             role: TranslationEntry;
