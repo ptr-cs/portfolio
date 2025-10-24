@@ -69,7 +69,7 @@ export class HomeComponent implements OnDestroy {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.performanceService.setHomeLoaded(true);
-      this.performanceService.setActiveScene("LAVA_SINGLE");
+      this.performanceService.setActiveScene(this.performanceService.activeScene);
     }, 250);
   }
 

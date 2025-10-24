@@ -19,7 +19,7 @@ export class InViewportDirective implements OnInit, OnDestroy {
   @Output() exited = new EventEmitter<void>();
 
   private io?: IntersectionObserver;
-
+  
   constructor(private el: ElementRef<HTMLElement>, private zone: NgZone, private performanceService: PerformanceService) {}
 
   ngOnInit(): void {
@@ -41,9 +41,13 @@ export class InViewportDirective implements OnInit, OnDestroy {
               this.performanceService.setActiveScene("GEMS")
               if (this.performanceService.pausedFromGemsDash === false)
                 this.performanceService.setActiveScenePaused(false);
-            }
+            } 
             this.inViewportChange.emit(true);
             this.entered.emit();
+          } else if (inView && this.performanceService.homeLoaded === false) {
+            if (entry.target.id === "gemstonesDash" || entry.target.id === "contactInfo") {
+              this.performanceService.setActiveScene("GEMS");
+            }
           } else {
             this.inViewportChange.emit(false);
             this.exited.emit();
