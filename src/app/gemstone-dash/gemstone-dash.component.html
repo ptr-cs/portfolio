@@ -2,7 +2,7 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
             <div class="container-fluid p-0">
-                <div class="text-center mb-5 d-flex flex-row gap-4 align-items-center justify-content-center">
+                <div class="text-center mb-5 d-flex flex-row flex-wrap gap-4 align-items-center justify-content-center">
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.gems?.gemsData)}}</span></h1>
                     <button *ngIf="performanceService.activeScene === 'GEMS'" type="button" class="btn btn-primary d-flex flex-row flex-nowrap gap-1 align-items-center" (click)="toggleData()" [matTooltip]="!performanceService.activeScenePaused ? languageService.getText(languageService.translationData?.gems?.pauseData) : languageService.getText(languageService.translationData?.gems?.resumeData)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateScene="matTooltip">
@@ -18,14 +18,14 @@
                             <div class="card-body">
                                 <div class="row g-0 align-items-center">
                                     <div class="col me-2">
-                                        <div class="mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><span>{{languageService.getText(languageService.translationData?.gems?.totalValue)}}</span> <button type="button"
+                                        <div class="mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><h6 class="fw-bold mb-0">{{languageService.getText(languageService.translationData?.gems?.totalValue)}}</h6> <button type="button"
                                             class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                                             [matTooltip]="languageService.getText(languageService.translationData?.gems?.totalValueTooltip)"
                                             matTooltipClass="bg-body border rounded shadow-sm" #tooltipTotalValue="matTooltip"
                                             (click)="tooltipTotalValue.show()" [attr.data-bs-theme]="themeService.theme">
                                             <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
                                         </button></div>
-                                        <div class="mb-0 fw-bold h5"><span>{{ totalValueString() }}</span></div>
+                                        <div class="mb-0 fw-bold fs-5"><span class="jetBrainsMono">{{ totalValueString() }}</span></div>
                                         
                                     </div>
                                     <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
@@ -38,14 +38,14 @@
                             <div class="card-body">
                                 <div class="row g-0 align-items-center">
                                     <div class="col me-2">
-                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><span>{{languageService.getText(languageService.translationData?.gems?.averageValue)}}</span> <button type="button"
+                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><h6 class="fw-bold mb-0">{{languageService.getText(languageService.translationData?.gems?.averageValue)}}</h6> <button type="button"
                                             class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                                             [matTooltip]="languageService.getText(languageService.translationData?.gems?.averageValueTooltip)"
                                             matTooltipClass="bg-body border rounded shadow-sm" #toolTipAverageValue="matTooltip"
                                             (click)="toolTipAverageValue.show()" [attr.data-bs-theme]="themeService.theme">
                                             <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
                                         </button></div>
-                                        <div class="mb-0 fw-bold h5"><span>{{ averageValueString() }}</span></div>
+                                        <div class="mb-0 fw-bold fs-5"><span class="jetBrainsMono">{{ averageValueString() }}</span></div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
                                 </div>
@@ -57,7 +57,7 @@
                             <div class="card-body">
                                 <div class="row g-0 align-items-center">
                                     <div class="col me-2">
-                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><span>{{languageService.getText(languageService.translationData?.gems?.averageSize)}}</span> <button type="button"
+                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><h6 class="fw-bold mb-0">{{languageService.getText(languageService.translationData?.gems?.averageSize)}}</h6> <button type="button"
                                             class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                                             [matTooltip]="languageService.getText(languageService.translationData?.gems?.averageSizeTooltip)"
                                             matTooltipClass="bg-body border rounded shadow-sm" #toolTipAverageSize="matTooltip"
@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="row g-0 align-items-center">
                                             <div class="col-auto">
-                                                <div class="me-3 mb-0 fw-bold h5"><span>{{ averageScaleString() }}</span></div>
+                                                <div class="me-3 mb-0 fw-bold fs-5"><span class="jetBrainsMono">{{ averageScaleString() }}</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -82,14 +82,14 @@
                             <div class="card-body">
                                 <div class="row g-0 align-items-center">
                                     <div class="col me-2">
-                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><span>{{languageService.getText(languageService.translationData?.gems?.averageRoughness)}}</span> <button type="button"
+                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><h6 class="fw-bold mb-0">{{languageService.getText(languageService.translationData?.gems?.averageRoughness)}}</h6> <button type="button"
                                             class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                                             [matTooltip]="languageService.getText(languageService.translationData?.gems?.averageRoughnessTooltip)"
                                             matTooltipClass="bg-body border rounded shadow-sm" #toolTipAverageRoughness="matTooltip"
                                             (click)="toolTipAverageRoughness.show()" [attr.data-bs-theme]="themeService.theme">
                                             <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
                                         </button></div>
-                                        <div class="mb-0 fw-bold h5"><span>{{ averageRoughnessString() }}</span></div>
+                                        <div class="mb-0 fw-bold fs-5"><span class="jetBrainsMono">{{ averageRoughnessString() }}</span></div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
                                 </div>
@@ -169,7 +169,7 @@
                                     <li *ngFor="let item of mostRecentItems; trackBy: trackById" class="list-group-item">
                                         <div class="row g-0 align-items-center">
                                             <div class="col me-2">
-                                                <h6 class="mb-0"><strong>{{languageService.translateGemEntry(item.type)}}</strong> - {{ item.value | currency:'USD':'symbol':'1.2-2':languageService.language }}</h6><span class="text-xs text-muted">{{ languageService.getFormattedDate(item.timestamp) }}</span>
+                                                <p class="mb-0 fw-bolder fs-6"><span class="me-2"><strong class="gems-list-label d-inline-block">{{languageService.translateGemEntry(item.type)}}</strong> :</span> <span class="gems-list-value d-inline-block">{{ item.value | currency:'USD':'symbol':'1.2-2':languageService.language }}</span></p><span class="text-xs text-muted">{{ languageService.getFormattedDate(item.timestamp) }}</span>
                                             </div>
                                         </div>
                                     </li>
