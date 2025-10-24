@@ -135,7 +135,7 @@ export class SceneSettingsComponent implements OnDestroy {
                         return activity$.pipe(startWith(null), tap(show), debounceTime(2000));
                     })
                 )
-                .subscribe(() => hide());
+                .subscribe(() => !this.areSettingsOpen() ? hide() : null);
         });
         
         setTimeout(() => {
