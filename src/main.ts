@@ -11,6 +11,7 @@ import localeNo from '@angular/common/locales/no';
 import localeSv from '@angular/common/locales/sv';
 import localeDa from '@angular/common/locales/da';
 import localeFr from '@angular/common/locales/fr';
+import localeEs from '@angular/common/locales/es';
 
 bootstrapApplication(AppComponent, appConfig)
   //.catch((err) => console.error(err));
@@ -21,3 +22,4 @@ registerLocaleData(localeNo);
 registerLocaleData(localeSv);
 registerLocaleData(localeDa);
 registerLocaleData(localeFr);
+registerLocaleData(localeEs);

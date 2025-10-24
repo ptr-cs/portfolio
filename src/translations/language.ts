@@ -9,7 +9,8 @@ export const language = {
                 "no": "Engelsk",
                 "sv": "Engelska",
                 "da": "Engelsk",
-                "fr": "Anglais"
+                "fr": "Anglais",
+                "es": "Inglés"
             },
             {
                 "en": "Japanese",
@@ -19,7 +20,8 @@ export const language = {
                 "no": "japansk",
                 "sv": "japanska",
                 "da": "Japansk",
-                "fr": "japonais"
+                "fr": "japonais",
+                "es": "japonés"
             },
             {
                 "en": "German",
@@ -29,7 +31,8 @@ export const language = {
                 "no": "Tysk",
                 "sv": "Tyska",
                 "da": "Tysk",
-                "fr": "Allemand"
+                "fr": "Allemand",
+                "es": "Alemán"
             },
             {
                 "en": "Italian",
@@ -39,7 +42,8 @@ export const language = {
                 "no": "Italiensk",
                 "sv": "Italienska",
                 "da": "Italiensk",
-                "fr": "italien"
+                "fr": "italien",
+                "es": "italiano"
             },
             {
                 "en": "Norwegian",
@@ -49,7 +53,8 @@ export const language = {
                 "no": "norsk",
                 "sv": "norska",
                 "da": "Norsk",
-                "fr": "norvégien"
+                "fr": "norvégien",
+                "es": "noruego"
             },
             {
                 "en": "Swedish",
@@ -59,7 +64,8 @@ export const language = {
                 "no": "Svensk",
                 "sv": "Svenska",
                 "da": "Svensk",
-                "fr": "suédois"
+                "fr": "suédois",
+                "es": "sueco"
             },
             {
                 "en": "Danish",
@@ -69,7 +75,8 @@ export const language = {
                 "no": "Dansk",
                 "sv": "Danska",
                 "da": "Dansk",
-                "fr": "danois"
+                "fr": "danois",
+                "es": "danés"
             },
             {
                 "en": "French",
@@ -79,7 +86,19 @@ export const language = {
                 "no": "Fransk",
                 "sv": "franska",
                 "da": "Fransk",
-                "fr": "Français"
+                "fr": "Français",
+                "es": "Francés"
+            },
+            {
+                "en": "Spanish",
+                "ja": "スペイン語",
+                "de": "Spanisch",
+                "it": "spagnolo",
+                "no": "Spansk",
+                "sv": "Spanska",
+                "da": "Spansk",
+                "fr": "Espagnol",
+                "es": "Español"
             }
         ],
         "header": {
@@ -91,7 +110,8 @@ export const language = {
                 "no": "PTR-CS",
                 "sv": "PTR-CS",
                 "da": "PTR-CS",
-                "fr": "PTR-CS"
+                "fr": "PTR-CS",
+                "es": "PTR-CS"
             },
             "menuHome": {
                 "en": "Home",
@@ -101,7 +121,8 @@ export const language = {
                 "no": "Hjem",
                 "sv": "Hem",
                 "da": "Hjem",
-                "fr": "Maison"
+                "fr": "Maison",
+                "es": "Hogar"
             },
             "menuResume": {
                 "en": "Résumé",
@@ -111,7 +132,8 @@ export const language = {
                 "no": "Gjenoppta",
                 "sv": "Resume",
                 "da": "Genoptage",
-                "fr": "CV"
+                "fr": "CV",
+                "es": "Reanudar"
             },
             "menuContact": {
                 "en": "Contact",
@@ -121,7 +143,8 @@ export const language = {
                 "no": "Kontakt",
                 "sv": "Kontakta",
                 "da": "Kontakte",
-                "fr": "Contact"
+                "fr": "Contact",
+                "es": "Contacto"
             },
             "theme": {
                 "en": "Theme",
@@ -131,7 +154,8 @@ export const language = {
                 "no": "Tema",
                 "sv": "Tema",
                 "da": "Tema",
-                "fr": "Thème"
+                "fr": "Thème",
+                "es": "Tema"
             },
             "themeLight": {
                 "en": "Light",
@@ -141,7 +165,8 @@ export const language = {
                 "no": "Lys",
                 "sv": "Ljus",
                 "da": "Lys",
-                "fr": "Lumière"
+                "fr": "Lumière",
+                "es": "Luz"
             },
             "themeDark": {
                 "en": "Dark",
@@ -151,7 +176,8 @@ export const language = {
                 "no": "Mørk",
                 "sv": "Mörk",
                 "da": "Mørk",
-                "fr": "Sombre"
+                "fr": "Sombre",
+                "es": "Oscuro"
             },
             "language": {
                 "en": "Language",
@@ -161,7 +187,8 @@ export const language = {
                 "no": "Språk",
                 "sv": "Språk",
                 "da": "Sprog",
-                "fr": "Langue"
+                "fr": "Langue",
+                "es": "Idioma"
             },
             "gitHub": {
                 "en": "GitHub",
@@ -171,7 +198,8 @@ export const language = {
                 "no": "GitHub",
                 "sv": "GitHub",
                 "da": "GitHub",
-                "fr": "GitHub"
+                "fr": "GitHub",
+                "es": "GitHub"
             }
         },
         "home": {
@@ -183,7 +211,8 @@ export const language = {
                 "no": "Programvare · Nettsteder · Brukergrensesnitt/UX",
                 "sv": "Programvara · Webbplatser · UI/UX",
                 "da": "Software · Hjemmesider · UI/UX",
-                "fr": "Logiciels · Sites Web · UI/UX"
+                "fr": "Logiciels · Sites Web · UI/UX",
+                "es": "Software · Sitios web · UI/UX"
             },
             "hi": {
                 "en": "Hi, I'm Parker! I'm a",
@@ -193,7 +222,8 @@ export const language = {
                 "no": "Hei, jeg heter Parker! Jeg er en",
                 "sv": "Hej, jag heter Parker! Jag är en",
                 "da": "Hej, jeg er Parker! Jeg er en",
-                "fr": "Salut, je suis Parker ! Je suis un"
+                "fr": "Salut, je suis Parker ! Je suis un",
+                "es": "Hola, soy Parker. Soy un"
             },
             "softwareEngineer": {
                 "en": "Software Engineer and Computer Scientist",
@@ -203,7 +233,8 @@ export const language = {
                 "no": "Programvareingeniør og dataforsker",
                 "sv": "Mjukvaruingenjör och datavetare",
                 "da": "Softwareingeniør og datalog",
-                "fr": "Ingénieur logiciel et informaticien"
+                "fr": "Ingénieur logiciel et informaticien",
+                "es": "Ingeniero de software y científico informático"
             },
             "buttonResume": {
                 "en": "Résumé",
@@ -213,7 +244,8 @@ export const language = {
                 "no": "Gjenoppta",
                 "sv": "Resume",
                 "da": "Genoptage",
-                "fr": "CV"
+                "fr": "CV",
+                "es": "Reanudar"
             },
             "buttonContact": {
                 "en": "Contact",
@@ -223,7 +255,8 @@ export const language = {
                 "no": "Kontakt",
                 "sv": "Kontakta",
                 "da": "Kontakte",
-                "fr": "Contact"
+                "fr": "Contact",
+                "es": "Contacto"
             }
         },
         "gems": {
@@ -235,7 +268,41 @@ export const language = {
                 "no": "Edelstensdata",
                 "sv": "Ädelstensdata",
                 "da": "Gems-data",
-                "fr": "Données sur les gemmes"
+                "fr": "Données sur les gemmes",
+                "es": "Datos de gemas"
+            },
+            "data": {
+                "en": "Data",
+                "ja": "データ",
+                "de": "Daten",
+                "it": "Dati",
+                "no": "Data",
+                "sv": "Data",
+                "da": "Data",
+                "fr": "Données",
+                "es": "Datos"
+            },
+            "pauseData": {
+                "en": "Pause data",
+                "ja": "一時停止データ",
+                "de": "Daten pausieren",
+                "it": "Sospendi i dati",
+                "no": "Pause data",
+                "sv": "Pausa data",
+                "da": "Sæt data på pause",
+                "fr": "Mettre en pause les données",
+                "es": "Pausar datos"
+            },
+            "resumeData": {
+                "en": "Resume data",
+                "ja": "履歴書データ",
+                "de": "Lebenslaufdaten",
+                "it": "Riprendi i dati",
+                "no": "CV-data",
+                "sv": "CV-data",
+                "da": "CV-data",
+                "fr": "Données de CV",
+                "es": "Datos del currículum"
             },
             "totalValue": {
                 "en": "Total Value",
@@ -245,7 +312,8 @@ export const language = {
                 "no": "Totalverdi",
                 "sv": "Totalvärde",
                 "da": "Samlet værdi",
-                "fr": "Valeur totale"
+                "fr": "Valeur totale",
+                "es": "Valor total"
             },
             "totalValueTooltip": {
                 "en": "The total value of all gems currently within the 3D scene",
@@ -255,7 +323,8 @@ export const language = {
                 "no": "Den totale verdien av alle edelstener som for øyeblikket er i 3D-scenen",
                 "sv": "Det totala värdet av alla ädelstenar som för närvarande finns i 3D-scenen",
                 "da": "Den samlede værdi af alle ædelstene, der i øjeblikket er i 3D-scenen",
-                "fr": "La valeur totale de toutes les gemmes actuellement présentes dans la scène 3D"
+                "fr": "La valeur totale de toutes les gemmes actuellement présentes dans la scène 3D",
+                "es": "El valor total de todas las gemas que se encuentran actualmente en la escena 3D"
             },
             "averageValue": {
                 "en": "Average Value",
@@ -265,7 +334,8 @@ export const language = {
                 "no": "Gjennomsnittsverdi",
                 "sv": "Genomsnittligt värde",
                 "da": "Gennemsnitlig værdi",
-                "fr": "Valeur moyenne"
+                "fr": "Valeur moyenne",
+                "es": "Valor promedio"
             },
             "averageValueTooltip": {
                 "en": "The average (arithmetic mean) value of all gems currently within the 3D scene",
@@ -275,7 +345,8 @@ export const language = {
                 "no": "Den gjennomsnittlige (aritmetiske middelverdien) av alle edelstener som for øyeblikket er innenfor 3D-scenen",
                 "sv": "Det genomsnittliga (aritmetiska medelvärdet) värdet av alla ädelstenar som för närvarande finns i 3D-scenen",
                 "da": "Den gennemsnitlige (aritmetiske middelværdi) værdi af alle ædelsten, der i øjeblikket befinder sig i 3D-scenen",
-                "fr": "La valeur moyenne (moyenne arithmétique) de toutes les gemmes actuellement présentes dans la scène 3D"
+                "fr": "La valeur moyenne (moyenne arithmétique) de toutes les gemmes actuellement présentes dans la scène 3D",
+                "es": "El valor promedio (media aritmética) de todas las gemas que se encuentran actualmente dentro de la escena 3D"
             },
             "averageSize": {
                 "en": "Average Size",
@@ -285,7 +356,8 @@ export const language = {
                 "no": "Gjennomsnittlig størrelse",
                 "sv": "Genomsnittlig storlek",
                 "da": "Gennemsnitlig størrelse",
-                "fr": "Taille moyenne"
+                "fr": "Taille moyenne",
+                "es": "Tamaño promedio"
             },
             "averageSizeTooltip": {
                 "en": "The average (arithmetic mean) size of all gems currently within the 3D scene",
@@ -295,7 +367,8 @@ export const language = {
                 "no": "Den gjennomsnittlige (aritmetiske middelverdien) størrelsen på alle edelstener som for øyeblikket er innenfor 3D-scenen",
                 "sv": "Den genomsnittliga (aritmetiska medelvärdet) storleken på alla ädelstenar som för närvarande finns i 3D-scenen",
                 "da": "Den gennemsnitlige (aritmetiske middelværdi) størrelse af alle ædelsten, der i øjeblikket er i 3D-scenen",
-                "fr": "La taille moyenne (moyenne arithmétique) de toutes les gemmes actuellement présentes dans la scène 3D"
+                "fr": "La taille moyenne (moyenne arithmétique) de toutes les gemmes actuellement présentes dans la scène 3D",
+                "es": "El tamaño promedio (media aritmética) de todas las gemas que se encuentran actualmente en la escena 3D"
             },
             "averageRoughness": {
                 "en": "Average Roughness",
@@ -305,7 +378,8 @@ export const language = {
                 "no": "Gjennomsnittlig ruhet",
                 "sv": "Genomsnittlig grovhet",
                 "da": "Gennemsnitlig ruhed",
-                "fr": "Rugosité moyenne"
+                "fr": "Rugosité moyenne",
+                "es": "Rugosidad media"
             },
             "averageRoughnessTooltip": {
                 "en": "The average (arithmetic mean) material roughness ('shine') of all gems currently within the 3D scene",
@@ -315,7 +389,8 @@ export const language = {
                 "no": "Den gjennomsnittlige (aritmetiske middelverdien) materialruheten («glansen») til alle edelstener som for øyeblikket er innenfor 3D-scenen",
                 "sv": "Den genomsnittliga (aritmetiska medelvärdet) materialjämnheten (\"glans\") för alla ädelstenar som för närvarande finns i 3D-scenen",
                 "da": "Den gennemsnitlige (aritmetiske middelværdi) materialeruhed ('glans') for alle ædelsten, der i øjeblikket befinder sig i 3D-scenen.",
-                "fr": "La rugosité moyenne (moyenne arithmétique) du matériau (« brillance ») de toutes les gemmes actuellement présentes dans la scène 3D"
+                "fr": "La rugosité moyenne (moyenne arithmétique) du matériau (« brillance ») de toutes les gemmes actuellement présentes dans la scène 3D",
+                "es": "La rugosidad del material promedio (media aritmética) ('brillo') de todas las gemas que se encuentran actualmente en la escena 3D"
             },
             "distribution": {
                 "en": "Distribution",
@@ -325,7 +400,8 @@ export const language = {
                 "no": "Distribusjon",
                 "sv": "Distribution",
                 "da": "Fordeling",
-                "fr": "Distribution"
+                "fr": "Distribution",
+                "es": "Distribución"
             },
             "distributionTooltip": {
                 "en": "The distribution by type of all gems currently within the 3D scene",
@@ -335,7 +411,8 @@ export const language = {
                 "no": "Fordelingen etter type av alle edelstener som for øyeblikket er i 3D-scenen",
                 "sv": "Fördelningen efter typ av alla ädelstenar som för närvarande finns i 3D-scenen",
                 "da": "Fordelingen efter type af alle ædelsten, der i øjeblikket er inden for 3D-scenen",
-                "fr": "La répartition par type de toutes les gemmes actuellement présentes dans la scène 3D"
+                "fr": "La répartition par type de toutes les gemmes actuellement présentes dans la scène 3D",
+                "es": "La distribución por tipo de todas las gemas actualmente dentro de la escena 3D"
             },
             "diamond": {
                 "en": "Diamond",
@@ -345,7 +422,8 @@ export const language = {
                 "no": "Diamant",
                 "sv": "Diamant",
                 "da": "Diamant",
-                "fr": "Diamant"
+                "fr": "Diamant",
+                "es": "Diamante"
             },
             "sapphire": {
                 "en": "Sapphire",
@@ -355,7 +433,8 @@ export const language = {
                 "no": "Safir",
                 "sv": "Safir",
                 "da": "Safir",
-                "fr": "Saphir"
+                "fr": "Saphir",
+                "es": "Zafiro"
             },
             "ruby": {
                 "en": "Ruby",
@@ -365,7 +444,8 @@ export const language = {
                 "no": "Rubin",
                 "sv": "Rubin",
                 "da": "Rubin",
-                "fr": "Rubis"
+                "fr": "Rubis",
+                "es": "Rubí"
             },
             "emerald": {
                 "en": "Emerald",
@@ -375,7 +455,8 @@ export const language = {
                 "no": "Smaragd",
                 "sv": "Smaragd",
                 "da": "Smaragd",
-                "fr": "Émeraude"
+                "fr": "Émeraude",
+                "es": "Esmeralda"
             },
             "topaz": {
                 "en": "Topaz",
@@ -385,7 +466,8 @@ export const language = {
                 "no": "Topas",
                 "sv": "Topas",
                 "da": "Topas",
-                "fr": "Topaze"
+                "fr": "Topaze",
+                "es": "Topacio"
             },
             "amethyst": {
                 "en": "Amethyst",
@@ -395,7 +477,8 @@ export const language = {
                 "no": "Ametyst",
                 "sv": "Ametist",
                 "da": "Ametyst",
-                "fr": "Améthyste"
+                "fr": "Améthyste",
+                "es": "Amatista"
             },
             "totalValueHistory": {
                 "en": "Total Value History",
@@ -404,8 +487,9 @@ export const language = {
                 "it": "Storico del valore totale",
                 "no": "Totalverdihistorikk",
                 "sv": "Totalvärdeshistorik",
-                "da": "Samlet værdihistorik",
-                "fr": "Historique de la valeur totale"
+                "da": "Historik over samlet værdi",
+                "fr": "Historique de la valeur totale",
+                "es": "Historial del valor total"
             },
             "totalValueHistoryTooltip": {
                 "en": "History of the total gem value over time",
@@ -415,17 +499,19 @@ export const language = {
                 "no": "Historien om den totale edelstensverdien over tid",
                 "sv": "Historik över det totala ädelstensvärdet över tid",
                 "da": "Historien om den samlede værdi af ædelsten over tid",
-                "fr": "Historique de la valeur totale des pierres précieuses au fil du temps"
+                "fr": "Historique de la valeur totale des pierres précieuses au fil du temps",
+                "es": "Historial del valor total de las gemas a lo largo del tiempo"
             },
             "mostRecentGems": {
-                "en": "Total Value History",
-                "ja": "合計価値履歴",
-                "de": "Gesamtwertverlauf",
-                "it": "Storico del valore totale",
-                "no": "Totalverdihistorikk",
-                "sv": "Totalvärdeshistorik",
-                "da": "Samlet værdihistorik",
-                "fr": "Historique de la valeur totale"
+                "en": "Most Recent Gems",
+                "ja": "最新の宝石",
+                "de": "Neueste Edelsteine",
+                "it": "Le gemme più recenti",
+                "no": "De nyeste edelstenene",
+                "sv": "Senaste pärlorna",
+                "da": "Seneste perler",
+                "fr": "Les joyaux les plus récents",
+                "es": "Gemas más recientes"
             },
             "mostRecentGemsTooltip": {
                 "en": "The most recently added gems within the 3D scene",
@@ -435,7 +521,8 @@ export const language = {
                 "no": "De sist tillagte perlene i 3D-scenen",
                 "sv": "De senast tillagda pärlorna i 3D-scenen",
                 "da": "De senest tilføjede perler i 3D-scenen",
-                "fr": "Les joyaux les plus récemment ajoutés dans la scène 3D"
+                "fr": "Les joyaux les plus récemment ajoutés dans la scène 3D",
+                "es": "Las gemas añadidas más recientemente dentro de la escena 3D"
             },
             "carats": {
                 "en": "carats",
@@ -445,7 +532,8 @@ export const language = {
                 "no": "karat",
                 "sv": "karat",
                 "da": "karat",
-                "fr": "carats"
+                "fr": "carats",
+                "es": "quilates"
             },
             "time": {
                 "en": "Time",
@@ -455,7 +543,8 @@ export const language = {
                 "no": "Tid",
                 "sv": "Tid",
                 "da": "Tid",
-                "fr": "Temps"
+                "fr": "Temps",
+                "es": "Tiempo"
             },
             "totalValueChartLabel": {
                 "en": "Total Value",
@@ -465,7 +554,8 @@ export const language = {
                 "no": "Totalverdi",
                 "sv": "Totalvärde",
                 "da": "Samlet værdi",
-                "fr": "Valeur totale"
+                "fr": "Valeur totale",
+                "es": "Valor total"
             }
         },
         "contact": {
@@ -477,7 +567,8 @@ export const language = {
                 "no": "Kontaktinformasjon",
                 "sv": "Kontaktinformation",
                 "da": "Kontaktoplysninger",
-                "fr": "Coordonnées"
+                "fr": "Coordonnées",
+                "es": "Información del contacto"
             },
             "contactInfoSubtext": {
                 "en": "Let's work together!",
@@ -487,17 +578,142 @@ export const language = {
                 "no": "La oss jobbe sammen!",
                 "sv": "Låt oss arbeta tillsammans!",
                 "da": "Lad os arbejde sammen!",
-                "fr": "Travaillons ensemble !"
+                "fr": "Travaillons ensemble !",
+                "es": "¡Trabajemos juntos!"
+            }
+        },
+        "accessibility": {
+            "accessibleControlsOn": {
+                "en": "Toggle Accessible Controls On",
+                "ja": "アクセシブルコントロールをオンにする",
+                "de": "Zugängliche Steuerelemente einschalten",
+                "it": "Attiva i controlli accessibili",
+                "no": "Slå tilgjengelige kontroller på",
+                "sv": "Aktivera tillgängliga kontroller",
+                "da": "Slå tilgængelige kontroller til",
+                "fr": "Activer les commandes accessibles",
+                "es": "Activar controles accesibles"
             },
-            "email": {
-                "en": "parkertrowland@gmail.com",
-                "ja": "parkertrowland@gmail.com",
-                "de": "parkertrowland@gmail.com",
-                "it": "parkertrowland@gmail.com",
-                "no": "parkertrowland@gmail.com",
-                "sv": "parkertrowland@gmail.com",
-                "da": "parkertrowland@gmail.com",
-                "fr": "parkertrowland@gmail.com"
+            "accessibleControlsOff": {
+                "en": "Toggle Accessible Controls Off",
+                "ja": "アクセシブルコントロールをオフにする",
+                "de": "Zugängliche Steuerelemente ausschalten",
+                "it": "Disattiva i controlli accessibili",
+                "no": "Slå av tilgjengelige kontroller",
+                "sv": "Slå av tillgängliga kontroller",
+                "da": "Slå tilgængelige kontroller fra",
+                "fr": "Désactiver les commandes accessibles",
+                "es": "Desactivar controles accesibles"
+            },
+            "rotate": {
+                "en": "Rotate",
+                "ja": "回転",
+                "de": "Drehen",
+                "it": "Ruotare",
+                "no": "Rotere",
+                "sv": "Rotera",
+                "da": "Rotere",
+                "fr": "Tourner",
+                "es": "Girar"
+            },
+            "rotateTooltip": {
+                "en": "Rotates the 3D scene around the center of the scene",
+                "ja": "3Dシーンをシーンの中心を軸に回転します",
+                "de": "Dreht die 3D-Szene um den Mittelpunkt der Szene",
+                "it": "Ruota la scena 3D attorno al centro della scena",
+                "no": "Roterer 3D-scenen rundt midten av scenen",
+                "sv": "Roterar 3D-scenen runt scenens mitt",
+                "da": "Roterer 3D-scenen omkring midten af scenen",
+                "fr": "Fait pivoter la scène 3D autour du centre de la scène",
+                "es": "Gira la escena 3D alrededor del centro de la escena."
+            },
+            "rotateLeft": {
+                "en": "Rotates the 3D scene in the left direction",
+                "ja": "3Dシーンを左方向に回転します",
+                "de": "Dreht die 3D-Szene nach links",
+                "it": "Ruota la scena 3D nella direzione sinistra",
+                "no": "Roterer 3D-scenen i venstre retning",
+                "sv": "Roterar 3D-scenen åt vänster",
+                "da": "Roterer 3D-scenen i venstre retning",
+                "fr": "Fait pivoter la scène 3D vers la gauche",
+                "es": "Gira la escena 3D en la dirección izquierda."
+            },
+            "rotateRight": {
+                "en": "Rotates the 3D scene in the right direction",
+                "ja": "3Dシーンを正しい方向に回転します",
+                "de": "Dreht die 3D-Szene in die richtige Richtung",
+                "it": "Ruota la scena 3D nella giusta direzione",
+                "no": "Roterer 3D-scenen i riktig retning",
+                "sv": "Roterar 3D-scenen i rätt riktning",
+                "da": "Roterer 3D-scenen i den rigtige retning",
+                "fr": "Fait pivoter la scène 3D dans la bonne direction",
+                "es": "Gira la escena 3D en la dirección correcta"
+            },
+            "rotateUp": {
+                "en": "Rotates the 3D scene in the upwards direction",
+                "ja": "3Dシーンを上方向に回転します",
+                "de": "Dreht die 3D-Szene nach oben",
+                "it": "Ruota la scena 3D verso l'alto",
+                "no": "Roterer 3D-scenen oppover",
+                "sv": "Roterar 3D-scenen uppåt",
+                "da": "Roterer 3D-scenen opad",
+                "fr": "Fait pivoter la scène 3D vers le haut",
+                "es": "Gira la escena 3D en dirección hacia arriba."
+            },
+            "rotateDown": {
+                "en": "Rotates the 3D scene in the downwards direction",
+                "ja": "3Dシーンを下方向に回転します",
+                "de": "Dreht die 3D-Szene nach unten",
+                "it": "Ruota la scena 3D verso il basso",
+                "no": "Roterer 3D-scenen nedover",
+                "sv": "Roterar 3D-scenen nedåt",
+                "da": "Roterer 3D-scenen nedad",
+                "fr": "Fait pivoter la scène 3D vers le bas",
+                "es": "Gira la escena 3D hacia abajo."
+            },
+            "zoom": {
+                "en": "Zoom",
+                "ja": "ズーム",
+                "de": "Zoom",
+                "it": "Zoom",
+                "no": "Zoom",
+                "sv": "Zoom",
+                "da": "Zoom",
+                "fr": "Zoom",
+                "es": "Zoom"
+            },
+            "zoomTooltip": {
+                "en": "Zooms the 3D scene in and out",
+                "ja": "3Dシーンを拡大・縮小します",
+                "de": "Zoomt die 3D-Szene hinein und heraus",
+                "it": "Ingrandisce e rimpicciolisce la scena 3D",
+                "no": "Zoomer 3D-scenen inn og ut",
+                "sv": "Zoomar in och ut 3D-scenen",
+                "da": "Zoomer 3D-scenen ind og ud",
+                "fr": "Effectue un zoom avant et arrière sur la scène 3D",
+                "es": "Acerca y aleja la escena 3D"
+            },
+            "zoomIn": {
+                "en": "Zooms the 3D scene in",
+                "ja": "3Dシーンを拡大します",
+                "de": "Zoomt die 3D-Szene heran",
+                "it": "Ingrandisce la scena 3D",
+                "no": "Zoomer inn 3D-scenen",
+                "sv": "Zoomar in 3D-scenen",
+                "da": "Zoomer ind på 3D-scenen",
+                "fr": "Effectue un zoom avant sur la scène 3D",
+                "es": "Acerca la escena 3D"
+            },
+            "zoomOut": {
+                "en": "Zooms the 3D scene out",
+                "ja": "3Dシーンをズームアウトします",
+                "de": "Zoomt die 3D-Szene heraus",
+                "it": "Rimpicciolisce la scena 3D",
+                "no": "Zoomer ut 3D-scenen",
+                "sv": "Zoomar ut 3D-scenen",
+                "da": "Zoomer 3D-scenen ud",
+                "fr": "Effectue un zoom arrière sur la scène 3D",
+                "es": "Aleja la escena 3D"
             }
         },
         "settings": {
@@ -509,7 +725,8 @@ export const language = {
                 "no": "Innstillinger",
                 "sv": "Inställningar",
                 "da": "Indstillinger",
-                "fr": "Paramètres"
+                "fr": "Paramètres",
+                "es": "Ajustes"
             },
             "theme": {
                 "en": "Theme",
@@ -519,7 +736,8 @@ export const language = {
                 "no": "Tema",
                 "sv": "Tema",
                 "da": "Tema",
-                "fr": "Thème"
+                "fr": "Thème",
+                "es": "Tema"
             },
             "themeTooltip": {
                 "en": "Controls the theme of the application",
@@ -529,7 +747,8 @@ export const language = {
                 "no": "Kontrollerer temaet til applikasjonen",
                 "sv": "Styr programmets tema",
                 "da": "Styrer applikationens tema",
-                "fr": "Contrôle le thème de l'application"
+                "fr": "Contrôle le thème de l'application",
+                "es": "Controla el tema de la aplicación."
             },
             "themeLight": {
                 "en": "Light",
@@ -539,7 +758,8 @@ export const language = {
                 "no": "Lys",
                 "sv": "Ljus",
                 "da": "Lys",
-                "fr": "Lumière"
+                "fr": "Lumière",
+                "es": "Luz"
             },
             "themeDark": {
                 "en": "Dark",
@@ -549,7 +769,8 @@ export const language = {
                 "no": "Mørk",
                 "sv": "Mörk",
                 "da": "Mørk",
-                "fr": "Sombre"
+                "fr": "Sombre",
+                "es": "Oscuro"
             },
             "display": {
                 "en": "Display",
@@ -559,7 +780,8 @@ export const language = {
                 "no": "Utstilling",
                 "sv": "Visa",
                 "da": "Vise",
-                "fr": "Afficher"
+                "fr": "Afficher",
+                "es": "Mostrar"
             },
             "displayTooltip": {
                 "en": "Controls the lava lamp display; fullscreen may not work on certain devices",
@@ -569,7 +791,8 @@ export const language = {
                 "no": "Styrer lavalampens visning; fullskjerm fungerer kanskje ikke på enkelte enheter",
                 "sv": "Styr lavalampans visning; helskärm kanske inte fungerar på vissa enheter",
                 "da": "Styrer lavalampens visning; fuldskærmsvisning fungerer muligvis ikke på visse enheder",
-                "fr": "Contrôle l'affichage de la lampe à lave ; le plein écran peut ne pas fonctionner sur certains appareils"
+                "fr": "Contrôle l'affichage de la lampe à lave ; le plein écran peut ne pas fonctionner sur certains appareils",
+                "es": "Controla la visualización de la lámpara de lava; es posible que la pantalla completa no funcione en ciertos dispositivos"
             },
             "displayFullscreen": {
                 "en": "Fullscreen",
@@ -579,7 +802,8 @@ export const language = {
                 "no": "Fullskjerm",
                 "sv": "Helskärm",
                 "da": "Fuldskærm",
-                "fr": "Plein écran"
+                "fr": "Plein écran",
+                "es": "Pantalla completa"
             },
             "displayExitFullscreen": {
                 "en": "Exit Fullscreen",
@@ -589,7 +813,8 @@ export const language = {
                 "no": "Avslutt fullskjerm",
                 "sv": "Avsluta helskärm",
                 "da": "Afslut fuldskærm",
-                "fr": "Quitter le plein écran"
+                "fr": "Quitter le plein écran",
+                "es": "Salir de pantalla completa"
             },
             "stats": {
                 "en": "Stats",
@@ -599,17 +824,19 @@ export const language = {
                 "no": "Statistikk",
                 "sv": "Statistik",
                 "da": "Statistik",
-                "fr": "Statistiques"
+                "fr": "Statistiques",
+                "es": "Estadísticas"
             },
             "statsTooltip": {
                 "en": "Controls the visibility of the stats-gl performance readout",
                 "ja": "統計GLパフォーマンス表示の表示を制御します",
                 "de": "Steuert die Sichtbarkeit der Stats-GL-Leistungsanzeige",
                 "it": "Controlla la visibilità della lettura delle prestazioni di stats-gl",
-                "no": "Kontrollerer synligheten til stats-gl-ytelsesavlesningen",
+                "no": "Kontrollerer synligheten til ytelsesavlesningen i stats-gl",
                 "sv": "Styr synligheten av stats-gl-prestandaavläsningen",
                 "da": "Styrer synligheden af stats-gl-ydeevneaflæsningen",
-                "fr": "Contrôle la visibilité de l'affichage des performances de stats-gl"
+                "fr": "Contrôle la visibilité de l'affichage des performances de stats-gl",
+                "es": "Controla la visibilidad de la lectura del rendimiento de stats-gl"
             },
             "statsShow": {
                 "en": "Show",
@@ -619,7 +846,8 @@ export const language = {
                 "no": "Vise",
                 "sv": "Visa",
                 "da": "Vise",
-                "fr": "Montrer"
+                "fr": "Montrer",
+                "es": "Espectáculo"
             },
             "statsHide": {
                 "en": "Hide",
@@ -629,27 +857,30 @@ export const language = {
                 "no": "Gjemme",
                 "sv": "Dölja",
                 "da": "Skjule",
-                "fr": "Cacher"
+                "fr": "Cacher",
+                "es": "Esconder"
             },
             "autoHideSettings": {
-                "en": "Auto-hide\nSettings",
-                "ja": "自動非表示\n設定",
-                "de": "Einstellungen automatisch ausblenden",
-                "it": "Nascondi automaticamente\nImpostazioni",
-                "no": "Skjul innstillinger automatisk",
-                "sv": "Dölj inställningar automatiskt",
-                "da": "Skjul automatisk indstillinger",
-                "fr": "Masquer automatiquement\nParamètres"
+                "en": "Auto-hide\nControls",
+                "ja": "自動非表示\nコントロール",
+                "de": "Automatisches Ausblenden\nSteuerelemente",
+                "it": "Nascondi automaticamente\nControlli",
+                "no": "Skjul kontroller automatisk",
+                "sv": "Dölj kontroller automatiskt",
+                "da": "Skjul automatisk kontrolelementer",
+                "fr": "Masquer automatiquement\nContrôles",
+                "es": "Ocultar automáticamente\nControles"
             },
             "autoHideSettingsTooltip": {
-                "en": "Controls the visibility of the Settings button; 'Show' always shows the Settings button, 'Hide' hides the Settings button after two seconds of inactivity",
-                "ja": "設定ボタンの表示を制御します。「表示」では設定ボタンが常に表示され、「非表示」では2秒間操作しないと設定ボタンが非表示になります。",
-                "de": "Steuert die Sichtbarkeit der Schaltfläche „Einstellungen“. „Anzeigen“ zeigt die Schaltfläche „Einstellungen“ immer an, „Ausblenden“ blendet die Schaltfläche „Einstellungen“ nach zwei Sekunden Inaktivität aus.",
-                "it": "Controlla la visibilità del pulsante Impostazioni; \"Mostra\" mostra sempre il pulsante Impostazioni, \"Nascondi\" nasconde il pulsante Impostazioni dopo due secondi di inattività",
-                "no": "Kontrollerer synligheten til Innstillinger-knappen; «Vis» viser alltid Innstillinger-knappen, «Skjul» skjuler Innstillinger-knappen etter to sekunders inaktivitet",
-                "sv": "Styr synligheten för knappen Inställningar; 'Visa' visar alltid knappen Inställningar, 'Dölj' döljer knappen Inställningar efter två sekunders inaktivitet",
-                "da": "Styrer synligheden af knappen Indstillinger; 'Vis' viser altid knappen Indstillinger, 'Skjul' skjuler knappen Indstillinger efter to sekunders inaktivitet",
-                "fr": "Contrôle la visibilité du bouton Paramètres ; « Afficher » affiche toujours le bouton Paramètres, « Masquer » masque le bouton Paramètres après deux secondes d'inactivité"
+                "en": "Controls the visibility of the Settings controls; the Show button always shows the Settings controls, the Hide button hides the Settings controls after two seconds of inactivity",
+                "ja": "設定コントロールの表示を制御します。[表示] ボタンは常に設定コントロールを表示し、[非表示] ボタンは 2 秒間操作しないと設定コントロールを非表示にします。",
+                "de": "Steuert die Sichtbarkeit der Einstellungssteuerelemente. Die Schaltfläche „Anzeigen“ zeigt die Einstellungssteuerelemente immer an, die Schaltfläche „Ausblenden“ blendet die Einstellungssteuerelemente nach zwei Sekunden Inaktivität aus.",
+                "it": "Controlla la visibilità dei controlli Impostazioni; il pulsante Mostra mostra sempre i controlli Impostazioni, il pulsante Nascondi nasconde i controlli Impostazioni dopo due secondi di inattività",
+                "no": "Kontrollerer synligheten til Innstillingskontrollene; Vis-knappen viser alltid Innstillingskontrollene, Skjul-knappen skjuler Innstillingskontrollene etter to sekunders inaktivitet.",
+                "sv": "Styr synligheten för inställningskontrollerna; knappen Visa visar alltid inställningskontrollerna, knappen Dölj döljer inställningskontrollerna efter två sekunders inaktivitet.",
+                "da": "Styrer synligheden af Indstillinger-knapperne; knappen Vis viser altid Indstillinger-knapperne, knappen Skjul skjuler Indstillinger-knapperne efter to sekunders inaktivitet.",
+                "fr": "Contrôle la visibilité des commandes Paramètres ; le bouton Afficher affiche toujours les commandes Paramètres, le bouton Masquer masque les commandes Paramètres après deux secondes d'inactivité",
+                "es": "Controla la visibilidad de los controles de Configuración; el botón Mostrar siempre muestra los controles de Configuración, el botón Ocultar oculta los controles de Configuración después de dos segundos de inactividad"
             },
             "autoHideSettingsShow": {
                 "en": "Show",
@@ -659,7 +890,8 @@ export const language = {
                 "no": "Vise",
                 "sv": "Visa",
                 "da": "Vise",
-                "fr": "Montrer"
+                "fr": "Montrer",
+                "es": "Espectáculo"
             },
             "autoHideSettingsHide": {
                 "en": "Hide",
@@ -669,7 +901,8 @@ export const language = {
                 "no": "Gjemme",
                 "sv": "Dölja",
                 "da": "Skjule",
-                "fr": "Cacher"
+                "fr": "Cacher",
+                "es": "Esconder"
             },
             "color": {
                 "en": "Color",
@@ -679,17 +912,19 @@ export const language = {
                 "no": "Farge",
                 "sv": "Färg",
                 "da": "Farve",
-                "fr": "Couleur"
+                "fr": "Couleur",
+                "es": "Color"
             },
             "colorTooltip": {
-                "en": "Controls the color of the 3D scene objects; Random applies a new color for every object in the scene",
-                "ja": "3Dシーンオブジェクトの色を制御します。ランダムではシーン内のすべてのオブジェクトに新しい色が適用されます。",
-                "de": "Steuert die Farbe der 3D-Szenenobjekte; Random wendet für jedes Objekt in der Szene eine neue Farbe an",
-                "it": "Controlla il colore degli oggetti della scena 3D; Casuale applica un nuovo colore per ogni oggetto nella scena",
-                "no": "Kontrollerer fargen på 3D-sceneobjektene; Tilfeldig bruker en ny farge for hvert objekt i scenen",
-                "sv": "Styr färgen på 3D-scenobjekten; Slumpmässigt tillämpar en ny färg för varje objekt i scenen",
-                "da": "Styrer farven på 3D-sceneobjekterne; Tilfældig anvender en ny farve til hvert objekt i scenen",
-                "fr": "Contrôle la couleur des objets de la scène 3D ; Random applique une nouvelle couleur pour chaque objet de la scène"
+                "en": "Controls the color of the 3D scene objects; the Random button applies a new color for every object in the scene",
+                "ja": "3Dシーンオブジェクトの色を制御します。ランダムボタンはシーン内のすべてのオブジェクトに新しい色を適用します。",
+                "de": "Steuert die Farbe der 3D-Szenenobjekte; die Schaltfläche „Zufällig“ wendet für jedes Objekt in der Szene eine neue Farbe an",
+                "it": "Controlla il colore degli oggetti della scena 3D; il pulsante Casuale applica un nuovo colore per ogni oggetto nella scena",
+                "no": "Kontrollerer fargen på 3D-sceneobjektene; Tilfeldig-knappen bruker en ny farge for hvert objekt i scenen.",
+                "sv": "Styr färgen på 3D-scenobjekten; knappen Slumpmässig applicerar en ny färg för varje objekt i scenen",
+                "da": "Styrer farven på 3D-sceneobjekterne; knappen Tilfældig anvender en ny farve til hvert objekt i scenen.",
+                "fr": "Contrôle la couleur des objets de la scène 3D ; le bouton Aléatoire applique une nouvelle couleur pour chaque objet de la scène",
+                "es": "Controla el color de los objetos de la escena 3D; el botón Aleatorio aplica un nuevo color para cada objeto de la escena"
             },
             "colorRandom": {
                 "en": "Random",
@@ -699,7 +934,8 @@ export const language = {
                 "no": "Tilfeldig",
                 "sv": "Slumpmässig",
                 "da": "Tilfældig",
-                "fr": "Aléatoire"
+                "fr": "Aléatoire",
+                "es": "Aleatorio"
             },
             "colorChoose": {
                 "en": "Choose",
@@ -709,7 +945,8 @@ export const language = {
                 "no": "Velge",
                 "sv": "Välja",
                 "da": "Vælge",
-                "fr": "Choisir"
+                "fr": "Choisir",
+                "es": "Elegir"
             },
             "colorHex": {
                 "en": "Hexadecimal",
@@ -719,7 +956,8 @@ export const language = {
                 "no": "Heksadesimal",
                 "sv": "Hexadecimal",
                 "da": "Hexadecimal",
-                "fr": "Hexadécimal"
+                "fr": "Hexadécimal",
+                "es": "Hexadecimal"
             }
         }
     }

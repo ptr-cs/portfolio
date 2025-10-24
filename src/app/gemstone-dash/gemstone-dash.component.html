@@ -4,11 +4,12 @@
             <div class="container-fluid p-0">
                 <div class="text-center mb-5 d-flex flex-row gap-4 align-items-center justify-content-center">
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.gems?.gemsData)}}</span></h1>
-                    <button *ngIf="performanceService.activeScene === 'GEMS'" type="button" class="btn btn-primary d-flex flex-row flex-nowrap gap-1 align-items-center" (click)="toggleData()">
+                    <button *ngIf="performanceService.activeScene === 'GEMS'" type="button" class="btn btn-primary d-flex flex-row flex-nowrap gap-1 align-items-center" (click)="toggleData()" [matTooltip]="!performanceService.activeScenePaused ? languageService.getText(languageService.translationData?.gems?.pauseData) : languageService.getText(languageService.translationData?.gems?.resumeData)"
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateScene="matTooltip">
                         <i *ngIf="!performanceService.activeScenePaused" class="bi bi-pause fs-4 fw-bold"></i>
                         <i *ngIf="performanceService.activeScenePaused" class="bi bi-play fs-4 fw-bold"></i>
-                        <span *ngIf="!performanceService.activeScenePaused">Data</span>
-                        <span *ngIf="performanceService.activeScenePaused">Data</span>
+                        <span *ngIf="!performanceService.activeScenePaused">{{languageService.getText(languageService.translationData?.gems?.data)}}</span>
+                        <span *ngIf="performanceService.activeScenePaused">{{languageService.getText(languageService.translationData?.gems?.data)}}</span>
                     </button>
                 </div>
                 <div class="row">

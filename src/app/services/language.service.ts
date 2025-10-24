@@ -63,6 +63,9 @@ export interface TranslationData {
     }
     gems?: {
         gemsData: TranslationEntry;
+        data: TranslationEntry;
+        pauseData: TranslationEntry;
+        resumeData: TranslationEntry;
         totalValue: TranslationEntry;
         totalValueTooltip: TranslationEntry;
         averageValue: TranslationEntry;
@@ -90,7 +93,20 @@ export interface TranslationData {
     contact?: {
         contactInfo: TranslationEntry;
         contactInfoSubtext: TranslationEntry;
-        email: TranslationEntry;
+    },
+    accessibility?: {
+        accessibleControlsOn: TranslationEntry;
+        accessibleControlsOff: TranslationEntry;
+        rotate: TranslationEntry;
+        rotateTooltip: TranslationEntry;
+        rotateLeft: TranslationEntry;
+        rotateRight: TranslationEntry;
+        rotateUp: TranslationEntry;
+        rotateDown: TranslationEntry;
+        zoom: TranslationEntry;
+        zoomTooltip: TranslationEntry;
+        zoomIn: TranslationEntry;
+        zoomOut: TranslationEntry;
     },
     settings?: {
         settings: TranslationEntry;

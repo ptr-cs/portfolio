@@ -18,7 +18,7 @@
     </div>
 
     <button #accessibilityButton id="accessibilityButton" (click)="accessibilityControlsClicked()"
-        class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto z-1 p-0" [ngClass]="{'active': settingsService.displayAccessibilityControls}"
+        class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto z-1 p-0" [ngClass]="{'active': settingsService.displayAccessibilityControls}" [matTooltip]="!settingsService.displayAccessibilityControls ? languageService.getText(languageService.translationData?.accessibility?.accessibleControlsOn) : languageService.getText(languageService.translationData?.accessibility?.accessibleControlsOff)" matTooltipClass="bg-body border rounded shadow-sm z-10" #tooltipAccessibleControls="matTooltip"
         type="button" data-bs-toggle="collapse" data-bs-target="#accessibilityUiPanel" [attr.aria-expanded]="settingsService.displayAccessibilityControls" aria-controls="accessibilityUiPanel">
         <i class="bi bi-person-wheelchair fs-3 mx-auto"></i>
     </button>
@@ -103,7 +103,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-start flex-wrap align-items-center column-gap-3 row-gap-2">
-            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between" [ngClass]="{'settings-label-long': (languageService.language === 'fr' || languageService.language === 'it')}">
+            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between" [ngClass]="{'settings-label-long': (languageService.language === 'fr' || languageService.language === 'it' || languageService.language === 'es')}">
                 <p class="mb-0 d-flex flex-column" [innerText]="languageService.getText(languageService.translationData?.settings?.autoHideSettings)"></p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
                     class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
@@ -231,46 +231,52 @@
         <div class="d-flex align-items-center flex-row flex-wrap column-gap-4 row-gap-2">
             <div class="d-flex flew-row flex-wrap column-gap-4 column-gap-sm-3 row-gap-2 align-items-center">
                 <div class="d-flex flew-row gap-2 align-items-center">
-                    <p class="m-0 accessibility-control-label">Rotate</p>
+                    <p class="m-0 accessibility-control-label">{{languageService.getText(languageService.translationData?.accessibility?.rotate)}}</p>
                     <button type="button" [attr.data-bs-theme]="themeService.theme"
                         class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
-                        [matTooltip]="'Rotates the 3D scene around the center of the scene'"
+                        [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateTooltip)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateScene="matTooltip"
                         (click)="tooltipRotateScene.show()">
                         <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
                     </button>
                 </div>
                 <div class="d-flex gap-2 flex-row btn-group">
-                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-left')">
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-left')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateLeft)"
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateLeft="matTooltip">
                         <i class="bi bi-arrow-left mx-auto fs-3"></i>
                     </button>
-                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-right')">
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-right')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateRight)"
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateRight="matTooltip">
                         <i class="bi bi-arrow-right mx-auto fs-3"></i>
                     </button>
-                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-up')">
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-up')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateUp)"
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateUp="matTooltip">
                         <i class="bi bi-arrow-up mx-auto fs-3"></i>
                     </button>
-                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-down')">
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-down')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateDown)"
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateDown="matTooltip">
                         <i class="bi bi-arrow-down mx-auto fs-3"></i>
                     </button>
                 </div>
             </div>
             <div class="d-flex flew-row column-gap-4 column-gap-sm-3 row-gap-2 align-items-center flex-wrap">
                 <div class="d-flex flew-row gap-2 align-items-center">
-                    <p class="m-0 accessibility-control-label">Zoom</p>
+                    <p class="m-0 accessibility-control-label">{{languageService.getText(languageService.translationData?.accessibility?.zoom)}}</p>
                     <button type="button" [attr.data-bs-theme]="themeService.theme"
                         class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
-                        [matTooltip]="'Zooms the 3D scene in and out'"
+                        [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.zoomTooltip)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipZoomScene="matTooltip"
                         (click)="tooltipZoomScene.show()">
                         <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
                     </button>
                 </div>
                 <div class="d-flex gap-2 flex-row btn-group">
-                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-out')">
+                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-out')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.zoomOut)"
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipZoomOut="matTooltip">
                         <i class="bi bi-zoom-out mx-auto fs-3"></i>
                     </button>
-                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-in')">
+                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-in')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.zoomIn)"
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipZoomIn="matTooltip">
                         <i class="bi bi-zoom-in mx-auto fs-3"></i>
                     </button>
                 </div>
