@@ -168,7 +168,7 @@
                                 <ul class="list-group list-group-flush">
                                     <li *ngFor="let item of mostRecentItems; trackBy: trackById" class="list-group-item">
                                         <div class="row g-0 align-items-center">
-                                            <div class="col me-2">
+                                            <div class="col">
                                                 <p class="mb-0 fw-bolder fs-6"><span class="me-2"><strong class="gems-list-label d-inline-block">{{languageService.translateGemEntry(item.type)}}</strong> :</span> <span class="gems-list-value d-inline-block">{{ item.value | currency:'USD':'symbol':'1.2-2':languageService.language }}</span></p><span class="text-xs text-muted">{{ languageService.getFormattedDate(item.timestamp) }}</span>
                                             </div>
                                         </div>
