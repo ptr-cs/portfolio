@@ -1,14 +1,26 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary py-3 shadow-sm fixed-top">
   <div class="container px-5">
-    <a class="navbar-brand" href="#home"><span class="fw-bolder d-flex gap-2 align-items-center"><i class="bi bi-pc-display-horizontal"></i> <span class="michroma">{{languageService.getText(languageService.translationData?.header?.ptrcs)}}</span></span></a>
+    <a class="navbar-brand" [routerLink]="['/']" fragment="home"><span class="fw-bolder d-flex gap-2 align-items-center"><i class="bi bi-pc-display-horizontal"></i> <span class="michroma">{{languageService.getText(languageService.translationData?.header?.ptrcs)}}</span></span></a>
     <button #navbarToggler class="btn btn-primary navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="bi bi-list"></i></button>
     <div class="collapse navbar-collapse gap-1 column-gap-2 justify-content-end" id="navbarSupportedContent" #navbarContent>
       <ul class="navbar-nav mb-2 mb-lg-0 fw-bolder d-flex flex-column flex-sm-row flex-lg-row column-gap-4 column-gap-lg-0 justify-content-lg-center">
-        <li class="nav-item"><a class="nav-link text-nowrap" href="#home"><i class="bi bi-house-door me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuHome)}}</a></li>
-        <li *ngIf="languageService.translationData?.resume" class="nav-item text-nowrap"><a class="nav-link" href="#resumeInfo"><i class="bi bi-file-earmark-text me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuResume)}}</a></li>
-        <li class="nav-item"><a class="nav-link text-nowrap" href="#contactInfo"><i class="bi bi-envelope me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuContact)}}</a></li>
+        <li class="nav-item">
+          <a class="nav-link text-nowrap" [routerLink]="['/']" fragment="home" queryParamsHandling="preserve">
+            <i class="bi bi-house-door me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuHome)}}
+          </a>
+        </li>
+        <li *ngIf="languageService.translationData?.resume" class="nav-item">
+          <a class="nav-link text-nowrap" [routerLink]="['/']" fragment="resumeInfo" queryParamsHandling="preserve">
+            <i class="bi bi-file-earmark-text me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuResume)}}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-nowrap" [routerLink]="['/']" fragment="contactInfo" queryParamsHandling="preserve">
+            <i class="bi bi-envelope me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuContact)}}
+          </a>
+        </li>
       </ul>
       <div class="d-flex gap-2 flex-wrap flex-sm-nowrap">
         <button class="btn btn-primary text-nowrap flex-grow-1" type="button" aria-label="Toggle theme" (click)="toggleTheme()">

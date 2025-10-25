@@ -6,12 +6,9 @@
   $flag-icons-included-countries: ("us", "jp", "de", "it", "no", "se", "dk", "fr", "es")
 );
 
-html {
-  scroll-padding-top: 80px;
-}
-
 :root {
   --lamp-lava-custom-color: rgba(128, 0, 255, 0.5);
+  --header-height-offset: 72px;
 }
 
 :root[data-bs-theme="dark"] {
@@ -23,9 +20,13 @@ html {
   --bs-body-bg: #eeeeee;
 }
 
-body {
-  padding-top: 80px;
+html {
+  scroll-padding-top: 600px;
 }
+
+// body {
+//   padding-top: var(--header-height-offset);
+// }
 
 nav {
   background-color: var(--bs-body-bg);

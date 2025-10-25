@@ -1,7 +1,7 @@
-<header class="py-0" id="home" inViewport (entered)="active.set('home')" tabindex="0" scrollIntoViewOnFocus>
+<header class="py-0 pt-5" id="home" inViewport (entered)="active.set('home')" tabindex="0" scrollIntoViewOnFocus>
     <div class="container px-5 overflow-x-clip" #contentContainer>
         <div class="row gx-5">
-            <div class="col-xxl-5 d-flex align-items-center justify-content-center">
+            <div class="col-xxl-5 d-flex justify-content-center mt-5">
                 <div class="text-center text-xxl-start">
                     <div class="badge bg-gradient-primary-to-secondary text-white mb-4" [attr.data-bs-theme]="themeService.theme">
                         <div class="text-uppercase badge-text" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.home?.services)}}</div>
@@ -11,23 +11,23 @@
                         {{languageService.getText(languageService.translationData?.home?.softwareEngineer)}}
                     </h1>
                     <div class="gap-3 d-flex flex-wrap justify-content-center mb-3 position-relative z-10 d-xxl-flex d-none">
-                        <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')" tabindex="0">
+                        <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" [routerLink]="['/']" fragment="resumeInfo" queryParamsHandling="preserve" tabindex="0">
                             <i class="bi bi-file-earmark-text"></i> {{languageService.getText(languageService.translationData?.home?.buttonResume)}}
                         </a>
-                        <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('contactInfo')" tabindex="0">
+                        <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" [routerLink]="['/']" fragment="contactInfo" queryParamsHandling="preserve" tabindex="0">
                             <i class="bi bi-envelope"></i> {{languageService.getText(languageService.translationData?.home?.buttonContact)}}
                         </a>
                     </div>
                 </div>
             </div>
-            <section class="canvas-container col-xxl-7 col-md-12 position-relative mb-3" tabindex="0">
+            <section class="canvas-container col-xxl-7 col-md-12 position-relative mb-3 mt-3 mt-xl-5" tabindex="0">
                  <lava-lamp-single class="user-select-none" (click)="sceneClicked('LAVA_SINGLE')"></lava-lamp-single>
             </section>
             <div class="gap-3 flex-wrap justify-content-center mb-3 position-relative z-10 d-xxl-none d-flex py-5">
-                <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" (click)="goToSection('resumeInfo')" tabindex="0">
+                <a *ngIf="languageService.translationData?.resume" class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" [routerLink]="['/']" fragment="resumeInfo" queryParamsHandling="preserve" tabindex="0">
                     <i class="bi bi-file-earmark-text"></i> {{languageService.getText(languageService.translationData?.home?.buttonResume)}}
                 </a>
-                <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1 " type="button" (click)="goToSection('contactInfo')" tabindex="0">
+                <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder d-flex align-items-center gap-1 justify-content-center flex-grow-1" type="button" [routerLink]="['/']" fragment="contactInfo" queryParamsHandling="preserve" tabindex="0">
                     <i class="bi bi-envelope"></i> {{languageService.getText(languageService.translationData?.home?.buttonContact)}}
                 </a>
             </div>
@@ -53,7 +53,7 @@
     <lava-lamp-wall class="user-select-none position-relative" (click)="sceneClicked('LAVA_WALL')"></lava-lamp-wall>
 </section>
 
-<section id="resumeInfo" inViewport (entered)="active.set('resumeInfo')" tabindex="0" [ngClass]="{'active': active() === 'resumeInfo'}" scrollIntoViewOnFocus>
+<section id="resumeInfo" inViewport (entered)="active.set('resumeInfo')" [ngClass]="{'active': active() === 'resumeInfo'}" scrollIntoViewOnFocus>
     <app-resume></app-resume>
 </section>
 
@@ -65,6 +65,6 @@
     <gemstone-dash></gemstone-dash>
 </section>
 
-<section id="contactInfo" inViewport (entered)="active.set('contact')" tabindex="0" [ngClass]="{'active': active() === 'contact'}">
+<section id="contactInfo" inViewport (entered)="active.set('contact')" [ngClass]="{'active': active() === 'contact'}">
     <app-contact class="pb-5"></app-contact>
 </section>

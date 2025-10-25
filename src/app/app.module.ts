@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -24,7 +23,6 @@ import { DatePipe } from '@angular/common';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule,
     FormsModule

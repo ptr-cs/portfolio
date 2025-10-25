@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { language } from '../../translations/language';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export type TranslationEntry = {
   [languageCode: string]: string;
@@ -158,6 +159,7 @@ public supportedLanguages: {
 };
 
     public translationData?: TranslationData;
+    private router = inject(Router);
 
     private readonly key = 'app-language';
 
@@ -223,9 +225,7 @@ public supportedLanguages: {
         if (entry) {
             this.language = entry.languageCode;
             
-            const url = new URL(window.location.href);
-            url.searchParams.set('lang', this.language);
-            window.history.replaceState({}, '', url.toString());
+            this.prepareRouteWithLangParam(this.language);
             
             this.updateDocumentLang(entry.languageCode);
         }
@@ -241,12 +241,27 @@ public supportedLanguages: {
         if (entry) {
             this.language = languageCode;
             
-            const url = new URL(window.location.href);
-            url.searchParams.set('lang', this.language);
-            window.history.replaceState({}, '', url.toString());
+            this.prepareRouteWithLangParam(this.language);
             
             this.updateDocumentLang(entry.languageCode);
         }
+    }
+    
+    private getDeepestChild(route: ActivatedRoute): ActivatedRoute {
+        let r = route;
+        while (r.firstChild) r = r.firstChild;
+        return r;
+    }
+    
+    private prepareRouteWithLangParam(languageCode: string) {
+        const current = this.getDeepestChild(this.router.routerState.root);
+        this.router.navigate([], {
+        relativeTo: current,
+        queryParams: { lang: languageCode },
+        queryParamsHandling: 'merge',
+        replaceUrl: true,
+        fragment: current.snapshot.fragment ? current.snapshot.fragment : ''
+        });
     }
     
     translateGemEntry(gem: string): string {

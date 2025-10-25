@@ -83,11 +83,11 @@ export class HomeComponent implements OnDestroy {
     document.removeEventListener('MSFullscreenChange', this.onFullscreenChange);
   }
   
-  goToSection(sectionId: string): void {
-    let element = document.querySelector(`#${sectionId}`)
-    if (element)
-      element.scrollIntoView({ behavior: 'smooth'});
-  }
+  // goToSection(sectionId: string): void {
+  //   let element = document.querySelector(`#${sectionId}`)
+  //   if (element)
+  //     element.scrollIntoView({ behavior: 'smooth'});
+  // }
   
   sceneClicked(sceneKey: ACTIVE_SCENE_KEY) {
     if (this.performanceService.activeScene !== sceneKey)
