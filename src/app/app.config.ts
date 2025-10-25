@@ -11,6 +11,7 @@ export const appConfig: ApplicationConfig = {
       routes,
       withInMemoryScrolling({
         anchorScrolling: 'enabled',
+        scrollPositionRestoration: 'enabled'
       })
     ), provideAnimations(), provideHttpClient(withInterceptorsFromDi()), DatePipe ]
 };
