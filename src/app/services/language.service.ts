@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { language } from '../../translations/language';
-import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe, Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { prepareRouteWithLangParam } from '../util/route-utils';
 
 export type TranslationEntry = {
   [languageCode: string]: string;
@@ -159,6 +160,7 @@ public supportedLanguages: {
 };
 
     public translationData?: TranslationData;
+    
     private router = inject(Router);
 
     private readonly key = 'app-language';
@@ -166,7 +168,7 @@ public supportedLanguages: {
     private _language$ = new BehaviorSubject<string>('en');
     language$ = this._language$.asObservable();
 
-    constructor(private http: HttpClient, public datePipe: DatePipe) {
+    constructor(private http: HttpClient, public datePipe: DatePipe, private location: Location) {
         const savedLang = localStorage.getItem(this.key);
         if (savedLang) {
             this._language$.next(savedLang);
@@ -225,7 +227,7 @@ public supportedLanguages: {
         if (entry) {
             this.language = entry.languageCode;
             
-            this.prepareRouteWithLangParam(this.language);
+            prepareRouteWithLangParam(this.language, this.router, this.location);
             
             this.updateDocumentLang(entry.languageCode);
         }
@@ -241,27 +243,10 @@ public supportedLanguages: {
         if (entry) {
             this.language = languageCode;
             
-            this.prepareRouteWithLangParam(this.language);
+            prepareRouteWithLangParam(this.language, this.router, this.location);
             
             this.updateDocumentLang(entry.languageCode);
         }
-    }
-    
-    private getDeepestChild(route: ActivatedRoute): ActivatedRoute {
-        let r = route;
-        while (r.firstChild) r = r.firstChild;
-        return r;
-    }
-    
-    private prepareRouteWithLangParam(languageCode: string) {
-        const current = this.getDeepestChild(this.router.routerState.root);
-        this.router.navigate([], {
-        relativeTo: current,
-        queryParams: { lang: languageCode },
-        queryParamsHandling: 'merge',
-        replaceUrl: true,
-        fragment: current.snapshot.fragment ? current.snapshot.fragment : ''
-        });
     }
     
     translateGemEntry(gem: string): string {

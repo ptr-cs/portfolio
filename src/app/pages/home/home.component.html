@@ -1,4 +1,4 @@
-<header class="py-0 pt-5" id="home" inViewport (entered)="active.set('home')" tabindex="0" scrollIntoViewOnFocus>
+<header class="py-0 pt-5" id="home" inViewport (entered)="active.set('home')" tabindex="0">
     <div class="container px-5 overflow-x-clip" #contentContainer>
         <div class="row gx-5">
             <div class="col-xxl-5 d-flex justify-content-center mt-5">
@@ -53,7 +53,7 @@
     <lava-lamp-wall class="user-select-none position-relative" (click)="sceneClicked('LAVA_WALL')"></lava-lamp-wall>
 </section>
 
-<section id="resumeInfo" inViewport (entered)="active.set('resumeInfo')" [ngClass]="{'active': active() === 'resumeInfo'}" scrollIntoViewOnFocus>
+<section id="resumeInfo" inViewport (entered)="active.set('resumeInfo')" [ngClass]="{'active': active() === 'resumeInfo'}">
     <app-resume></app-resume>
 </section>
 
@@ -61,7 +61,7 @@
     <gemstones class="user-select-none position-relative" (click)="sceneClicked('GEMS')"></gemstones>
 </section>
 
-<section id="gemstonesDash" tabindex="0" inViewport scrollIntoViewOnFocus>
+<section id="gemstonesDash" tabindex="0" inViewport>
     <gemstone-dash></gemstone-dash>
 </section>
 

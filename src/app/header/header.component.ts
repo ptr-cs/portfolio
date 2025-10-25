@@ -4,6 +4,7 @@ import { ThemeService } from '../services/theme.service';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../services/language.service';
 import { Subscription } from 'rxjs';
+import { getCurrentHashRoute } from '../util/route-utils';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +18,8 @@ export class HeaderComponent {
   
   currentFlagClass = "";
   languageSub: Subscription;
+  
+  getCurrentHashRoute = getCurrentHashRoute
   
   constructor(public themeService: ThemeService, private elementRef: ElementRef, public languageService: LanguageService) {
     this.languageSub = this.languageService.language$.subscribe(l => {
