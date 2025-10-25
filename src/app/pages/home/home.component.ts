@@ -112,7 +112,7 @@ export class HomeComponent implements OnDestroy {
     this.service.observe('gemstonesDash');
     this.service.observe('contactInfo');
     
-    this.service.start({rootMargin: "-90px"});
+    this.service.start({rootMargin: "-120px"});
   }
 
   ngOnDestroy(): void {
