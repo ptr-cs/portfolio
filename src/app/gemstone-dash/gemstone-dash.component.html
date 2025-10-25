@@ -2,7 +2,7 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
             <div class="container-fluid p-0">
-                <div class="text-center mb-5 d-flex flex-row flex-wrap gap-4 align-items-center justify-content-center">
+                <div class="text-center mb-5 d-flex flex-row flex-wrap gap-4 align-items-center justify-content-center" tabindex="0">
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.gems?.gemsData)}}</span></h1>
                     <button *ngIf="performanceService.activeScene === 'GEMS'" type="button" class="btn btn-primary d-flex flex-row flex-nowrap gap-1 align-items-center" (click)="toggleData()" [matTooltip]="!performanceService.activeScenePaused ? languageService.getText(languageService.translationData?.gems?.pauseData) : languageService.getText(languageService.translationData?.gems?.resumeData)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateScene="matTooltip">

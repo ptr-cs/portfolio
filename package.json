@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^19.2.15",
     "@angular/router": "^19.2.15",
     "@monogrid/gainmap-js": "^3.1.0",
+    "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "@pmndrs/assets": "^1.7.0",
     "@pmndrs/cannon-worker-api": "^2.4.0",
     "@pmndrs/vanilla": "^1.25.0",

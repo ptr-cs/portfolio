@@ -1,4 +1,4 @@
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common"
 
 export function getDeepestChild(route: ActivatedRoute): ActivatedRoute {
@@ -27,3 +27,15 @@ export function getCurrentHashRoute(): string | null {
   const hash = window.location.hash;
   return hash ? hash.replace(/^#/, '') : null;
 }
+
+export function updateUrl(fragment: string, route: any, router: Router, location: any): void {
+    let r = getDeepestChild(route)
+
+    const urlTree = router.createUrlTree([], {
+      relativeTo: r,
+      queryParamsHandling: 'merge',
+      fragment: fragment
+    });
+
+    location.replaceState(router.serializeUrl(urlTree));
+  }

@@ -8,14 +8,14 @@ export class PerformanceService {
   private _activeScene$ = new BehaviorSubject<ACTIVE_SCENE_KEY>("NONE");
   readonly activeScene$ = this._activeScene$.asObservable();
   
+  private _activeScrollElement$ = new BehaviorSubject<string>("");
+  readonly activeScrollElement$ = this._activeScrollElement$.asObservable();
+  
   private _activeScenePaused$ = new BehaviorSubject<boolean>(false);
   readonly activeScenePaused$ = this._activeScenePaused$.asObservable();
   
   private _pausedFromGemsDash$ = new BehaviorSubject<boolean>(false);
   readonly pausedFromGemsDash$ = this._pausedFromGemsDash$.asObservable();
-  
-  private _homeLoaded$ = new BehaviorSubject<boolean>(false);
-  readonly homeLoaded$ = this._homeLoaded$.asObservable();
 
   get activeScene(): ACTIVE_SCENE_KEY {
     return this._activeScene$.value;
@@ -49,13 +49,13 @@ export class PerformanceService {
     }
   }
   
-  get homeLoaded(): boolean {
-    return this._homeLoaded$.value;
+  get activeScrollElement(): string {
+    return this._activeScrollElement$.value;
   }
 
-  setHomeLoaded(q: boolean): void {
-    if (q !== this._homeLoaded$.value) {
-      this._homeLoaded$.next(q);
+  setActiveScrollElement(scrollElement: string): void {
+    if (scrollElement !== this._activeScrollElement$.value) {
+      this._activeScrollElement$.next(scrollElement);
     }
   }
 }

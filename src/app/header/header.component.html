@@ -7,17 +7,17 @@
     <div class="collapse navbar-collapse gap-1 column-gap-2 justify-content-end" id="navbarSupportedContent" #navbarContent>
       <ul class="navbar-nav mb-2 mb-lg-0 fw-bolder d-flex flex-column flex-sm-row flex-lg-row column-gap-4 column-gap-lg-0 justify-content-lg-center">
         <li class="nav-item">
-          <a class="nav-link text-nowrap" [routerLink]="['/']" fragment="home" queryParamsHandling="preserve">
+          <a class="nav-link text-nowrap" id="homeNavLink" [routerLink]="['/']" fragment="home" queryParamsHandling="preserve">
             <i class="bi bi-house-door me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuHome)}}
           </a>
         </li>
         <li *ngIf="languageService.translationData?.resume" class="nav-item">
-          <a class="nav-link text-nowrap" [ngClass]="{'active': getCurrentHashRoute() === 'resumeInfo'}" [routerLink]="['/']" fragment="resumeInfo" queryParamsHandling="preserve">
+          <a class="nav-link text-nowrap" id="resumeNavLink" [routerLink]="['/']" fragment="resumeInfo" queryParamsHandling="preserve">
             <i class="bi bi-file-earmark-text me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuResume)}}
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-nowrap" [ngClass]="{'active': getCurrentHashRoute() === 'contactInfo'}" [routerLink]="['/']" fragment="contactInfo" queryParamsHandling="preserve">
+          <a class="nav-link text-nowrap" id="contactNavLink" [routerLink]="['/']" fragment="contactInfo" queryParamsHandling="preserve">
             <i class="bi bi-envelope me-1"></i> {{languageService.getText(languageService.translationData?.header?.menuContact)}}
           </a>
         </li>
