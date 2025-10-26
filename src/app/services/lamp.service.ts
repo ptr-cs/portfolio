@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Color, MeshPhysicalMaterial } from 'three';
+import { Color } from 'three';
 import { BehaviorSubject } from 'rxjs';
 
 export type LavaColor = 'red' | 'yellow' | 'green' | 'blue' | 'custom' | 'none';
@@ -17,7 +17,6 @@ export const PRESET_HEX: Record<LavaColor, `#${string}`> = {
 export class LampService {
   private readonly KEY_TYPE = 'lamp:lavaType';
   private readonly KEY_CUSTOM = 'lamp:lavaCustomHex';
-  private readonly KEY_ROTATE = 'lamp:rotate';
 
   private _type$ = new BehaviorSubject<LavaColor>('none');
   private _color$ = new BehaviorSubject<Color>(new Color(PRESET_HEX.blue));

@@ -4,7 +4,7 @@ import { getDefaultTheme, Theme, ThemeService } from '../services/theme.service'
 import { LampService } from '../services/lamp.service';
 import { ACTIVE_SCENE_KEY, PerformanceService } from '../services/performance.service';
 import { Color } from 'three';
-import { MiniColorPickerComponent } from '../util/mini-color-picker/mini-color-picker';
+import { MiniColorPickerComponent } from '../mini-color-picker/mini-color-picker';
 import { FormsModule } from '@angular/forms'; 
 import { MatTooltip } from '@angular/material/tooltip';
 import { OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
