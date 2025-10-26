@@ -33,7 +33,6 @@
             "styles": [
               "bootstrap/dist/css/bootstrap.min.css",
               "bootstrap-icons/font/bootstrap-icons.min.css",
-              "src/styles/template.css",
               "src/styles/styles.scss"
             ],
             "scripts": [
@@ -104,9 +103,14 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "bootstrap/dist/css/bootstrap.min.css",
+              "bootstrap-icons/font/bootstrap-icons.min.css",
+              "src/styles/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+              "node_modules/tinycolor2/dist/tinycolor-min.js"
+            ]
           }
         }
       }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Renderer2, NgZone, signal, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, Renderer2, NgZone, signal, ViewChild, ElementRef } from '@angular/core';
 import { Chart, LineController, DoughnutController, CategoryScale, LinearScale, ArcElement, PointElement, LineElement, Filler, ChartConfiguration } from 'chart.js'
 import { GemsService } from '../services/gems.service';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,6 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { LampService } from '../services/lamp.service';
 import { getDefaultTheme, Theme, ThemeService } from '../services/theme.service';
 import { LanguageService } from '../services/language.service';
-import { language } from '../../translations/language';
 import { PerformanceService } from '../services/performance.service';
 
 Chart.register(DoughnutController, LineController, ArcElement, CategoryScale, LinearScale, PointElement, LineElement, ChartDataLabels, Filler);

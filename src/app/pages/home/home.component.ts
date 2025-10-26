@@ -1,11 +1,7 @@
 import {
   Component,
-  ElementRef,
   inject,
-  OnDestroy,
-  ViewChild,
-  ViewEncapsulation
-} from '@angular/core';
+  OnDestroy} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { OverlayContainer, FullscreenOverlayContainer } from '@angular/cdk/overlay';
 import { CommonModule, Location } from '@angular/common';
@@ -24,7 +20,7 @@ import { LanguageService } from '../../services/language.service';
 import { ACTIVE_SCENE_KEY, PerformanceService } from '../../services/performance.service';
 import { NgbScrollSpyModule, NgbScrollSpyService } from '@ng-bootstrap/ng-bootstrap';
 import { updateUrl } from '../../util/route-utils';
-import { ScrollIntoViewOnFocusDirective } from '../../util/scroll-into-view-on-focus.directive';
+import { ScrollIntoViewOnFocusDirective } from '../../directives/scroll-into-view-on-focus.directive'
 
 @Component({
   selector: 'app-home',
@@ -32,16 +28,12 @@ import { ScrollIntoViewOnFocusDirective } from '../../util/scroll-into-view-on-f
     ResumeComponent, ContactComponent, GemstonesComponent, GemstoneDashComponent, NgbScrollSpyModule, ScrollIntoViewOnFocusDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  encapsulation: ViewEncapsulation.None, // set for the tooltips to recieve custom styling 
   providers: [{ provide: OverlayContainer, useClass: FullscreenOverlayContainer }]
 })
 export class HomeComponent implements OnDestroy {
   service = inject(NgbScrollSpyService);
   
   router = inject(Router);
-
-  @ViewChild('viewport', { static: true }) viewportRef!: ElementRef<HTMLDivElement>;
-  @ViewChild('contentContainer', { static: true }) contentContainer!: ElementRef<HTMLDivElement>;
 
   constructor(
     public readonly lamp: LampService,
