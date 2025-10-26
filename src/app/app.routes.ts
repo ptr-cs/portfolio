@@ -1,8 +1,8 @@
 import { Router, Routes } from '@angular/router';
 
-import { HomeComponent } from '../app/pages/home/home.component';
-import { ResumeComponent } from '../app/pages/resume/resume.component';
-import { ContactComponent } from '../app/pages/contact/contact.component';
+import { HomeComponent } from './components/pages/home/home.component';
+import { ResumeComponent } from './components/pages/resume/resume.component';
+import { ContactComponent } from './components/pages/contact/contact.component';
 import { inject } from '@angular/core';
 
 export const routes: Routes = [
