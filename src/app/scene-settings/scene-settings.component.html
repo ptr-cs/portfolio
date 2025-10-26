@@ -1,25 +1,33 @@
 <div class="d-flex gap-2 position-absolute top-0 flex-wrap flex-column mt-2 ms-2 align-items-start">
     <div class="d-flex flex-row gap-2 z-3">
         <button #pauseSceneButton id="pauseSceneButton"
-            class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto"
-            type="button" (click)="pauseScene()">
+            class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto" type="button" (click)="pauseScene()"
+            [attr.aria-label]="performanceService.activeScenePaused ? 'Play' : 'Pause'"
+            [attr.aria-pressed]="performanceService.activeScenePaused">
             <i *ngIf="!performanceService.activeScenePaused" class="bi bi-pause fs-4 fw-bold"></i>
             <i *ngIf="performanceService.activeScenePaused" class="bi bi-play fs-4 fw-bold"></i>
         </button>
-        
+
         <button #settingsToggleButton id="settingsToggleButton"
-            class="btn btn-primary d-flex align-items-center gap-1 autofade"
-            type="button" data-bs-toggle="collapse" data-bs-target=".lamp-controls-ui" aria-expanded="false"
-            aria-controls="labelId panelId" [attr.aria-controls]="[panelId, labelId]">
+            class="btn btn-primary d-flex align-items-center gap-1 autofade" type="button" data-bs-toggle="collapse"
+            data-bs-target=".lamp-controls-ui" aria-expanded="false" aria-controls="labelId panelId"
+            [attr.aria-controls]="[panelId, labelId]">
             <i class="bi bi-gear fs-4 fw-bold"></i>
-            <div class="lamp-controls-ui collapse collapse-horizontal text-nowrap" [class.show]="settingsOpen === true" [id]="labelId">
+            <div class="lamp-controls-ui collapse collapse-horizontal text-nowrap" [class.show]="settingsOpen === true"
+                [id]="labelId">
                 {{languageService.getText(languageService.translationData?.settings?.settings)}}</div>
         </button>
     </div>
 
     <button #accessibilityButton id="accessibilityButton" (click)="accessibilityControlsClicked()"
-        class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto z-1 p-0" [ngClass]="{'active': settingsService.displayAccessibilityControls}" [matTooltip]="!settingsService.displayAccessibilityControls ? languageService.getText(languageService.translationData?.accessibility?.accessibleControlsOn) : languageService.getText(languageService.translationData?.accessibility?.accessibleControlsOff)" matTooltipClass="bg-body border rounded shadow-sm z-10" #tooltipAccessibleControls="matTooltip"
-        type="button" data-bs-toggle="collapse" data-bs-target="#accessibilityUiPanel" [attr.aria-expanded]="settingsService.displayAccessibilityControls" aria-controls="accessibilityUiPanel">
+        [attr.aria-label]="settingsService.displayAccessibilityControls ? languageService.getText(languageService.translationData?.accessibility?.accessibleControlsOn) : languageService.getText(languageService.translationData?.accessibility?.accessibleControlsOff)"
+        [attr.aria-pressed]="settingsService.displayAccessibilityControls"
+        class="btn btn-primary d-flex align-items-center gap-1 autofade w-auto z-1 p-0"
+        [ngClass]="{'active': settingsService.displayAccessibilityControls}"
+        [matTooltip]="!settingsService.displayAccessibilityControls ? languageService.getText(languageService.translationData?.accessibility?.accessibleControlsOn) : languageService.getText(languageService.translationData?.accessibility?.accessibleControlsOff)"
+        matTooltipClass="bg-body border rounded shadow-sm z-10" #tooltipAccessibleControls="matTooltip" type="button"
+        data-bs-toggle="collapse" data-bs-target="#accessibilityUiPanel"
+        [attr.aria-expanded]="settingsService.displayAccessibilityControls" aria-controls="accessibilityUiPanel">
         <i class="bi bi-person-wheelchair fs-3 mx-auto"></i>
     </button>
 </div>
@@ -32,6 +40,7 @@
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.display)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
                     class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                    [attr.aria-label]="languageService.getText(languageService.translationData?.settings?.displayTooltip)"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.displayTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm z-10" #tooltipDisplay="matTooltip"
                     (click)="tooltipDisplay.show()">
@@ -39,11 +48,15 @@
                 </button>
             </div>
 
-            <button class="btn btn-primary d-flex align-items-center gap-2 justify-content-center controls-group flex-grow-1"
-                type="button" (click)="toggleFullscreen()" [ngClass]="{'btn-danger': fullscreenActive }">
+            <button
+                class="btn btn-primary d-flex align-items-center gap-2 justify-content-center controls-group flex-grow-1"
+                type="button" (click)="toggleFullscreen()" [ngClass]="{'btn-danger': fullscreenActive }"
+                [attr.aria-label]="!fullscreenActive ? languageService.getText(languageService.translationData?.settings?.displayFullscreen) : languageService.getText(languageService.translationData?.settings?.displayExitFullscreen)">
                 <i class="bi fs-6 fw-bold"
                     [ngClass]="{'bi-fullscreen': !fullscreenActive, 'bi-x-lg' : fullscreenActive, 'text-white-force': fullscreenActive }"></i>
-                {{ !fullscreenActive ? languageService.getText(languageService.translationData?.settings?.displayFullscreen) : languageService.getText(languageService.translationData?.settings?.displayExitFullscreen) }}
+                {{ !fullscreenActive ?
+                languageService.getText(languageService.translationData?.settings?.displayFullscreen) :
+                languageService.getText(languageService.translationData?.settings?.displayExitFullscreen) }}
             </button>
         </div>
         <div class="d-flex justify-content-start flex-wrap align-items-baseline column-gap-3 row-gap-2">
@@ -51,34 +64,43 @@
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.theme)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
                     class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                    [attr.aria-label]="languageService.getText(languageService.translationData?.settings?.themeTooltip)"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.themeTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipTheme="matTooltip"
                     (click)="tooltipTheme.show()">
                     <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
                 </button>
             </div>
+            <fieldset>
+                <legend class="d-none">{{languageService.getText(languageService.translationData?.settings?.theme)}}
+                    </legend>
+                <div class="btn-group shadow-sm controls-group flex-grow-1" role="group"
+                    [attr.aria-label]="'Theme' + uid">
+                    <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'theme-light' + uid"
+                        [value]="'light'" [(ngModel)]="themeService.theme" (ngModelChange)="onThemeChange($event)" />
+                    <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                        [for]="'theme-light' + uid">
+                        <i class="bi bi-sun fw-bold"></i>
+                        {{languageService.getText(languageService.translationData?.settings?.themeLight)}}
+                    </label>
 
-            <div class="btn-group shadow-sm controls-group flex-grow-1" role="group" [attr.aria-label]="'Theme' + uid">
-                <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'theme-light' + uid"
-                    [value]="'light'" [(ngModel)]="themeService.theme" (ngModelChange)="onThemeChange($event)" />
-                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
-                    [for]="'theme-light' + uid">
-                    <i class="bi bi-sun fw-bold"></i> {{languageService.getText(languageService.translationData?.settings?.themeLight)}}
-                </label>
-
-                <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'theme-dark' + uid" [value]="'dark'"
-                    [(ngModel)]="themeService.theme" (ngModelChange)="onThemeChange($event)" />
-                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
-                    [for]="'theme-dark' + uid">
-                    <i class="bi bi-moon fw-bold "></i> {{languageService.getText(languageService.translationData?.settings?.themeDark)}}
-                </label>
-            </div>
+                    <input type="radio" class="btn-check" [name]="'theme' + uid" [id]="'theme-dark' + uid"
+                        [value]="'dark'" [(ngModel)]="themeService.theme" (ngModelChange)="onThemeChange($event)" />
+                    <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                        [for]="'theme-dark' + uid">
+                        <i class="bi bi-moon fw-bold "></i>
+                        {{languageService.getText(languageService.translationData?.settings?.themeDark)}}
+                    </label>
+                </div>
+            </fieldset>
         </div>
         <div class="d-flex justify-content-start flex-wrap align-items-baseline column-gap-3 row-gap-2">
             <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between">
-                <p class="mb-0  d-flex flex-column">{{languageService.getText(languageService.translationData?.settings?.stats)}}</p>
+                <p class="mb-0  d-flex flex-column">
+                    {{languageService.getText(languageService.translationData?.settings?.stats)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
                     class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                    [attr.aria-label]="languageService.getText(languageService.translationData?.settings?.statsTooltip)"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.statsTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipStats="matTooltip"
                     (click)="tooltipStats.show()">
@@ -86,27 +108,39 @@
                 </button>
             </div>
 
-            <div class="btn-group shadow-sm controls-group flex-grow-1" role="group" aria-label="Auto-hide">
-                <input type="radio" class="btn-check" name="displayStats" id="displayStats-on" [value]="true"
-                    [(ngModel)]="displayStats" (ngModelChange)="onDisplayStatsChange($event)" />
-                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
-                    for="displayStats-on">
-                    <i class="bi bi-eye fs-4 fw-bold"></i> {{languageService.getText(languageService.translationData?.settings?.statsShow)}}
-                </label>
+            <fieldset>
+                <legend class="d-none">{{languageService.getText(languageService.translationData?.settings?.stats)}}
+                </legend>
+                <div class="btn-group shadow-sm controls-group flex-grow-1" role="group" aria-label="Auto-hide">
 
-                <input type="radio" class="btn-check" name="displayStats" id="displayStats-off" [value]="false"
-                    [(ngModel)]="displayStats" (ngModelChange)="onDisplayStatsChange($event)" />
-                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
-                    for="displayStats-off">
-                    <i class="bi bi-eye-slash fs-4 fw-bold"></i> {{languageService.getText(languageService.translationData?.settings?.statsHide)}}
-                </label>
-            </div>
+                    <input type="radio" class="btn-check" name="displayStats" id="displayStats-on" [value]="true"
+                        [(ngModel)]="displayStats" (ngModelChange)="onDisplayStatsChange($event)" />
+                    <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                        for="displayStats-on">
+                        <i class="bi bi-eye fs-4 fw-bold"></i>
+                        {{languageService.getText(languageService.translationData?.settings?.statsShow)}}
+                    </label>
+
+                    <input type="radio" class="btn-check" name="displayStats" id="displayStats-off" [value]="false"
+                        [(ngModel)]="displayStats" (ngModelChange)="onDisplayStatsChange($event)" />
+                    <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                        for="displayStats-off">
+                        <i class="bi bi-eye-slash fs-4 fw-bold"></i>
+                        {{languageService.getText(languageService.translationData?.settings?.statsHide)}}
+                    </label>
+
+                </div>
+            </fieldset>
         </div>
         <div class="d-flex justify-content-start flex-wrap align-items-center column-gap-3 row-gap-2">
-            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between" [ngClass]="{'settings-label-long': (languageService.language === 'fr' || languageService.language === 'it' || languageService.language === 'es')}">
-                <p class="mb-0 d-flex flex-column" [innerText]="languageService.getText(languageService.translationData?.settings?.autoHideSettings)"></p>
+            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between"
+                [ngClass]="{'settings-label-long': (languageService.language === 'fr' || languageService.language === 'it' || languageService.language === 'es')}">
+                <p class="mb-0 d-flex flex-column"
+                    [innerText]="languageService.getText(languageService.translationData?.settings?.autoHideSettings)">
+                </p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
                     class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                    [attr.aria-label]="languageService.getText(languageService.translationData?.settings?.autoHideSettingsTooltip)"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.autoHideSettingsTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipAutohide="matTooltip"
                     (click)="tooltipAutohide.show()">
@@ -114,27 +148,38 @@
                 </button>
             </div>
 
+            <fieldset>
+                    <legend class="d-none">
+                        {{languageService.getText(languageService.translationData?.settings?.autoHideSettings)}}
+                    </legend>
             <div class="btn-group shadow-sm controls-group flex-grow-1" role="group" aria-label="Auto-hide">
-                <input type="radio" class="btn-check" name="autohide" id="autohide-off" [value]="false"
-                    [(ngModel)]="autohide" (ngModelChange)="onAutoHideChange($event)" />
-                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
-                    for="autohide-off" [class.active]="autohide === false">
-                    <i class="bi bi-eye fs-4 fw-bold"></i> {{languageService.getText(languageService.translationData?.settings?.autoHideSettingsShow)}}
-                </label>
+                
+                    <input type="radio" class="btn-check" name="autohide" id="autohide-off" [value]="false"
+                        [(ngModel)]="autohide" (ngModelChange)="onAutoHideChange($event)" />
+                    <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                        for="autohide-off" [class.active]="autohide === false">
+                        <i class="bi bi-eye fs-4 fw-bold"></i>
+                        {{languageService.getText(languageService.translationData?.settings?.autoHideSettingsShow)}}
+                    </label>
 
-                <input type="radio" class="btn-check" name="autohide" id="autohide-on" [value]="true"
-                    [(ngModel)]="autohide" (ngModelChange)="onAutoHideChange($event)" />
-                <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 " for="autohide-on"
-                    [class.active]="autohide === true">
-                    <i class="bi bi-eye-slash fs-4 fw-bold"></i> {{languageService.getText(languageService.translationData?.settings?.autoHideSettingsHide)}}
-                </label>
+                    <input type="radio" class="btn-check" name="autohide" id="autohide-on" [value]="true"
+                        [(ngModel)]="autohide" (ngModelChange)="onAutoHideChange($event)" />
+                    <label class="btn btn-primary d-flex align-items-center justify-content-center gap-1 "
+                        for="autohide-on" [class.active]="autohide === true">
+                        <i class="bi bi-eye-slash fs-4 fw-bold"></i>
+                        {{languageService.getText(languageService.translationData?.settings?.autoHideSettingsHide)}}
+                    </label>
             </div>
+            </fieldset>
         </div>
-        <div class="d-flex flex-wrap justify-content-start justify-content-left align-items-baseline column-gap-3 row-gap-2">
-            <div class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between mt-0 mt-sm-2">
+        <div
+            class="d-flex flex-wrap justify-content-start justify-content-left align-items-baseline column-gap-3 row-gap-2">
+            <div
+                class="d-flex align-items-center flex-row gap-2 settings-label flex-grow-1 justify-content-between mt-0 mt-sm-2">
                 <p class="mb-0">{{languageService.getText(languageService.translationData?.settings?.color)}}</p>
                 <button type="button" [attr.data-bs-theme]="themeService.theme"
                     class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                    [attr.aria-label]="languageService.getText(languageService.translationData?.settings?.colorTooltip)"
                     [matTooltip]="languageService.getText(languageService.translationData?.settings?.colorTooltip)"
                     matTooltipClass="bg-body border rounded shadow-sm" #tooltipColor="matTooltip"
                     (click)="tooltipColor.show()">
@@ -143,97 +188,116 @@
             </div>
 
             <div class="d-flex flex-column gap-2 flex-grow-1">
+                <fieldset>
                 <div class="d-flex flex-wrap gap-2 justify-content-start">
-                    <div class="btn-group shadow-sm flex-grow-1" role="group" [attr.aria-label]="'lava' + uid">
-                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-red' + uid"
-                            [value]="'red'" [(ngModel)]="lampService.type"
-                            (ngModelChange)="onLavaColorChange($event)" />
-                        <label
-                            class="btn btn-primary color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
-                            [for]="'lava-red' + uid">
-                            <div class="mt-1">R</div>
-                            <div class="color-button-bar lamp-red">
-                            </div>
-                        </label>
-                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-yellow' + uid"
-                            [value]="'yellow'" [(ngModel)]="lampService.type"
-                            (ngModelChange)="onLavaColorChange($event)" />
-                        <label
-                            class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
-                            [for]="'lava-yellow' + uid">
-                            <div class="mt-1">Y</div>
-                            <div class="color-button-bar lamp-yellow border-top">
-                            </div>
-                        </label>
-                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-blue' + uid"
-                            [value]="'blue'" [(ngModel)]="lampService.type"
-                            (ngModelChange)="onLavaColorChange($event)" />
-                        <label
-                            class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
-                            [for]="'lava-blue' + uid">
-                            <div class="mt-1">B</div>
-                            <div class="color-button-bar lamp-blue">
-                            </div>
-                        </label>
-                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-green' + uid"
-                            [value]="'green'" [(ngModel)]="lampService.type"
-                            (ngModelChange)="onLavaColorChange($event)" />
-                        <label
-                            class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
-                            [for]="'lava-green' + uid">
-                            <div class="mt-1">G</div>
-                            <div class="color-button-bar lamp-green">
-                            </div>
-                        </label>
-                    </div>
-                    <div class="custom-color-control btn-group w-auto flex-grow-1">
-                        <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-custom' + uid"
-                            [value]="'custom'" [(ngModel)]="lampService.type"
-                            (ngModelChange)="onLavaColorChange($event)" />
-                        <label id="lavaCustomColorLabel"
-                            class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 justify-content-between w-auto rounded"
-                            [for]="'lava-custom' + uid">
-                            <i class="bi bi-brush fs-4 fw-bold"></i>
-                            <div class="color-button-bar lamp-custom rounded-bottom">
-                            </div>
-                        </label>
-                    </div>
-                </div>
-                <div class="d-flex flex-wrap flex-row gap-2">
-                    <button class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center flex-grow-1"
-                        (click)="randomColor()">
-                        <i class="bi bi-question-lg"></i> {{languageService.getText(languageService.translationData?.settings?.colorRandom)}}
-                    </button>
-                    <button class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center gap-2 flex-grow-1"
-                            (click)="togglePicker()" [class.active]="showPicker === true" data-bs-toggle="collapse"
-                            data-bs-target="#lampControlsColorPicker" aria-expanded="false"
-                            aria-controls="lampControlsColorPicker">
-                            {{languageService.getText(languageService.translationData?.settings?.colorChoose)}}
-                            <div>
-                                <i class="bi bi-arrow-right fs-4 fw-bold"></i>
+                    
+                        <legend class="d-none">
+                            {{languageService.getText(languageService.translationData?.settings?.color)}}</legend>
+                        <div class="btn-group shadow-sm flex-grow-1" role="group" [attr.aria-label]="'lava' + uid">
+
+                            <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-red' + uid"
+                                [value]="'red'" [(ngModel)]="lampService.type"
+                                (ngModelChange)="onLavaColorChange($event)" />
+                            <label
+                                class="btn btn-primary color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
+                                [for]="'lava-red' + uid">
+                                <div class="mt-1">R</div>
+                                <div class="color-button-bar lamp-red">
+                                </div>
+                            </label>
+                            <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-yellow' + uid"
+                                [value]="'yellow'" [(ngModel)]="lampService.type"
+                                (ngModelChange)="onLavaColorChange($event)" />
+                            <label
+                                class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
+                                [for]="'lava-yellow' + uid">
+                                <div class="mt-1">Y</div>
+                                <div class="color-button-bar lamp-yellow border-top">
+                                </div>
+                            </label>
+                            <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-blue' + uid"
+                                [value]="'blue'" [(ngModel)]="lampService.type"
+                                (ngModelChange)="onLavaColorChange($event)" />
+                            <label
+                                class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
+                                [for]="'lava-blue' + uid">
+                                <div class="mt-1">B</div>
+                                <div class="color-button-bar lamp-blue">
+                                </div>
+                            </label>
+                            <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-green' + uid"
+                                [value]="'green'" [(ngModel)]="lampService.type"
+                                (ngModelChange)="onLavaColorChange($event)" />
+                            <label
+                                class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 overflow-hidden justify-content-between"
+                                [for]="'lava-green' + uid">
+                                <div class="mt-1">G</div>
+                                <div class="color-button-bar lamp-green">
+                                </div>
+                            </label>
+                        </div>
+                        <div class="custom-color-control btn-group w-auto flex-grow-1">
+
+                            <input type="radio" class="btn-check" [name]="'lava' + uid" [id]="'lava-custom' + uid"
+                                [value]="'custom'" [(ngModel)]="lampService.type"
+                                (ngModelChange)="onLavaColorChange($event)" />
+                            <label id="lavaCustomColorLabel"
+                                class="btn btn-primary  color-button d-flex flex-column align-items-center p-0 justify-content-between w-auto rounded"
+                                [attr.aria-label]="'Custom Color'" [for]="'lava-custom' + uid">
                                 <i class="bi bi-brush fs-4 fw-bold"></i>
-                            </div>
-                        </button>
+                                <span class="d-none">Custom</span>
+                                <div class="color-button-bar lamp-custom rounded-bottom">
+                                </div>
+                            </label>
+                        </div>
+                </div>
+                 </fieldset>
+                <div class="d-flex flex-wrap flex-row gap-2">
+                    <button
+                        class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center flex-grow-1"
+                        (click)="randomColor()"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.settings?.colorRandom)">
+                        <i class="bi bi-question-lg"></i>
+                        {{languageService.getText(languageService.translationData?.settings?.colorRandom)}}
+                    </button>
+                    <button
+                        class="btn btn-outline  btn-primary d-flex align-items-center justify-content-center gap-2 flex-grow-1"
+                        (click)="togglePicker()" [class.active]="showPicker === true" data-bs-toggle="collapse"
+                        data-bs-target="#lampControlsColorPicker" aria-expanded="false"
+                        aria-controls="lampControlsColorPicker"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.settings?.colorChoose)">
+                        {{languageService.getText(languageService.translationData?.settings?.colorChoose)}}
+                        <div>
+                            <i class="bi bi-arrow-right fs-4 fw-bold"></i>
+                            <i class="bi bi-brush fs-4 fw-bold"></i>
+                        </div>
+                    </button>
                 </div>
                 <div class="collapse" id="lampControlsColorPicker">
-                            <app-mini-color-picker #minicolorpicker id="minicolorpicker" [hex]="lampService.customColor.getHexString()" [hexString]="languageService.getText(languageService.translationData?.settings?.colorHex)"
-                                (colorChange)="onLavaHex($event)">
-                            </app-mini-color-picker>
-                        </div>
+                    <app-mini-color-picker #minicolorpicker id="minicolorpicker"
+                        [hex]="lampService.customColor.getHexString()"
+                        [hexString]="languageService.getText(languageService.translationData?.settings?.colorHex)"
+                        (colorChange)="onLavaHex($event)">
+                    </app-mini-color-picker>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="collapse shadow-sm position-absolute bottom-0 z-1" id="accessibilityUiPanel" [ngClass]="{'show': settingsService.displayAccessibilityControls }">
-    <div class="accessibility-controls-interface autofade d-flex gap-2 collapse flex-row p-2 border-top-right-radius-rounded align-items-center">
+<div class="collapse shadow-sm position-absolute bottom-0 z-1" id="accessibilityUiPanel"
+    [ngClass]="{'show': settingsService.displayAccessibilityControls }">
+    <div
+        class="accessibility-controls-interface autofade d-flex gap-2 collapse flex-row p-2 border-top-right-radius-rounded align-items-center">
         <i class="bi bi-person-wheelchair fs-2 mx-auto"></i>
         <div class="d-flex align-items-center flex-row flex-wrap column-gap-4 row-gap-2">
             <div class="d-flex flew-row flex-wrap column-gap-4 column-gap-sm-3 row-gap-2 align-items-center">
                 <div class="d-flex flew-row gap-2 align-items-center">
-                    <p class="m-0 accessibility-control-label">{{languageService.getText(languageService.translationData?.accessibility?.rotate)}}</p>
+                    <p class="m-0 accessibility-control-label">
+                        {{languageService.getText(languageService.translationData?.accessibility?.rotate)}}</p>
                     <button type="button" [attr.data-bs-theme]="themeService.theme"
                         class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.accessibility?.rotateTooltip)"
                         [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateTooltip)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateScene="matTooltip"
                         (click)="tooltipRotateScene.show()">
@@ -241,19 +305,27 @@
                     </button>
                 </div>
                 <div class="d-flex gap-2 flex-row btn-group">
-                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-left')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateLeft)"
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-left')"
+                        [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateLeft)"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.accessibility?.rotateLeft)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateLeft="matTooltip">
                         <i class="bi bi-arrow-left mx-auto fs-3"></i>
                     </button>
-                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-right')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateRight)"
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-right')"
+                        [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateRight)"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.accessibility?.rotateRight)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateRight="matTooltip">
                         <i class="bi bi-arrow-right mx-auto fs-3"></i>
                     </button>
-                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-up')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateUp)"
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-up')"
+                        [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateUp)"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.accessibility?.rotateUp)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateUp="matTooltip">
                         <i class="bi bi-arrow-up mx-auto fs-3"></i>
                     </button>
-                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-down')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateDown)"
+                    <button type="button" class="btn btn-primary p-0" (click)="rotateCamera('rotate-down')"
+                        [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.rotateDown)"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.accessibility?.rotateDown)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateDown="matTooltip">
                         <i class="bi bi-arrow-down mx-auto fs-3"></i>
                     </button>
@@ -261,9 +333,11 @@
             </div>
             <div class="d-flex flew-row column-gap-4 column-gap-sm-3 row-gap-2 align-items-center flex-wrap">
                 <div class="d-flex flew-row gap-2 align-items-center">
-                    <p class="m-0 accessibility-control-label">{{languageService.getText(languageService.translationData?.accessibility?.zoom)}}</p>
+                    <p class="m-0 accessibility-control-label">
+                        {{languageService.getText(languageService.translationData?.accessibility?.zoom)}}</p>
                     <button type="button" [attr.data-bs-theme]="themeService.theme"
                         class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.accessibility?.zoomTooltip)"
                         [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.zoomTooltip)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipZoomScene="matTooltip"
                         (click)="tooltipZoomScene.show()">
@@ -271,11 +345,15 @@
                     </button>
                 </div>
                 <div class="d-flex gap-2 flex-row btn-group">
-                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-out')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.zoomOut)"
+                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-out')"
+                        [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.zoomOut)"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.accessibility?.zoomOut)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipZoomOut="matTooltip">
                         <i class="bi bi-zoom-out mx-auto fs-3"></i>
                     </button>
-                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-in')" [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.zoomIn)"
+                    <button type="button" class="btn btn-primary p-0" (click)="zoomCamera('zoom-in')"
+                        [matTooltip]="languageService.getText(languageService.translationData?.accessibility?.zoomIn)"
+                        [attr.aria-label]="languageService.getText(languageService.translationData?.accessibility?.zoomIn)"
                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipZoomIn="matTooltip">
                         <i class="bi bi-zoom-in mx-auto fs-3"></i>
                     </button>

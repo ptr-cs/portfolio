@@ -7,8 +7,8 @@
   </div>
 
   <div class="mt-2 d-flex gap-2 justify-content-left align-items-center">
-    <label class="form-label mb-0 text-nowrap">{{hexString}}:</label>
-    <input class="form-control form-control-sm p-0 ps-2 hex-input" [(ngModel)]="hex" (keyup.enter)="commitHex()" (blur)="commitHex()"
+    <label class="form-label mb-0 text-nowrap" for="hexInput">{{hexString}}:</label>
+    <input class="form-control form-control-sm p-0 ps-2 hex-input" id="hexInput" [(ngModel)]="hex" (keyup.enter)="commitHex()" (blur)="commitHex()"
       placeholder="#rrggbb" maxlength="7" autocomplete="off" />
   </div>
 </div>

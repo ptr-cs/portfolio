@@ -1,5 +1,5 @@
 <div class="container px-5 my-5">
-    <div class="text-center mb-5" tabindex="0">
+    <div class="text-center mb-5" tabindex="0" *ngIf="languageService.translationData?.resume">
         <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.resume?.resume)}}</span></h1>
     </div>
     <div class="row gx-5 justify-content-center" *ngIf="languageService.translationData?.resume">

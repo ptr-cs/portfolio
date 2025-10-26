@@ -5,7 +5,7 @@
                 <div class="text-center mb-5 d-flex flex-row flex-wrap gap-4 align-items-center justify-content-center" tabindex="0">
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline" [attr.data-bs-theme]="themeService.theme">{{languageService.getText(languageService.translationData?.gems?.gemsData)}}</span></h1>
                     <button *ngIf="performanceService.activeScene === 'GEMS'" type="button" class="btn btn-primary d-flex flex-row flex-nowrap gap-1 align-items-center" (click)="toggleData()" [matTooltip]="!performanceService.activeScenePaused ? languageService.getText(languageService.translationData?.gems?.pauseData) : languageService.getText(languageService.translationData?.gems?.resumeData)"
-                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateScene="matTooltip">
+                        matTooltipClass="bg-body border rounded shadow-sm" #tooltipRotateScene="matTooltip" [attr.aria-label]="!performanceService.activeScenePaused ? languageService.getText(languageService.translationData?.gems?.pauseData) : languageService.getText(languageService.translationData?.gems?.resumeData)" [attr.aria-pressed]="performanceService.activeScenePaused">
                         <i *ngIf="!performanceService.activeScenePaused" class="bi bi-pause fs-4 fw-bold"></i>
                         <i *ngIf="performanceService.activeScenePaused" class="bi bi-play fs-4 fw-bold"></i>
                         <span *ngIf="!performanceService.activeScenePaused">{{languageService.getText(languageService.translationData?.gems?.data)}}</span>
@@ -18,13 +18,15 @@
                             <div class="card-body">
                                 <div class="row g-0 align-items-center">
                                     <div class="col me-2">
-                                        <div class="mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><h6 class="fw-bold mb-0">{{languageService.getText(languageService.translationData?.gems?.totalValue)}}</h6> <button type="button"
-                                            class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
-                                            [matTooltip]="languageService.getText(languageService.translationData?.gems?.totalValueTooltip)"
-                                            matTooltipClass="bg-body border rounded shadow-sm" #tooltipTotalValue="matTooltip"
-                                            (click)="tooltipTotalValue.show()" [attr.data-bs-theme]="themeService.theme">
-                                            <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
-                                        </button></div>
+                                        <div class="mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><p class="fw-bold mb-0 fs-6">{{languageService.getText(languageService.translationData?.gems?.totalValue)}}</p> 
+                                            <button type="button"
+                                                class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
+                                                [matTooltip]="languageService.getText(languageService.translationData?.gems?.totalValueTooltip)"
+                                                matTooltipClass="bg-body border rounded shadow-sm" #tooltipTotalValue="matTooltip"
+                                                (click)="tooltipTotalValue.show()" [attr.data-bs-theme]="themeService.theme" [attr.aria-label]="languageService.getText(languageService.translationData?.gems?.totalValueTooltip)">
+                                                <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
+                                            </button>
+                                        </div>
                                         <div class="mb-0 fw-bold fs-5"><span class="jetBrainsMono">{{ totalValueString() }}</span></div>
                                         
                                     </div>
@@ -38,11 +40,11 @@
                             <div class="card-body">
                                 <div class="row g-0 align-items-center">
                                     <div class="col me-2">
-                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><h6 class="fw-bold mb-0">{{languageService.getText(languageService.translationData?.gems?.averageValue)}}</h6> <button type="button"
+                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><p class="fw-bold mb-0 fs-6">{{languageService.getText(languageService.translationData?.gems?.averageValue)}}</p> <button type="button"
                                             class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
                                             [matTooltip]="languageService.getText(languageService.translationData?.gems?.averageValueTooltip)"
                                             matTooltipClass="bg-body border rounded shadow-sm" #toolTipAverageValue="matTooltip"
-                                            (click)="toolTipAverageValue.show()" [attr.data-bs-theme]="themeService.theme">
+                                            (click)="toolTipAverageValue.show()" [attr.data-bs-theme]="themeService.theme" [attr.aria-label]="languageService.getText(languageService.translationData?.gems?.averageValueTooltip)">
                                             <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
                                         </button></div>
                                         <div class="mb-0 fw-bold fs-5"><span class="jetBrainsMono">{{ averageValueString() }}</span></div>
@@ -57,9 +59,9 @@
                             <div class="card-body">
                                 <div class="row g-0 align-items-center">
                                     <div class="col me-2">
-                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><h6 class="fw-bold mb-0">{{languageService.getText(languageService.translationData?.gems?.averageSize)}}</h6> <button type="button"
+                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><p class="fw-bold mb-0 fs-6">{{languageService.getText(languageService.translationData?.gems?.averageSize)}}</p> <button type="button"
                                             class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
-                                            [matTooltip]="languageService.getText(languageService.translationData?.gems?.averageSizeTooltip)"
+                                            [matTooltip]="languageService.getText(languageService.translationData?.gems?.averageSizeTooltip)" [attr.aria-label]="languageService.getText(languageService.translationData?.gems?.averageSizeTooltip)"
                                             matTooltipClass="bg-body border rounded shadow-sm" #toolTipAverageSize="matTooltip"
                                             (click)="toolTipAverageSize.show()" [attr.data-bs-theme]="themeService.theme">
                                             <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
@@ -82,9 +84,9 @@
                             <div class="card-body">
                                 <div class="row g-0 align-items-center">
                                     <div class="col me-2">
-                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><h6 class="fw-bold mb-0">{{languageService.getText(languageService.translationData?.gems?.averageRoughness)}}</h6> <button type="button"
+                                        <div class=" mb-1 fw-bold text-xs d-flex gap-2 align-items-center"><p class="fw-bold mb-0 fs-6">{{languageService.getText(languageService.translationData?.gems?.averageRoughness)}}</p> <button type="button"
                                             class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
-                                            [matTooltip]="languageService.getText(languageService.translationData?.gems?.averageRoughnessTooltip)"
+                                            [matTooltip]="languageService.getText(languageService.translationData?.gems?.averageRoughnessTooltip)" [attr.aria-label]="languageService.getText(languageService.translationData?.gems?.averageRoughnessTooltip)"
                                             matTooltipClass="bg-body border rounded shadow-sm" #toolTipAverageRoughness="matTooltip"
                                             (click)="toolTipAverageRoughness.show()" [attr.data-bs-theme]="themeService.theme">
                                             <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
@@ -101,9 +103,9 @@
                     <div class="col-lg-6">
                         <div class="card shadow mb-4" [attr.data-bs-theme]="themeService.theme">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h6 class=" m-0 fw-bold">{{languageService.getText(languageService.translationData?.gems?.distribution)}}</h6><button type="button"
+                                <p class=" m-0 fw-bold fs-6">{{languageService.getText(languageService.translationData?.gems?.distribution)}}</p><button type="button"
                                         class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
-                                        [matTooltip]="languageService.getText(languageService.translationData?.gems?.distributionTooltip)"
+                                        [matTooltip]="languageService.getText(languageService.translationData?.gems?.distributionTooltip)" [attr.aria-label]="languageService.getText(languageService.translationData?.gems?.distributionTooltip)"
                                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipDistribution="matTooltip"
                                         (click)="tooltipDistribution.show()" [attr.data-bs-theme]="themeService.theme">
                                         <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
@@ -143,9 +145,9 @@
                     <div class="col-lg-6">
                         <div class="card shadow mb-4" [attr.data-bs-theme]="themeService.theme">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h6 class=" m-0 fw-bold">{{languageService.getText(languageService.translationData?.gems?.totalValueHistory)}}</h6><button type="button"
+                                <p class=" m-0 fw-bold fs-6">{{languageService.getText(languageService.translationData?.gems?.totalValueHistory)}}</p><button type="button"
                                         class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
-                                        [matTooltip]="languageService.getText(languageService.translationData?.gems?.totalValueHistoryTooltip)"
+                                        [matTooltip]="languageService.getText(languageService.translationData?.gems?.totalValueHistoryTooltip)" [attr.aria-label]="languageService.getText(languageService.translationData?.gems?.totalValueHistoryTooltip)"
                                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipTotalValueHistory="matTooltip"
                                         (click)="tooltipTotalValueHistory.show()" [attr.data-bs-theme]="themeService.theme">
                                         <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
@@ -157,9 +159,9 @@
                         </div>
                         <div class="card shadow mb-4" [attr.data-bs-theme]="themeService.theme">
                                 <div class="card-header d-flex align-items-center justify-content-between">
-                                    <h6 class="m-0 fw-bold">{{languageService.getText(languageService.translationData?.gems?.mostRecentGems)}}</h6><button type="button"
+                                    <p class="m-0 fw-bold fs-6">{{languageService.getText(languageService.translationData?.gems?.mostRecentGems)}}</p><button type="button"
                                         class="btn btn-secondary rounded-circle btn-sm tooltip-button p-0 d-flex align-items-center justify-content-center"
-                                        [matTooltip]="languageService.getText(languageService.translationData?.gems?.mostRecentGemsTooltip)"
+                                        [matTooltip]="languageService.getText(languageService.translationData?.gems?.mostRecentGemsTooltip)" [attr.aria-label]="languageService.getText(languageService.translationData?.gems?.mostRecentGemsTooltip)"
                                         matTooltipClass="bg-body border rounded shadow-sm" #tooltipMostRecentGems="matTooltip"
                                         (click)="tooltipMostRecentGems.show()" [attr.data-bs-theme]="themeService.theme">
                                         <i class="bi bi-info-lg fs-6 fw-bold lh-1"></i>
