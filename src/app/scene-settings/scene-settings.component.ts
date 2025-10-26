@@ -87,7 +87,7 @@ export class SceneSettingsComponent implements OnDestroy {
       this.settingsToggleButton.nativeElement.click(); 
   }
 
-  private areSettingsOpen(): boolean | null {
+  public areSettingsOpen(): boolean | null {
     const lampControls = document.querySelector('.lamp-controls-ui')
     if (lampControls) {
       return lampControls.classList.contains("show");
