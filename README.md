@@ -10,11 +10,12 @@
 - Dynamic data visualizations using chart.js
 - Performance-oriented programming
 - Object-oriented programming
-- 3D programming
+- 3D and physics-engine programming
 - User experience enhancements
 - Fault Tolerance mechanisms
 - Localization support
 - Accessibility features implemented
+- Unit testing via Jasmine
 
 ## 1. Installation
 - npm install
@@ -24,3 +25,6 @@
 
 ### Note: Lamp and Diamond models have been intentionally omitted!
 For local builds, placeholder models are loaded instead of the production models.
+
+## 3. Test App
+- ng test
