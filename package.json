@@ -11,6 +11,12 @@
     "test": "ng test"
   },
   "private": true,
+  "overrides": {
+    "tar": "7.5.9",
+    "pacote": {
+      "tar": "7.5.9"
+    }
+  },
   "dependencies": {
     "@angular/animations": "^19.2.15",
     "@angular/common": "^19.2.15",
